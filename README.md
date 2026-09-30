@@ -1,2 +1,12 @@
-# Olius_Frontend_Segundo
-Frontend web do Olius, desenvolvido em React e TypeScript. Integra-se à API Spring Boot para oferecer interfaces de gestão e apoiar as operações da plataforma.
+# Olius Frontend — segundo ano
+
+Frontend web do Olius, desenvolvido com Vite, React e TypeScript.
+
+## Executar
+
+```powershell
+npm install
+npm run dev
+```
+
+O servidor exibirá a URL local no terminal. A integração com a API Spring Boot será adicionada em uma etapa posterior.
