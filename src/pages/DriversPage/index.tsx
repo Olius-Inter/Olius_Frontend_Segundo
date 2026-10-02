@@ -32,7 +32,10 @@ export default function DriversPage() {
         if (!active) return
         setState({
           phase: 'error',
-          message: error instanceof Error ? error.message : 'Não foi possível carregar os motoristas.',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'Não foi possível carregar os motoristas.',
         })
       })
 
@@ -48,20 +51,28 @@ export default function DriversPage() {
       <p className="lead">Lista de profissionais usados nas operações de coleta.</p>
 
       {state.phase === 'loading' && (
-        <p className="notice" role="status">Carregando motoristas...</p>
+        <p className="notice" role="status">
+          Carregando motoristas...
+        </p>
       )}
 
       {state.phase === 'error' && (
         <section className="notice notice-error" role="alert">
           <p>{state.message}</p>
-          <button className="button button-secondary" type="button" onClick={() => setReload((value) => value + 1)}>
+          <button
+            className="button button-secondary"
+            type="button"
+            onClick={() => setReload((value) => value + 1)}
+          >
             Tentar novamente
           </button>
         </section>
       )}
 
       {state.phase === 'ready' && state.drivers.length === 0 && (
-        <p className="notice" role="status">Nenhum motorista cadastrado.</p>
+        <p className="notice" role="status">
+          Nenhum motorista cadastrado.
+        </p>
       )}
 
       {state.phase === 'ready' && state.drivers.length > 0 && (
@@ -83,7 +94,11 @@ export default function DriversPage() {
                     <td>{maskCpf(driver.cpf)}</td>
                     <td>{maskCnh(driver.cnh)}</td>
                     <td>
-                      <span className={`status-chip ${driver.status === 'ACTIVE' ? 'status-active' : 'status-inactive'}`}>
+                      <span
+                        className={`status-chip ${
+                          driver.status === 'ACTIVE' ? 'status-active' : 'status-inactive'
+                        }`}
+                      >
                         {driver.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
                       </span>
                     </td>
