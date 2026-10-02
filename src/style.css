@@ -8,6 +8,28 @@ body {
   margin: 0;
 }
 
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.app-name {
+  font-weight: 700;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.app-header a[aria-current="page"] {
+  font-weight: 700;
+}
+
 main {
   max-width: 60rem;
   margin: 0 auto;
