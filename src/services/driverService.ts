@@ -14,6 +14,8 @@ function isDriver(value: unknown): value is Driver {
     typeof driver.name === 'string' &&
     typeof driver.cpf === 'string' &&
     typeof driver.cnh === 'string' &&
+    (driver.createdAt === undefined || typeof driver.createdAt === 'string') &&
+    (driver.updatedAt === undefined || typeof driver.updatedAt === 'string') &&
     isStatus(driver.status)
   )
 }

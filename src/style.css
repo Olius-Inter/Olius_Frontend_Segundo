@@ -209,12 +209,12 @@ p {
 
 .button-secondary {
   flex: none;
-  background: #fff;
+  background: #ffdb64;
   cursor: pointer;
 }
 
 .button-secondary:hover {
-  background: #fff9df;
+  background: #ffd23e;
 }
 
 .table-card {
@@ -397,4 +397,39 @@ tbody tr:last-child td {
   .nav-link svg {
     display: none;
   }
+}
+
+/* Formulários de motoristas */
+.drivers-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
+.driver-edit-link { color: #655000; font-weight: 600; text-underline-offset: 3px; }
+.form-card { max-width: 760px; }
+.driver-form fieldset { min-width: 0; margin: 24px 0; padding: 0; border: 0; }
+.driver-form legend { padding: 0; font-size: 1.05rem; font-weight: 700; }
+.driver-form .section-description { margin: 8px 0 22px; color: #595959; font-size: .8rem; }
+.driver-form .notice { padding: 14px 16px; border: 1px solid #e7ce7b; border-radius: 5px; background: #fff9df; color: #604c00; font-size: .82rem; line-height: 1.5; }
+.driver-form .field { min-width: 0; margin-bottom: 20px; }
+.driver-form label { display: block; margin-bottom: 7px; font-size: .82rem; font-weight: 600; }
+.driver-form input, .driver-form select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #999; border-radius: 4px; background: #fff; color: #171717; font: inherit; font-size: .85rem; }
+.driver-form input::placeholder { color: #666; }
+.driver-form input[readonly] { background: #f4f3ef; color: #59544d; }
+.driver-form [aria-invalid="true"] { border-color: #a32323; }
+.driver-form .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.driver-form .help, .driver-form .field-error { margin: 7px 0 0; font-size: .76rem; }
+.driver-form .help { color: #595959; }
+.driver-form .field-error { color: #a32323; }
+.driver-form .record-meta { padding: 16px 0; border-top: 1px solid #dededc; }
+.driver-form .record-meta dl { display: flex; flex-wrap: wrap; gap: 18px 36px; margin: 0; font-size: .8rem; }
+.driver-form .record-meta dt { color: #595959; }
+.driver-form .record-meta dd { margin: 5px 0 0; font-weight: 600; }
+.driver-form .feedback { padding: 14px 16px; margin: 18px 0; border-radius: 4px; font-size: .82rem; line-height: 1.5; }
+.driver-form .success { background: #e5f4e8; color: #236b31; }
+.driver-form .error { background: #fff0ed; color: #a32323; }
+.driver-form .form-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; padding-top: 18px; border-top: 1px solid #dededc; }
+.driver-form .button { min-height: 44px; cursor: pointer; font-family: inherit; }
+.driver-form .form-cancel { background: #fff; border-color: #999; }
+.driver-form .form-cancel:hover { background: #f4f3ef; }
+@media (max-width: 600px) {
+  .driver-form .field-grid { grid-template-columns: 1fr; gap: 0; }
+  .driver-form .form-actions .button { flex: 1; }
+  .form-card { padding: 20px 16px; }
 }
