@@ -50,6 +50,9 @@ export default function DriversPage() {
       <p className="eyebrow">CADASTROS</p>
       <h1>Motoristas</h1>
       <p className="lead">Lista de profissionais usados nas operações de coleta.</p>
+      <div className="drivers-toolbar">
+        <Link className="button" to="/motoristas/novo">Cadastrar motorista</Link>
+      </div>
 
       {state.phase === 'loading' && (
         <PageFeedback
@@ -94,6 +97,7 @@ export default function DriversPage() {
                   <th scope="col">CPF</th>
                   <th scope="col">CNH</th>
                   <th scope="col">Status</th>
+                  <th scope="col">Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -110,6 +114,11 @@ export default function DriversPage() {
                       >
                         {driver.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
                       </span>
+                    </td>
+                    <td>
+                      <Link className="driver-edit-link" to={`/motoristas/${encodeURIComponent(driver.id)}/editar`} aria-label={`Editar motorista ${driver.name}`}>
+                        Editar
+                      </Link>
                     </td>
                   </tr>
                 ))}
