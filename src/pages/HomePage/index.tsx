@@ -10,9 +10,14 @@ export default function HomePage() {
         <div>
           <p className="eyebrow">PRIMEIRO MÓDULO</p>
           <h2>Motoristas</h2>
-          <p>Consulte os motoristas cadastrados. Nas próximas etapas, entraremos no cadastro, edição e inativação.</p>
+          <p>
+            Consulte os motoristas cadastrados. Nas próximas etapas, entraremos no
+            cadastro, edição e inativação.
+          </p>
         </div>
-        <Link className="button" to="/motoristas">Abrir motoristas</Link>
+        <Link className="button" to="/motoristas">
+          Abrir motoristas
+        </Link>
       </section>
     </>
   )
