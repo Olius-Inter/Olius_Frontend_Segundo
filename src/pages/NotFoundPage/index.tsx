@@ -4,8 +4,8 @@ export default function NotFoundPage() {
   return (
     <>
       <h1>Página não encontrada</h1>
-      <p>Esse endereço não existe no Olius.</p>
-      <Link to="/">Voltar ao início</Link>
+      <p className="lead">Esse endereço não existe no Olius.</p>
+      <Link className="button" to="/">Voltar ao início</Link>
     </>
   )
 }
