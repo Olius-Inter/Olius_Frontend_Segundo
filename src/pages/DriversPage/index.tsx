@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import PageFeedback from '../../components/PageFeedback'
 import { listDrivers } from '../../services/driverService'
 import type { Driver } from '../../types/driver'
 
 type PageState =
   | { phase: 'loading'; drivers: Driver[] }
   | { phase: 'ready'; drivers: Driver[] }
-  | { phase: 'error'; message: string }
+  | { phase: 'error' }
 
 function maskCpf(cpf: string) {
   const digits = cpf.replace(/\D/g, '')
@@ -28,21 +30,20 @@ export default function DriversPage() {
       .then((drivers) => {
         if (active) setState({ phase: 'ready', drivers })
       })
-      .catch((error: unknown) => {
+      .catch(() => {
         if (!active) return
-        setState({
-          phase: 'error',
-          message:
-            error instanceof Error
-              ? error.message
-              : 'Não foi possível carregar os motoristas.',
-        })
+        setState({ phase: 'error' })
       })
 
     return () => {
       active = false
     }
   }, [reload])
+
+  function retry() {
+    setState({ phase: 'loading', drivers: [] })
+    setReload((value) => value + 1)
+  }
 
   return (
     <>
@@ -51,28 +52,36 @@ export default function DriversPage() {
       <p className="lead">Lista de profissionais usados nas operações de coleta.</p>
 
       {state.phase === 'loading' && (
-        <p className="notice" role="status">
-          Carregando motoristas...
-        </p>
+        <PageFeedback
+          kind="loading"
+          title="Carregando motoristas"
+          description="Aguarde enquanto buscamos os cadastros."
+        />
       )}
 
       {state.phase === 'error' && (
-        <section className="notice notice-error" role="alert">
-          <p>{state.message}</p>
+        <PageFeedback
+          kind="error"
+          title="Não foi possível carregar os motoristas"
+          description="Verifique sua conexão e tente novamente. Se o problema continuar, tente mais tarde."
+        >
           <button
             className="button button-secondary"
             type="button"
-            onClick={() => setReload((value) => value + 1)}
+            onClick={retry}
           >
             Tentar novamente
           </button>
-        </section>
+          <Link className="page-feedback-link" to="/">Voltar ao início</Link>
+        </PageFeedback>
       )}
 
       {state.phase === 'ready' && state.drivers.length === 0 && (
-        <p className="notice" role="status">
-          Nenhum motorista cadastrado.
-        </p>
+        <PageFeedback
+          kind="empty"
+          title="Nenhum motorista cadastrado"
+          description="Os motoristas aparecerão aqui assim que houver cadastros disponíveis."
+        />
       )}
 
       {state.phase === 'ready' && state.drivers.length > 0 && (
