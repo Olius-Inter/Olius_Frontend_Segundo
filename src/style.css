@@ -39,6 +39,19 @@ p { line-height: 1.5; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 35px; padding: 8px 16px; border: 1px solid #e7be29; border-radius: 4px; background: #ffdb64; color: #222; font-size: .75rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
 .button:hover { background: #ffd23e; }
 .notice { padding: 17px 20px; border: 1px solid #dededb; border-radius: 6px; background: #fff; color: #4f4f4f; font-size: .8rem; }
+.notice-error { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-left: 4px solid #d59d24; background: #fffdf6; color: #4d4331; }
+.notice-error p { margin: 0; }
+.button-secondary { flex: none; background: #fff; cursor: pointer; }
+.button-secondary:hover { background: #fff9df; }
+.table-card { padding: 8px 20px; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; text-align: left; font-size: .78rem; }
+th, td { padding: 13px 10px; border-bottom: 1px solid #ededeb; }
+th { color: #5d5d5d; font-size: .7rem; font-weight: 600; }
+tbody tr:last-child td { border-bottom: 0; }
+.status-chip { display: inline-flex; padding: 4px 9px; border-radius: 999px; font-size: .7rem; font-weight: 600; }
+.status-active { background: #e5f4e8; color: #236b31; }
+.status-inactive { background: #f1efec; color: #59544d; }
 
 @media (max-width: 700px) {
   .shell { grid-template-columns: 1fr; }
@@ -50,6 +63,8 @@ p { line-height: 1.5; }
   .topbar-account span:last-child { display: none; }
   .content { padding: 28px 18px 50px; }
   .home-card { align-items: flex-start; flex-direction: column; }
+  .notice-error { align-items: flex-start; flex-direction: column; }
+  .table-card { padding: 8px 12px; }
 }
 
 @media (max-width: 500px) {
