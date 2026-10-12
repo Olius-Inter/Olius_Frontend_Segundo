@@ -1,0 +1,44 @@
+.page {
+  display: grid;
+  gap: 24px;
+  color: #40382f;
+}
+
+.page header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+
+.page header p {
+  color: #716b63;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.page :is(button, a, input, select, [tabindex]):focus-visible {
+  outline: 3px solid #846400;
+  outline-offset: 3px;
+}
+
+.active {
+  padding: 18px;
+  background: #e7f2fa;
+  border-radius: 12px;
+  color: #235b80;
+  line-height: 1.6;
+}
+
+.active button {
+  margin-left: 15px;
+  min-height: 44px;
+}
+
+.apply {
+  justify-self: end;
+  padding: 13px 20px;
+  border-radius: 12px;
+  background: #ffce00;
+  color: #49370b;
+  text-decoration: none;
+  font-weight: 600;
+}

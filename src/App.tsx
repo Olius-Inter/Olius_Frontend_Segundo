@@ -10,6 +10,8 @@ const DriverEdit = lazy(() => import('./pages/DriverEdit'))
 const ReportsPage = lazy(() => import('./pages/ReportsPage'))
 const HistoryPage = lazy(() => import('./pages/HistoryPage'))
 const RankingPage = lazy(() => import('./pages/RankingPage'))
+const CollectionMapPage = lazy(() => import('./pages/CollectionMapPage'))
+const CollectorEnrollmentPage = lazy(() => import('./pages/CollectorEnrollmentPage'))
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
           <Route path="relatorios" element={<ReportsPage />} />
           <Route path="historico" element={<HistoryPage />} />
           <Route path="ranking" element={<RankingPage />} />
+          <Route path="mapa" element={<CollectionMapPage />} />
+          <Route path="mapa/virar-coletor" element={<CollectorEnrollmentPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
