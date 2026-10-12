@@ -1,0 +1,23 @@
+@value report-source as reportSourceClass from '../../styles/shared.module.css';
+
+.reportSourceClass.demo {
+  color: #685000;
+}
+
+.report-charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+@media (max-width: 950px) {
+  .report-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .report-charts {
+    grid-template-columns: 1fr;
+  }
+}

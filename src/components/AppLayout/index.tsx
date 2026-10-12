@@ -7,6 +7,7 @@ import {
   House,
   Truck,
   UserRound,
+  FileChartColumn,
 } from 'lucide-react'
 import PageFeedback from '../PageFeedback'
 
@@ -29,6 +30,15 @@ export default function AppLayout() {
           >
             <House size={18} strokeWidth={1.6} aria-hidden="true" />
             <span>Início</span>
+          </NavLink>
+          <NavLink
+            to="/relatorios"
+            className={({ isActive }) =>
+              mapClassNames(`nav-link${isActive ? ' active' : ''}`, classStyles)
+            }
+          >
+            <FileChartColumn size={18} strokeWidth={1.6} aria-hidden="true" />
+            <span>Relatórios</span>
           </NavLink>
           <NavLink
             to="/motoristas"

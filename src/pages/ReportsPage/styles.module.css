@@ -1,0 +1,61 @@
+.reports-page {
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.reports-page-heading {
+  margin-bottom: 28px;
+}
+
+.reports-page-heading :global(.lead) {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.reports-dashboard-heading p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.reports-dashboard-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 26px 4px 12px;
+}
+
+.reports-dashboard-heading h2 {
+  margin-bottom: 3px;
+}
+
+.report-year-filter {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.76rem;
+}
+
+.report-year-filter label {
+  color: #555;
+}
+
+.report-year-filter select {
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-input-border);
+  border-radius: 5px;
+  background: var(--color-surface);
+  color: #222;
+  font: inherit;
+}
+
+.report-plan-feedback {
+  padding: 14px 16px;
+  border-radius: 5px;
+  color: var(--color-success-text);
+  background: var(--color-success-background);
+  font-size: 0.8rem;
+}
