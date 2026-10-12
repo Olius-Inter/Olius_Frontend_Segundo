@@ -1,0 +1,22 @@
+.b2b-notice {
+  margin: 0;
+  padding: 15px 18px;
+  background: #fff9e0;
+  border: 1px solid #ebdda3;
+  border-radius: 9px;
+  color: #66551c;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.b2b-notice-error {
+  background: #fff1ef;
+  border-color: #edb9b1;
+  color: #89271c;
+}
+
+.b2b-notice-success {
+  background: #eef9f1;
+  border-color: #b9dfc4;
+  color: #24633b;
+}
