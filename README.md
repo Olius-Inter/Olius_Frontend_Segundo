@@ -109,3 +109,7 @@ As rotas de motorista já usam lazy loading. Ainda permanecem pendentes autentic
 ## Organização de CSS
 
 Os estilos globais e tokens ficam em `src/styles`; páginas e componentes com regras próprias usam `styles.module.css`. Regras responsivas ficam junto do responsável. Os antigos `styles.css` e `b2b-home.css` da raiz foram substituídos. Consulte o [guia de estilos](src/styles/README.md) para estrutura, imports e formatação com dois espaços e uma propriedade por linha.
+
+## Histórico de coletas
+
+A rota /historico possui consulta por mês/ano, status e página; indicadores do período completo, volumes estimados/confirmados e separação por permissões do estabelecimento/coletor. Sem API configurada, não apresenta dados fictícios. Contrato e limites: [docs/history-api.md](docs/history-api.md). Confirmação de coleta e processamento permanece nos fluxos operacionais.
