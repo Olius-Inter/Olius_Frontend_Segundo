@@ -1,0 +1,27 @@
+.ranking,
+.results {
+  display: grid;
+  gap: 26px;
+  color: #40382f;
+}
+
+.period h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.period p {
+  color: #716b63;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin: 8px 0 0;
+}
+
+.ranking :is(button, select):focus-visible {
+  outline: 3px solid #846400;
+  outline-offset: 3px;
+}
+
+.ranking button {
+  min-height: 44px;
+}
