@@ -1,0 +1,120 @@
+.b2b-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.b2b-metric {
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  min-height: 157px;
+}
+
+.b2b-metric-label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.b2b-metric-label h3 {
+  margin: 0;
+  font-size: 0.79rem;
+  font-weight: 600;
+  color: #4a463d;
+}
+
+.b2b-metric-oil {
+  --b2b-metric-color: #9a7600;
+  --b2b-metric-tint: #fceab0;
+}
+
+.b2b-metric-water {
+  --b2b-metric-color: #2073aa;
+  --b2b-metric-tint: #deedf8;
+}
+
+.b2b-metric-carbon {
+  --b2b-metric-color: #278c51;
+  --b2b-metric-tint: #d9f0e0;
+}
+
+.b2b-metric-biodiesel {
+  --b2b-metric-color: #b65006;
+  --b2b-metric-tint: #fbe5d3;
+}
+
+.b2b-metric-label svg {
+  color: var(--b2b-metric-color);
+  flex: none;
+}
+
+.b2b-metric-value {
+  position: relative;
+  z-index: 1;
+  margin: 21px 0 4px;
+  font-size: clamp(1.25rem, 2.1vw, 1.9rem);
+  color: #39372f;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.b2b-metric-value span {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.b2b-metric-help {
+  position: relative;
+  z-index: 1;
+  font-size: 0.68rem;
+  margin: 0;
+  color: #69665f;
+}
+
+.b2b-metric-decoration {
+  position: absolute;
+  right: -21px;
+  bottom: 8px;
+  color: var(--b2b-metric-tint);
+  transform: rotate(-15deg);
+}
+
+@media (max-width: 1100px) {
+  .b2b-impact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .b2b-metric-value {
+    font-size: 1.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .b2b-impact-grid {
+    gap: 10px;
+  }
+
+  .b2b-metric {
+    padding: 19px 16px;
+  }
+
+  .b2b-metric-label {
+    gap: 5px;
+  }
+
+  .b2b-metric-label h3 {
+    font-size: 0.7rem;
+  }
+
+  .b2b-metric-value {
+    font-size: 1.35rem;
+  }
+
+  .b2b-metric-help {
+    font-size: 0.63rem;
+  }
+}
