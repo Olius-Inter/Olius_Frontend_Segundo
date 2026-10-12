@@ -8,6 +8,7 @@ import {
   Truck,
   UserRound,
   FileChartColumn,
+  History,
 } from 'lucide-react'
 import PageFeedback from '../PageFeedback'
 
@@ -48,6 +49,15 @@ export default function AppLayout() {
           >
             <Truck size={18} strokeWidth={1.6} aria-hidden="true" />
             <span>Motoristas</span>
+          </NavLink>
+          <NavLink
+            to="/historico"
+            className={({ isActive }) =>
+              mapClassNames(`nav-link${isActive ? ' active' : ''}`, classStyles)
+            }
+          >
+            <History size={18} strokeWidth={1.6} aria-hidden="true" />
+            <span>Histórico</span>
           </NavLink>
         </nav>
       </aside>
