@@ -33,3 +33,7 @@ Os campos relacionados usam um objeto de estado no hook `useDriverForm`. Erros a
 **Validar campos** somente confere o preenchimento: nenhum dado é enviado ou salvo. Cancelar, navegar ou recarregar descarta alterações. Não há POST, PUT, PATCH nem armazenamento local dos formulários. Permanecem pendentes envio, persistência, duplicidade de CPF/CNH, consulta individual e autorização administrativa. O status inicial também precisa ser confirmado com o backend.
 
 Escopo baseado no plano `ChatGPT/Olius/docs/plano-arquitetura-dad-qrcode.md` (seções 15 e 16) e nos requisitos DAD do PDF em `ChatGPT/Olius/references/`. Os campos B2B/B2C do DOCX pertencem aos formulários operacionais e não fazem parte deste incremento.
+
+## Organização de CSS
+
+Os estilos globais e tokens ficam em `src/styles`; páginas e componentes com regras próprias usam `styles.module.css`. Regras responsivas ficam junto do responsável. Os antigos `styles.css` e `b2b-home.css` da raiz foram substituídos. Consulte o [guia de estilos](src/styles/README.md) para estrutura, imports e formatação com dois espaços e uma propriedade por linha.
