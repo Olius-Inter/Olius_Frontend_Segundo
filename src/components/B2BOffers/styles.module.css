@@ -1,0 +1,127 @@
+@value b2b-section-heading as b2bSectionHeadingClass from '../../styles/shared.module.css';
+
+.b2b-outline-button {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d7d2c3;
+  background: var(--color-surface);
+  color: #544b38;
+  padding: 9px 14px;
+  border-radius: var(--radius-medium);
+}
+
+.b2b-offers {
+  display: grid;
+  gap: 15px;
+}
+
+.b2b-offers .b2bSectionHeadingClass {
+  margin-bottom: 0;
+}
+
+.b2b-offers-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.b2b-offer-card {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.b2b-offer-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+}
+
+.b2b-offer-heading h3 {
+  font-size: 0.9rem;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.b2b-offer-heading strong {
+  color: #79600b;
+  font-size: 1rem;
+  text-align: right;
+  flex: none;
+}
+
+.b2b-offer-heading small {
+  font-size: 0.6rem;
+  font-weight: 400;
+  display: block;
+  color: #726b5b;
+}
+
+.b2b-offer-card > p {
+  display: flex;
+  gap: 7px;
+  align-items: start;
+  margin: 0;
+  font-size: 0.73rem;
+  color: #6f685b;
+}
+
+.b2b-offer-card > p svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.b2b-offer-actions {
+  margin-top: auto;
+  display: grid;
+  gap: 8px;
+  padding-top: 7px;
+}
+
+.b2b-offer-actions button {
+  border-radius: var(--radius-medium);
+}
+
+.b2b-decline-button {
+  padding: 8px 13px;
+  color: #963c2d;
+  border: 1px solid #e4bbae;
+  background: #fff4f0;
+}
+
+.b2b-expired-label {
+  color: #963c2d;
+  font-size: 0.73rem;
+}
+
+.b2b-offers-empty {
+  text-align: center;
+  padding: 45px 24px;
+  color: #7b6c3d;
+}
+
+.b2b-offers-empty h3 {
+  font-size: 1rem;
+  color: #484234;
+}
+
+.b2b-offers-empty p {
+  font-size: 0.8rem;
+  color: #726b5c;
+}
+
+@media (max-width: 1100px) {
+  .b2b-offers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .b2b-offer-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
