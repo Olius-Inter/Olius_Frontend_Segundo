@@ -1,0 +1,40 @@
+.b2b-home-tabs {
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+  border: 1px solid #e3e1dc;
+  border-radius: 9px;
+  background: #efeee9;
+  justify-self: start;
+}
+
+.b2b-home-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  color: #615e55;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.b2b-home-tabs button[aria-selected='true'] {
+  background: var(--color-surface);
+  border-color: #dedbd1;
+  color: #373325;
+  box-shadow: 0 1px 3px #0000000a;
+}
+
+@media (max-width: 760px) {
+  .b2b-home-tabs {
+    justify-self: stretch;
+  }
+
+  .b2b-home-tabs button {
+    flex: 1;
+    padding: 9px 8px;
+    font-size: 0.74rem;
+  }
+}
