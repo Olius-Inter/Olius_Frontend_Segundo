@@ -1,0 +1,90 @@
+.reports-values {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.reports-values p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.reports-values h2 {
+  margin-bottom: 2px;
+}
+
+.report-period-actions {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.period-button {
+  min-height: 42px;
+  min-width: 110px;
+  padding: 9px 18px;
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  background: #fafafa;
+  color: #202020;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.period-button:hover {
+  background: #fff4c4;
+  border-color: #8b6d00;
+}
+
+.period-button[aria-pressed='true'] {
+  background: var(--color-accent);
+  border-color: #c39400;
+}
+
+.report-plans-link {
+  border: 0;
+  background: none;
+  color: #685000;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+@media (max-width: 950px) {
+  .reports-values {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .reports-values > div:first-child {
+    width: 100%;
+  }
+
+  .report-period-actions {
+    margin-left: 0;
+    flex: 1;
+  }
+
+  .period-button {
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .report-period-actions {
+    width: 100%;
+  }
+}

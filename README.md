@@ -49,6 +49,50 @@ A página `DriversPage` compõe a tela usando `useDrivers`, que gerencia consult
 
 Esses seis componentes têm funções distintas; os componentes de formulário também permanecem disponíveis. As interfaces da listagem estão em `src/types/driverList.ts`; as do cabeçalho estão em `src/types/page.ts`. Os componentes da tabela recebem dados via props e não acessam serviços.
 
+## Relatórios — `/relatorios`
+
+Tela baseada na referência visual fornecida: painel de volumes, gráfico de barras, distribuição do destino do óleo e três planos. Navegue pelo menu **Relatórios** ou pelo cartão da página inicial. **Mensais/Anuais** filtram os gráficos; **Ver planos** abre o diálogo com a periodicidade selecionada. O filtro de ano é salvo como preferência.
+
+### Dados e planos
+
+Sem `VITE_REPORTS_API_URL`, os relatórios usam dados demonstrativos, identificados no DOM. Os preços mensais vêm da imagem (R$ 19,90, R$ 39,90 e R$ 79,90). O valor anual demonstrativo corresponde a 12 mensalidades; nenhum desconto comercial foi presumido. Escolher um plano apenas confirma a seleção em memória, sem assinatura, cobrança ou envio. Recarregar descarta a seleção.
+
+Para integrar, confirme o contrato do backend e configure a URL completa em `VITE_REPORTS_API_URL`. O serviço faz GET com os parâmetros `period=monthly|yearly` e `year=2026`. Contrato **proposto**, a reconciliar com o backend:
+
+```json
+{
+  "collection": [{ "id": "2026-07", "label": "Jul", "liters": 8240 }],
+  "destinations": [{ "id": "biodiesel", "label": "Biodiesel", "liters": 6180 }],
+  "previousPeriodLiters": 7491
+}
+```
+
+`previousPeriodLiters` aceita `null` quando não há comparação. Séries devem vir em ordem cronológica, IDs únicos, volumes finitos e não negativos. A distribuição corresponde a todo o período consultado; o valor destacado das coletas corresponde ao último ponto da série. Respostas inválidas geram erro visível com nova tentativa. Erros de API nunca são substituídos silenciosamente por dados demonstrativos.
+
+### Requisitos DAD aplicados à tela
+
+| Requisito                                       | Implementação                                                                                                                                                                                         |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Componentes e páginas em pastas com `index.tsx` | `ReportsPage`, `ReportPeriodSelector`, `ReportDashboard`, `CollectionChart`, `DestinationChart`, `PlansDialog`, `PlanCard`                                                                            |
+| Interfaces por domínio e ausência de `any`      | `src/types/reports.ts`; dados externos começam como `unknown`                                                                                                                                         |
+| Serviços tipados com `try/catch`                | `reportService.getReport(): Promise<ReportData>`; sem `fetch` nas páginas ou componentes                                                                                                              |
+| Estado local agrupado e imutável                | Preferências de ano e período em um objeto `useState`                                                                                                                                                 |
+| Efeitos e chaves                                | Dependências explícitas e `key` por IDs de períodos, destinos e planos                                                                                                                                |
+| Navegação e rota curinga                        | `/relatorios` com React Router, links internos e 404 existente                                                                                                                                        |
+| Carregamento, sucesso, vazio e erro             | `PageFeedback`, `role=status`, `role=alert` e nova tentativa                                                                                                                                          |
+| Context API                                     | Provider de relatórios e `useReports`; filtros e dashboard compartilham dados sem atravessar props intermediárias                                                                                     |
+| Reducer tipado                                  | Estados fechado/escolhendo/erro; seleção conclui com feedback; transições não permitem selecionar plano com painel fechado                                                                            |
+| Cancelamento                                    | `useAbortableResource<T>` com `AbortController` no cleanup; troca de filtro cancela consulta anterior                                                                                                 |
+| Carregamento sob demanda                        | Todas as páginas usam `React.lazy`; `Suspense` mantém a navegação visível                                                                                                                             |
+| Armazenamento versionado                        | Somente ano/período em `olius:report-preferences`, com `_versao: 1`; dados incompatíveis são descartados; armazenamento bloqueado usa memória                                                         |
+| Memoização justificada                          | `useCallback` estabiliza o loader para não repetir consulta ao abrir planos; `useMemo` evita repetir agregações ao mudar o diálogo; diferença de desempenho ainda precisa ser demonstrada no Profiler |
+| Validação e sanitização                         | `validateReports.ts` valida filtros, plano e contrato externo e normaliza rótulos; todo conteúdo externo é renderizado por interpolação JSX                                                           |
+| Acessibilidade                                  | Labels, botões com estado pressionado, foco visível, tabelas textuais dos gráficos, contraste de texto, diálogo nativo com foco contido, Escape, foco inicial no fechamento e retorno ao acionador    |
+| Responsividade                                  | Grades adaptam-se a celular; menu pode quebrar linha; tabelas e séries extensas permitem rolagem                                                                                                      |
+| Apenas `.ts`/`.tsx` em `src/`                   | Divergência documentada: a reorganização solicitada usa CSS em `src/styles` e CSS Modules junto dos componentes                                                                                       |
+
+A tela não completa sozinha os requisitos de todo o projeto. Permanecem pendentes autenticação real por Context/PrivateRoute (a aplicação atual não possui contrato de sessão/login), autorização dos dados na API, assinatura/pagamento, publicação e URL de produção no README, demonstração com leitor de tela e Profiler e o histórico de 20 commits em 4 semanas. A instrução do usuário de não fazer commits foi mantida. Uma sessão fictícia no navegador não deve ser tratada como proteção de dados reais.
+
 ## Recursos DAD na área de motoristas
 
 - A listagem e a edição usam o hook genérico `useAbortableResource`, cujos tipos compartilhados foram movidos para `src/types/api.ts`. O `AbortSignal` chega ao `fetch`; trocar o ID ou sair da tela cancela a consulta. Cancelamentos não aparecem como erro de usuário.
