@@ -8,6 +8,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 const DriverCreate = lazy(() => import('./pages/DriverCreate'))
 const DriverEdit = lazy(() => import('./pages/DriverEdit'))
 const ReportsPage = lazy(() => import('./pages/ReportsPage'))
+const HistoryPage = lazy(() => import('./pages/HistoryPage'))
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="motoristas/novo" element={<DriverCreate />} />
           <Route path="motoristas/:driverId/editar" element={<DriverEdit />} />
           <Route path="relatorios" element={<ReportsPage />} />
+          <Route path="historico" element={<HistoryPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

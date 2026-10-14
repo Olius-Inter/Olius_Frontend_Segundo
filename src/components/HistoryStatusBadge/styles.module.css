@@ -1,0 +1,27 @@
+.badge {
+  display: inline-block;
+  border-radius: 30px;
+  padding: 6px 18px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.REGISTERED {
+  background: #e4e4e4;
+  color: #414141;
+}
+
+.PENDING {
+  background: #ffdfaf;
+  color: #8a4700;
+}
+
+.COLLECTED {
+  background: #dceee0;
+  color: #23623b;
+}
+
+.PROCESSED {
+  background: #dcebf7;
+  color: #245b80;
+}

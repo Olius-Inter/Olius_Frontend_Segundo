@@ -1,0 +1,35 @@
+.scroll {
+  overflow-x: auto;
+  border: 1px solid #dedbd5;
+  border-radius: 18px;
+  background: white;
+}
+
+.table {
+  width: 100%;
+  min-width: 510px;
+  border-collapse: collapse;
+}
+
+.table caption {
+  padding: 14px 22px;
+  text-align: left;
+  font-size: 0.75rem;
+  color: #716b63;
+}
+
+.table th,
+.table td {
+  padding: 18px 24px;
+  text-align: left;
+}
+
+.table th {
+  background: #e5e3e0;
+  color: #49453e;
+  font-weight: 600;
+}
+
+.table td {
+  border-top: 1px solid #e5e3e0;
+}
