@@ -1,10 +1,12 @@
+import { lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/AppLayout'
-import DriversPage from './pages/DriversPage'
-import HomePage from './pages/HomePage'
-import NotFoundPage from './pages/NotFoundPage'
-import DriverCreate from './pages/DriverCreate'
-import DriverEdit from './pages/DriverEdit'
+
+const DriversPage = lazy(() => import('./pages/DriversPage'))
+const HomePage = lazy(() => import('./pages/HomePage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
+const DriverCreate = lazy(() => import('./pages/DriverCreate'))
+const DriverEdit = lazy(() => import('./pages/DriverEdit'))
 
 export default function App() {
   return (

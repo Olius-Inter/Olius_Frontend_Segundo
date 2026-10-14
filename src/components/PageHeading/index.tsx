@@ -1,5 +1,11 @@
-import type { PageHeadingProps } from '../../types/driverForm';
+import type { PageHeadingProps } from '../../types/page'
 
 export default function PageHeading({ title, description }: PageHeadingProps) {
-  return <div className="page-heading"><p className="eyebrow">CADASTROS</p><h1>{title}</h1><p className="lead">{description}</p></div>;
+  return (
+    <div className="page-heading">
+      <p className="eyebrow">CADASTROS</p>
+      <h1>{title}</h1>
+      <p className="lead">{description}</p>
+    </div>
+  )
 }

@@ -1,14 +1,10 @@
-import type { ReactNode } from 'react'
+import styles from './styles.module.css'
+import sharedStyles from '../../styles/shared.module.css'
+import { mapClassNames } from '../../utils/classNames'
+import type { PageFeedbackProps } from '../../types/page'
 import { Inbox, LoaderCircle, SearchX, TriangleAlert } from 'lucide-react'
 
-interface PageFeedbackProps {
-  kind: 'loading' | 'empty' | 'error' | 'not-found'
-  title: string
-  description: string
-  label?: string
-  headingLevel?: 'h1' | 'h2'
-  children?: ReactNode
-}
+const classStyles = { ...styles, ...sharedStyles }
 
 const icons = {
   loading: LoaderCircle,
@@ -30,16 +26,16 @@ export default function PageFeedback({
 
   return (
     <section
-      className={`card page-feedback page-feedback-${kind}`}
+      className={mapClassNames(`card page-feedback page-feedback-${kind}`, classStyles)}
       role={kind === 'error' ? 'alert' : kind === 'not-found' ? undefined : 'status'}
     >
-      <span className="page-feedback-icon" aria-hidden="true">
+      <span className={styles['page-feedback-icon']} aria-hidden="true">
         <Icon size={32} strokeWidth={1.6} />
       </span>
       {label && <p className="eyebrow">{label}</p>}
       <Heading>{title}</Heading>
-      <p className="page-feedback-description">{description}</p>
-      {children && <div className="page-feedback-actions">{children}</div>}
+      <p className={styles['page-feedback-description']}>{description}</p>
+      {children && <div className={styles['page-feedback-actions']}>{children}</div>}
     </section>
   )
 }
