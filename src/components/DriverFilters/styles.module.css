@@ -1,0 +1,80 @@
+.driver-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.driver-filter-field {
+  flex: 1;
+  min-width: 150px;
+}
+
+.driver-filter-field:first-child {
+  flex: 2;
+  min-width: 200px;
+}
+
+.driver-filter-field label {
+  display: block;
+  margin-bottom: 7px;
+  color: #333;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.driver-filter-field input {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-small);
+  background: white;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.driver-filter-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-small);
+  background: white;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.driver-filter-field input::placeholder {
+  color: var(--color-muted);
+}
+
+.driver-filter-reset {
+  min-height: 44px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.driver-storage-notice {
+  width: 100%;
+  margin: 0;
+  color: #685000;
+  font-size: 0.76rem;
+}
+
+@media (max-width: 600px) {
+  .driver-filter-field {
+    min-width: 100%;
+  }
+
+  .driver-filter-field:first-child {
+    min-width: 100%;
+  }
+
+  .driver-filter-reset {
+    width: 100%;
+  }
+}

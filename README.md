@@ -34,6 +34,34 @@ Os campos relacionados usam um objeto de estado no hook `useDriverForm`. Erros a
 
 Escopo baseado no plano `ChatGPT/Olius/docs/plano-arquitetura-dad-qrcode.md` (seções 15 e 16) e nos requisitos DAD do PDF em `ChatGPT/Olius/references/`. Os campos B2B/B2C do DOCX pertencem aos formulários operacionais e não fazem parte deste incremento.
 
+## Responsabilidades da listagem
+
+A página `DriversPage` compõe a tela usando `useDrivers`, que gerencia consulta e estados de carregamento, resultado e erro. A comunicação HTTP continua em `driverService`.
+
+| Componente          | Responsabilidade                                                  |
+| ------------------- | ----------------------------------------------------------------- |
+| `AppLayout`         | Estrutura visual e navegação da aplicação                         |
+| `PageFeedback`      | Mensagens de carregamento, vazio, erro e página não encontrada    |
+| `PageHeading`       | Título e descrição, compartilhados pela lista e pelos formulários |
+| `DriverTable`       | Cabeçalho da tabela e coleção de linhas com chave por ID          |
+| `DriverRow`         | Dados de um motorista e link para editar                          |
+| `DriverStatusBadge` | Texto e aparência do status Ativo/Inativo                         |
+
+Esses seis componentes têm funções distintas; os componentes de formulário também permanecem disponíveis. As interfaces da listagem estão em `src/types/driverList.ts`; as do cabeçalho estão em `src/types/page.ts`. Os componentes da tabela recebem dados via props e não acessam serviços.
+
+## Recursos DAD na área de motoristas
+
+- A listagem e a edição usam o hook genérico `useAbortableResource`, cujos tipos compartilhados foram movidos para `src/types/api.ts`. O `AbortSignal` chega ao `fetch`; trocar o ID ou sair da tela cancela a consulta. Cancelamentos não aparecem como erro de usuário.
+- `DriversProvider` e `useDrivers` compartilham filtros, resultados e ações entre `DriverFilters` e `DriverListResults`. Consultas e regras de busca ficam no hook `useDriverDirectory`; componentes não acessam serviços.
+- Busca local por nome, status e ordenação A–Z/Z–A, com contagem de resultados e estados distintos para lista sem cadastros e busca sem correspondências. Os filtros usam apenas os dados retornados pela API; não há motoristas demonstrativos. A busca ignora diferenças de maiúsculas e acentos e aceita até 120 caracteres.
+- Somente status e ordenação são salvos em `olius:driver-list-preferences`, com `_versao: 1`. Dados incompatíveis são descartados; armazenamento bloqueado mantém preferências em memória. Nome pesquisado, nomes de motoristas, CPF, CNH e valores dos formulários não são armazenados.
+- `useCallback` mantém o loader estável para que filtros locais não repitam consultas. `useMemo` concentra filtragem/ordenação quando dados ou filtros mudam, sem ordenar o array da API diretamente. A demonstração de desempenho no Profiler permanece pendente.
+- O formulário mantém seus campos em um objeto `useState`. Um reducer com State/Action em unions controla edição, validação válida/inválida e campos visitados; qualquer alteração invalida o feedback anterior.
+- As mensagens reais do serviço são exibidas no DOM. IDs vazios ou duplicados na resposta são rejeitados para preservar identificação de registros e chaves únicas.
+- Filtros têm labels, controles nativos e foco visível. A tabela tem descrição textual e área de rolagem acessível por teclado. Os formulários preservam erros associados aos campos e foco no primeiro erro. A auditoria completa WCAG/leitor de tela continua pendente.
+
+As rotas de motorista já usam lazy loading. Ainda permanecem pendentes autenticação/PrivateRoute com sessão real, integração do envio/persistência e consulta individual do motorista. Nenhum POST/PUT/PATCH foi adicionado. Publicação e histórico de commits são pendências globais; não foram realizados commits ou pushes neste incremento.
+
 ## Organização de CSS
 
 Os estilos globais e tokens ficam em `src/styles`; páginas e componentes com regras próprias usam `styles.module.css`. Regras responsivas ficam junto do responsável. Os antigos `styles.css` e `b2b-home.css` da raiz foram substituídos. Consulte o [guia de estilos](src/styles/README.md) para estrutura, imports e formatação com dois espaços e uma propriedade por linha.
