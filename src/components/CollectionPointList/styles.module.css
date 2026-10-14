@@ -1,0 +1,10 @@
+.list {
+  display: grid;
+  gap: 16px;
+}
+
+.list h2 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  color: #716b63;
+}

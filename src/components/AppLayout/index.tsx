@@ -10,6 +10,7 @@ import {
   FileChartColumn,
   History,
   Trophy,
+  MapPinned,
 } from 'lucide-react'
 import PageFeedback from '../PageFeedback'
 
@@ -68,6 +69,15 @@ export default function AppLayout() {
           >
             <Trophy size={18} strokeWidth={1.6} aria-hidden="true" />
             <span>Ranking</span>
+          </NavLink>
+          <NavLink
+            to="/mapa"
+            className={({ isActive }) =>
+              mapClassNames(`nav-link${isActive ? ' active' : ''}`, classStyles)
+            }
+          >
+            <MapPinned size={18} strokeWidth={1.6} aria-hidden="true" />
+            <span>Pontos de Coleta</span>
           </NavLink>
         </nav>
       </aside>

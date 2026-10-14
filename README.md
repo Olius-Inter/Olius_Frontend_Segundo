@@ -117,3 +117,7 @@ A rota /historico possui consulta por mês/ano, status e página; indicadores do
 ## Ranking de estabelecimentos B2B
 
 A rota /ranking apresenta posição própria, filtros mensal/anual/geral, pódio, lista paginada e conquistas recebidas do servidor. Usa exclusivamente estabelecimentos B2B; não altera o perfil nem inclui ranking de cidadãos. Sem API configurada, os valores ficam indisponíveis. Contrato: [docs/ranking-api.md](docs/ranking-api.md).
+
+## Pontos de coleta
+
+/mapa possui consulta de pontos aprovados, GPS por ação explícita, busca e filtros, lista paginada e mapa Leaflet configurável. O convite Vire Coletor abre /mapa/virar-coletor, preparado para o formulário que ainda será definido. O ponto próprio só aparece em azul após habilitação retornada pela API; não há conversão para B2C nem concessão local de permissões. Regras e contratos: [docs/collection-map-api.md](docs/collection-map-api.md).
