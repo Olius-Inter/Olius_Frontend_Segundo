@@ -9,6 +9,7 @@ import {
   UserRound,
   FileChartColumn,
   History,
+  Trophy,
 } from 'lucide-react'
 import PageFeedback from '../PageFeedback'
 
@@ -58,6 +59,15 @@ export default function AppLayout() {
           >
             <History size={18} strokeWidth={1.6} aria-hidden="true" />
             <span>Histórico</span>
+          </NavLink>
+          <NavLink
+            to="/ranking"
+            className={({ isActive }) =>
+              mapClassNames(`nav-link${isActive ? ' active' : ''}`, classStyles)
+            }
+          >
+            <Trophy size={18} strokeWidth={1.6} aria-hidden="true" />
+            <span>Ranking</span>
           </NavLink>
         </nav>
       </aside>

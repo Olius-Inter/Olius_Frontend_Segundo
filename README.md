@@ -113,3 +113,7 @@ Os estilos globais e tokens ficam em `src/styles`; páginas e componentes com re
 ## Histórico de coletas
 
 A rota /historico possui consulta por mês/ano, status e página; indicadores do período completo, volumes estimados/confirmados e separação por permissões do estabelecimento/coletor. Sem API configurada, não apresenta dados fictícios. Contrato e limites: [docs/history-api.md](docs/history-api.md). Confirmação de coleta e processamento permanece nos fluxos operacionais.
+
+## Ranking de estabelecimentos B2B
+
+A rota /ranking apresenta posição própria, filtros mensal/anual/geral, pódio, lista paginada e conquistas recebidas do servidor. Usa exclusivamente estabelecimentos B2B; não altera o perfil nem inclui ranking de cidadãos. Sem API configurada, os valores ficam indisponíveis. Contrato: [docs/ranking-api.md](docs/ranking-api.md).
