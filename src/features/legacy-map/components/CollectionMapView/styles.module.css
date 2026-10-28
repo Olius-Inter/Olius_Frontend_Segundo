@@ -1,0 +1,70 @@
+.wrapper {
+  position: relative;
+  border: 1px solid #dedbd5;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #f0efea;
+}
+
+.canvas {
+  height: 430px;
+  width: 100%;
+  isolation: isolate;
+  z-index: 0;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0 0 45px;
+  display: grid;
+  place-items: center;
+  padding: 35px;
+  text-align: center;
+  color: #716b63;
+}
+
+.legend,
+.error {
+  margin: 0;
+  padding: 13px 18px;
+  background: white;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.legend span {
+  margin-left: 8px;
+}
+
+.yellow {
+  color: #977000;
+}
+
+.blue {
+  color: #176aab;
+}
+
+.marker {
+  display: grid;
+  place-items: center;
+  background: #ffce00;
+  color: #674600;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px #0004;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.person {
+  background: #258ccc;
+  color: white;
+  font-size: 10px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .canvas {
+    height: 330px;
+  }
+}
