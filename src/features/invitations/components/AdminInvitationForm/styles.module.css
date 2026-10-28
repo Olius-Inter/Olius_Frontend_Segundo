@@ -1,0 +1,41 @@
+.form {
+  display: grid;
+  gap: 20px;
+}
+.form p {
+  margin: 0;
+  color: var(--portal-muted);
+  line-height: 1.7;
+}
+.form label {
+  display: grid;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.form input {
+  min-height: 46px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  font: inherit;
+}
+.form button[type='submit'] {
+  min-height: 46px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  font: inherit;
+  cursor: pointer;
+}
+.form button[type='submit']:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.form [role='alert'] {
+  color: var(--portal-error);
+}
