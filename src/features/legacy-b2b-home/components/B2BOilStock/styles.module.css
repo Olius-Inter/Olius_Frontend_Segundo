@@ -1,0 +1,111 @@
+.b2b-stock-card h2 {
+  font-size: 1rem;
+}
+
+.b2b-stock-main {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 24px 0;
+}
+
+.b2b-stock-vessel {
+  position: relative;
+  width: 76px;
+  height: 112px;
+  border-radius: 13px;
+  overflow: hidden;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: #fff9d7;
+  border: 1px solid #ebda8a;
+}
+
+.b2b-stock-vessel span {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #ffda00;
+}
+
+.b2b-stock-vessel svg {
+  position: relative;
+  z-index: 1;
+  color: #806200;
+}
+
+.b2b-stock-value {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #423c30;
+}
+
+.b2b-stock-value span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.b2b-stock-caption {
+  margin: 5px 0;
+  font-size: 0.78rem;
+  color: #5c584e;
+}
+
+.b2b-stock-minimum {
+  margin: 8px 0 0;
+  font-size: 0.73rem;
+  color: #726b5c;
+}
+
+.b2b-stock-reason {
+  margin: 8px 0 0;
+  font-size: 0.73rem;
+  color: #726b5c;
+}
+
+.b2b-ready-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 6px 9px;
+  font-size: 0.69rem;
+  background: #e6f6eb;
+  color: #266d40;
+}
+
+.b2b-stock-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-top: 1px solid #eceae4;
+  padding-top: 16px;
+  margin: 0;
+}
+
+.b2b-stock-breakdown dt {
+  font-size: 0.68rem;
+  color: #716b60;
+}
+
+.b2b-stock-breakdown dd {
+  margin: 5px 0 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #423c30;
+}
+
+@media (max-width: 480px) {
+  .b2b-stock-main {
+    gap: var(--space-4);
+  }
+
+  .b2b-stock-vessel {
+    width: 60px;
+    height: 100px;
+  }
+}
