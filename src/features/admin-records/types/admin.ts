@@ -6,10 +6,8 @@ export type AdminResource =
   | 'requests'
   | 'agenda'
   | 'collections'
-  | 'deliveries'
   | 'drivers'
   | 'establishments'
-  | 'citizens'
   | 'pevs'
   | 'plans'
   | 'subscriptions'
@@ -30,7 +28,7 @@ export interface AdminFilters {
   to: string
   page: number
   pageSize: number
-  audience: 'ESTABLISHMENT' | 'CITIZENS'
+  audience: 'ESTABLISHMENT'
   year: number
 }
 
@@ -50,6 +48,7 @@ export interface AdminResourceConfig {
 }
 
 export interface AdminRecord {
+  request?: CollectionRequestListDetails
   id: string
   title: string
   cells: Record<string, AdminScalar>
@@ -66,6 +65,7 @@ export interface AdminList {
 export type AdminAction =
   | 'approve'
   | 'reject'
+  | 'restore'
   | 'reschedule'
   | 'cancel'
   | 'activate'
@@ -73,7 +73,34 @@ export type AdminAction =
   | 'correct'
   | 'annul'
 
+export interface CollectionRequestDetails {
+  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED'
+  scheduledAt: string | null
+  telephone: string | null
+  email: string | null
+}
+
+export interface CollectionRequestListDetails extends CollectionRequestDetails {
+  revision: number
+  actions: AdminAction[]
+}
+
+export interface PendingRequestCardProps {
+  record: AdminRecord
+}
+
+export interface PendingRequestListProps {
+  records: AdminRecord[]
+  total: number
+}
+
+export type CollectionRequestAction = Extract<
+  AdminAction,
+  'approve' | 'reject' | 'restore' | 'reschedule'
+>
+
 export interface AdminDetail {
+  request?: CollectionRequestDetails
   id: string
   title: string
   revision: number | null
@@ -87,7 +114,7 @@ export interface AdminDetail {
 
 export interface AdminActionInput {
   action: AdminAction
-  reason: string
+  reason?: string
   scheduledAt?: string
   agreedAt?: string
   expectedRevision?: number
@@ -170,4 +197,8 @@ export interface AdminRecordDialogProps {
   filters: AdminFilters
   onClose: () => void
   onSaved: () => void
+}
+
+export interface CollectionRequestContactProps {
+  request: CollectionRequestDetails | undefined
 }

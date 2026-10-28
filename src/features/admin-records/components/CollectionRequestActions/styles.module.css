@@ -1,0 +1,81 @@
+.form {
+  display: grid;
+  gap: 18px;
+  padding-top: 6px;
+}
+.form label {
+  display: grid;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.form input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  font: inherit;
+}
+.form p {
+  margin: 0;
+  color: var(--portal-muted);
+  line-height: 1.6;
+}
+.form [role='alert'] {
+  color: var(--portal-error);
+}
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding-top: 12px;
+}
+.form button {
+  min-height: 46px;
+  padding: 12px 20px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.approve {
+  background: #166534;
+  color: #fff;
+}
+.reject {
+  background: #b91c1c;
+  color: #fff;
+}
+.form .secondary {
+  background: var(--portal-soft);
+  color: var(--portal-text);
+  border-color: var(--portal-border);
+}
+.form button:hover:not(:disabled) {
+  filter: brightness(0.9);
+}
+.form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.form :is(input, button):focus-visible {
+  outline: 3px solid var(--portal-focus);
+  outline-offset: 3px;
+}
+:root[data-contrast='high'] .form button {
+  border: 2px solid #fff;
+}
+@media (max-width: 500px) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+  .actions button {
+    width: 100%;
+  }
+}

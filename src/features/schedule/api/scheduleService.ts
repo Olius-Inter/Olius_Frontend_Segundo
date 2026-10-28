@@ -54,16 +54,8 @@ export async function rescheduleVisit(
   try {
     if (!event.canReschedule || event.completed || input.expectedRevision !== event.revision)
       throw new Error('Releia a situação e a revisão atual antes de reagendar.')
-    if (
-      !Number.isFinite(Date.parse(input.startsAt)) ||
-      !Number.isFinite(Date.parse(input.agreedAt)) ||
-      Date.parse(input.agreedAt) > Date.now() ||
-      input.reason.trim().length < 3 ||
-      input.reason.length > 1000
-    )
-      throw new Error(
-        'Informe o horário exato, quando foi combinado e um motivo de 3 a 1000 caracteres.',
-      )
+    if (!Number.isFinite(Date.parse(input.startsAt)))
+      throw new Error('Informe a data e o horário programados para a coleta.')
     if (!portalGateway.calendar?.reschedule)
       throw new Error('O reagendamento aguarda integração autorizada.')
     await portalGateway.calendar.reschedule(event, input, signal)

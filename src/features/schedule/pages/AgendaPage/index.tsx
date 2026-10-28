@@ -35,7 +35,7 @@ export default function AgendaPage() {
     <div className={styles.page}>
       <header>
         <h1>Agenda de coletas</h1>
-        <p>Várias visitas por dia, com horários e histórico de reagendamento.</p>
+        <p>Coletas programadas após o contato externo com cada estabelecimento.</p>
       </header>
       <AdminTabs area="operacao" />
       <div className={styles.toolbar}>

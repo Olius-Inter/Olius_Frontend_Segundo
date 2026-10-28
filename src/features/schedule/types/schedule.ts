@@ -23,8 +23,6 @@ export interface CalendarData {
 
 export interface RescheduleInput {
   startsAt: string
-  agreedAt: string
-  reason: string
   expectedRevision: number
 }
 

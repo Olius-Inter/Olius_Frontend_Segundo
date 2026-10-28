@@ -32,6 +32,16 @@ export async function listAdminRecords(
     const data = await adapter.list(filters, signal)
     if (!validateAdminList(data, filters))
       throw new Error('A consulta administrativa retornou dados inconsistentes.')
+    if (
+      resource === 'requests' &&
+      filters.status &&
+      data.items.some(
+        (item) =>
+          item.cells.status !== filters.status ||
+          (item.request && item.request.status !== filters.status),
+      )
+    )
+      throw new Error('A consulta retornou solicitações fora da situação selecionada.')
     return { kind: 'ready', data }
   } catch (error: unknown) {
     throw error instanceof Error ? error : new Error('Não foi possível consultar os registros.')

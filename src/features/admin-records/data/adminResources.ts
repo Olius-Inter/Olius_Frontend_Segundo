@@ -49,23 +49,6 @@ export const adminResources: Record<AdminResource, AdminResourceConfig> = {
     ],
     source,
   },
-  deliveries: {
-    id: 'deliveries',
-    title: 'Histórico de entregas B2C',
-    description: 'Recebimentos confirmados pelo responsável autenticado do PEV.',
-    statuses: ['RECORDED', 'ANNULLED'],
-    columns: [
-      { key: 'date', label: 'Entrega', format: 'date' },
-      { key: 'citizen', label: 'Cidadão' },
-      { key: 'pev', label: 'PEV' },
-      { key: 'validator', label: 'Responsável' },
-      { key: 'acceptedLiters', label: 'Aceito', format: 'liters' },
-      { key: 'points', label: 'Pontos', format: 'number' },
-      { key: 'revision', label: 'Revisão' },
-      { key: 'status', label: 'Registro', format: 'status' },
-    ],
-    source,
-  },
   drivers: {
     id: 'drivers',
     title: 'Motoristas',
@@ -89,18 +72,6 @@ export const adminResources: Record<AdminResource, AdminResourceConfig> = {
     columns: [
       { key: 'name', label: 'Estabelecimento' },
       { key: 'city', label: 'Cidade' },
-      { key: 'status', label: 'Conta', format: 'status' },
-    ],
-    source,
-  },
-  citizens: {
-    id: 'citizens',
-    title: 'Cidadãos',
-    description:
-      'Consulta controlada. O cidadão comum entrega óleo ao PEV e não solicita retirada.',
-    statuses: active,
-    columns: [
-      { key: 'name', label: 'Cidadão' },
       { key: 'status', label: 'Conta', format: 'status' },
     ],
     source,

@@ -34,8 +34,10 @@ const requests: DemoRequest[] = names.map((name, index) => {
   return {
     id: id(index + 1),
     name,
+    telephone: '(11) 99999-0200',
+    email: 'contato' + (index + 1) + '@estabelecimento.olius.test',
     address: `Rua de Exemplo ${index + 1}, Centro · São Paulo/SP`,
-    status: scheduledAt ? 'APPROVED' : 'PENDING',
+    status: index === 11 ? 'REJECTED' : scheduledAt ? 'APPROVED' : 'PENDING',
     requestedAt: stamp(-6, 8),
     scheduledAt,
     endsAt: scheduledAt ? new Date(Date.parse(scheduledAt) + 60 * 60 * 1000).toISOString() : null,
