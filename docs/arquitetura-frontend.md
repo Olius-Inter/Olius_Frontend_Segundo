@@ -19,7 +19,7 @@ As funcionalidades legacy-b2b-home, legacy-history, legacy-map e legacy-reports 
 
 app → features → shared. Shared não conhece os módulos. Features não importam app. Uma funcionalidade acessa outra por uma interface pública pequena: index.ts para hooks/componentes/validações compartilhados, api.ts para serviços necessários, contracts.ts para tipos. Imports internos da própria funcionalidade são relativos. App pode conectar os pontos concretos de entrada de cada módulo.
 
-O mecanismo genérico de filtros, tabelas, detalhes e ações permanece em admin-records, porque é usado por solicitações, coletas e entregas. Dividi-lo em cópias por tela duplicaria o fluxo atual. A composição das áreas do menu fica em app/router/pages.
+O mecanismo genérico de filtros, tabelas, detalhes e ações permanece em admin-records, porque é usado por solicitações e coletas B2B. Dividi-lo em cópias por tela duplicaria o fluxo atual. A composição das áreas do menu fica em app/router/pages.
 
 ## API e estado
 
@@ -50,3 +50,5 @@ Não há comando lint configurado. Dependências, arquivos públicos de terceiro
 - Verificação de arquitetura: 301 arquivos TS/TSX/CSS, sem imports inexistentes, ciclos ou violações de camadas.
 - Inspeção visual pendente: Computer Use não conseguiu determinar com segurança a URL do navegador e encerrou a sessão de automação.
 - O aviso já existente do PostCSS sobre a opção from permanece; o build foi concluído.
+
+O escopo vigente exclui operações e consultas de cidadãos no web. Consulte references/escopo-web-b2b-2026-10-28.md.

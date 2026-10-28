@@ -1,6 +1,6 @@
 # Olius — portal administrativo
 
-Portal React/TypeScript para contas **ADMIN** da empresa operadora. Estabelecimento B2B, cidadão ou responsável por PEV não obtém acesso administrativo automaticamente.
+Portal React/TypeScript para contas **ADMIN** da empresa operadora. O portal trabalha com empresas B2B e seu contexto de PEV; esse cadastro não concede acesso administrativo automaticamente.
 
 ## Referências vigentes
 
@@ -26,15 +26,15 @@ Copie `.env.example` para `.env.local`, configure `VITE_API_BASE_URL` e reinicie
 
 ## Áreas
 
-| Área          | Conteúdo                                                           |
-| ------------- | ------------------------------------------------------------------ |
-| Visão geral   | Pendências, visitas de hoje/restantes no mês e evolução no período |
-| Operação      | Solicitações, calendário com múltiplas visitas e histórico B2B/B2C |
-| Motorista     | Consulta, cadastro e edição de motoristas                          |
-| Relatórios    | Gráficos do período completo, diretamente na lateral               |
-| Configurações | Perfil, senha, aparência, acessibilidade e cartões de planos       |
-| Notificações  | Categorias, paginação, leitura e contagem global no sino           |
-| Administração | Contas e auditoria                                                 |
+| Área          | Conteúdo                                                                  |
+| ------------- | ------------------------------------------------------------------------- |
+| Visão geral   | Pendências, visitas de hoje/restantes no mês e evolução no período        |
+| Operação      | Solicitações, calendário com múltiplas visitas e histórico de coletas B2B |
+| Motorista     | Consulta, cadastro e edição de motoristas                                 |
+| Relatórios    | Gráficos do período completo, diretamente na lateral                      |
+| Configurações | Perfil, senha, aparência, acessibilidade e cartões de planos              |
+| Notificações  | Categorias, paginação, leitura e contagem global no sino                  |
+| Administração | Contas e auditoria                                                        |
 
 Login/renovação/logout, perfil, consulta de usuário por UUID, ativação/inativação utilizam os endpoints verificados da Core. Disponibilidade em produção não foi confirmada. Os demais módulos exibem **Integração pendente** até receberem adaptadores de endpoints existentes; não mostram dados fictícios nem confirmam persistência simulada na execução real. A demonstração local optativa utiliza adaptadores separados, dados fictícios e alterações temporárias em memória.
 
