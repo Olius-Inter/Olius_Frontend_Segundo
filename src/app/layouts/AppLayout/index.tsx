@@ -5,6 +5,7 @@ import styles from './styles.module.css'
 const navigation = [
   ['/', 'Visão geral'],
   ['/operacao', 'Operação'],
+  ['/motoristas', 'Motorista'],
   ['/configuracoes/perfil', 'Configurações'],
 ]
 export default function AppLayout() {
