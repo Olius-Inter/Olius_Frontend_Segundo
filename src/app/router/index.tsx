@@ -7,6 +7,7 @@ import PageFeedback from '../../shared/ui/PageFeedback'
 import PreferencesProvider from '../../features/settings/providers/PreferencesContext'
 const LoginPage = lazy(() => import('../../features/auth/pages/LoginPage'))
 const NotFound = lazy(() => import('../../shared/ui/NotFoundPage'))
+const Dashboard = lazy(() => import('../../features/dashboard/pages/AdminDashboardPage'))
 const Area = lazy(() => import('./pages/AdminAreaPage'))
 const Detail = lazy(() => import('../../features/admin-records/pages/AdminDetailPage'))
 const Agenda = lazy(() => import('../../features/schedule/pages/AgendaPage'))
@@ -15,6 +16,7 @@ const DriverCreate = lazy(() => import('../../features/drivers/pages/DriverCreat
 const DriverEdit = lazy(() => import('../../features/drivers/pages/DriverEdit'))
 const Settings = lazy(() => import('../../features/settings/pages/SettingsPage'))
 const Notifications = lazy(() => import('../../features/notifications/pages/NotificationsPage'))
+const Reports = lazy(() => import('../../features/reports/pages/AdminReportsPage'))
 export default function App() {
   return (
     <BrowserRouter>
@@ -33,16 +35,7 @@ export default function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route element={<AdminRoute />}>
                 <Route element={<AppLayout />}>
-                  <Route
-                    index
-                    element={
-                      <PageFeedback
-                        kind="empty"
-                        title="Portal administrativo"
-                        description="Selecione uma área disponível no menu."
-                      />
-                    }
-                  />
+                  <Route index element={<Dashboard />} />
                   <Route path=":area" element={<Area />} />
                   <Route path=":area/:tab" element={<Area />} />
                   <Route path=":area/:tab/:id" element={<Detail />} />
@@ -64,6 +57,11 @@ export default function App() {
                     element={<Navigate to="/configuracoes/planos" replace />}
                   />
                   <Route path="notificacoes" element={<Notifications />} />
+                  <Route path="relatorios" element={<Reports />} />
+                  <Route
+                    path="resultados/relatorios"
+                    element={<Navigate to="/relatorios" replace />}
+                  />
                   <Route path="historico" element={<Navigate to="/operacao/historico" replace />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
