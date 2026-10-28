@@ -1,0 +1,124 @@
+.card {
+  display: flex;
+  gap: 18px;
+  padding: 24px;
+  border-bottom: 1px solid var(--portal-border);
+  background: var(--portal-surface);
+}
+.unread {
+  background: var(--portal-notification-unread);
+}
+.icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--portal-soft);
+  color: var(--portal-text);
+}
+.body {
+  flex: 1;
+  min-width: 0;
+}
+.title {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: start;
+  flex-wrap: wrap;
+}
+.title :is(h2, h3) {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.title span {
+  color: var(--portal-on-soft);
+  background: var(--portal-accent-soft);
+  border-radius: 20px;
+  padding: 4px 9px;
+  font-size: 0.65rem;
+  flex: none;
+}
+.body p {
+  color: var(--portal-muted);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  margin: 8px 0;
+}
+.body time {
+  color: var(--portal-muted);
+  font-size: 0.7rem;
+}
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.actions a,
+.actions button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font: inherit;
+  font-size: 0.75rem;
+  text-decoration: none;
+  padding: 9px 13px;
+  border: 1px solid var(--portal-border);
+  border-radius: 8px;
+  color: var(--portal-text);
+  background: var(--portal-surface);
+  cursor: pointer;
+}
+.actions a {
+  border-color: var(--portal-focus);
+}
+@media (max-width: 500px) {
+  .card {
+    padding: 18px;
+    gap: 10px;
+  }
+  .icon {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.compact {
+  padding: 16px;
+  gap: 12px;
+}
+.compact .title {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.compact .title h3 {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.compact .title span {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  overflow: hidden;
+  font-size: 0;
+  background: var(--portal-accent);
+  border: 1px solid var(--portal-focus);
+}
+.compact .body p {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin: 5px 0;
+  overflow-wrap: anywhere;
+}
+.compact .actions {
+  margin-top: 8px;
+  gap: 8px;
+}
+.compact .actions :is(a, button) {
+  font-size: 0.68rem;
+  padding: 6px 10px;
+}
