@@ -2,7 +2,10 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../features/auth/hooks/useAuth'
 import PortalProvider from '../../providers/PortalProvider'
 import styles from './styles.module.css'
-const navigation = [['/', 'Visão geral']]
+const navigation = [
+  ['/', 'Visão geral'],
+  ['/configuracoes/perfil', 'Configurações'],
+]
 export default function AppLayout() {
   return (
     <PortalProvider>
