@@ -1,0 +1,112 @@
+.accounts {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+.heading {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.heading h2 {
+  margin: 0 0 8px;
+}
+.heading p,
+.details dt,
+.scroll caption,
+.create p,
+.create small {
+  color: var(--portal-muted);
+  font-size: 0.85rem;
+}
+.heading p {
+  margin: 0;
+}
+.lookup {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+.lookup label {
+  flex: 1 1 320px;
+}
+.accounts label,
+.create label {
+  display: grid;
+  gap: 8px;
+}
+.accounts input,
+.create input {
+  min-height: 46px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  font: inherit;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+}
+:is(.heading, .lookup, .scroll) button,
+.create button,
+.details button {
+  min-height: 44px;
+  padding: 11px 18px;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  font: inherit;
+  cursor: pointer;
+}
+:is(.heading, .lookup, .scroll) button:disabled,
+.create button:disabled,
+.details button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.scroll {
+  overflow: auto;
+  border: 1px solid var(--portal-border);
+  border-radius: 16px;
+  background: var(--portal-surface);
+}
+.scroll table {
+  min-width: 650px;
+}
+.scroll caption {
+  text-align: left;
+  padding: 16px 20px;
+}
+.scroll th,
+.scroll td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--portal-border);
+}
+.scroll th {
+  background: var(--portal-soft);
+  color: var(--portal-text);
+}
+.scroll button {
+  background: var(--portal-soft);
+  color: var(--portal-link);
+}
+.create {
+  display: grid;
+  gap: 18px;
+}
+.create p {
+  margin: 0;
+}
+.details dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 20px;
+  margin: 0 0 24px;
+}
+.details dd {
+  margin: 6px 0 0;
+  overflow-wrap: anywhere;
+}

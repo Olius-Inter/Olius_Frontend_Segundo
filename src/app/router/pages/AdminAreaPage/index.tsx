@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import AdminTabs from '../../../../features/admin-records/components/AdminTabs'
 import AdminResourceList from '../../../../features/admin-records/components/AdminResourceList'
+import AdminAccounts from '../../../../features/accounts/components/AdminAccounts'
 import { adminTabs } from '../../../../features/admin-records/data/adminResources'
 import {
   resolveAdminArea,
@@ -51,7 +52,20 @@ export default function AdminAreaPage() {
           <Link to="/comercial/financeiro?tipo=reembolsos">Reembolsos</Link>
         </nav>
       )}
-      <AdminResourceList key={resource} resource={resource} />
+      {resource === 'admins' ? (
+        <AdminAccounts />
+      ) : (
+        <>
+          {(resource === 'citizens' || resource === 'establishments') && (
+            <AdminAccounts
+              key={resource}
+              allowInvite={false}
+              expectedType={resource === 'citizens' ? 'CITIZENS' : 'ESTABLISHMENT'}
+            />
+          )}
+          <AdminResourceList key={resource} resource={resource} />
+        </>
+      )}
     </div>
   )
 }
