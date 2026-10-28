@@ -1,0 +1,50 @@
+.page,
+.days {
+  display: grid;
+  gap: 24px;
+}
+.page header h1 {
+  margin: 0 0 8px;
+}
+.page header p,
+.note {
+  color: var(--portal-muted);
+  line-height: 1.7;
+  font-size: 0.85rem;
+}
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.toolbar > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.toolbar h2 {
+  margin: 0 8px;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+}
+.toolbar button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: var(--portal-surface);
+  border: 1px solid var(--portal-border);
+  color: var(--portal-text);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.toolbar button[aria-pressed='true'] {
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+}

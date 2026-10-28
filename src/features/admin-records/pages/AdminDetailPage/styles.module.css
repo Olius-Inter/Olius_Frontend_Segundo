@@ -1,0 +1,42 @@
+.detail {
+  display: grid;
+  gap: 24px;
+}
+.detail > a {
+  color: var(--portal-link);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.detail h1 {
+  margin: 0;
+}
+.detail p {
+  color: var(--portal-muted);
+  line-height: 1.7;
+}
+.panel {
+  border: 1px solid var(--portal-border);
+  border-radius: 16px;
+  background: var(--portal-surface);
+  padding: 24px;
+}
+.panel h2 {
+  font-size: 1.1rem;
+}
+.panel dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.panel dt {
+  color: var(--portal-muted);
+  font-size: 0.8rem;
+}
+.panel dd {
+  margin: 8px 0 0;
+  overflow-wrap: anywhere;
+}
+.panel li {
+  margin-bottom: 18px;
+}

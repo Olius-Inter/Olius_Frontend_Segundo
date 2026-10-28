@@ -1,0 +1,41 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--portal-border);
+  border-radius: 16px;
+  background: var(--portal-surface);
+}
+.filters label {
+  display: grid;
+  gap: 7px;
+  color: var(--portal-muted);
+  font-size: 0.8rem;
+}
+.filters input,
+.filters select,
+.filters button {
+  min-height: 44px;
+  max-width: 100%;
+  border: 1px solid var(--portal-border);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font: inherit;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+}
+.filters button {
+  background: var(--portal-accent);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.filters p {
+  width: 100%;
+  margin: 0;
+}
+
+.filters button {
+  color: var(--portal-on-accent);
+}
