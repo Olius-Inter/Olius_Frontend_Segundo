@@ -1,3 +1,5 @@
+> Histórico do frontend anterior. Para o escopo vigente ADMIN, consulte [portal-administrativo.md](portal-administrativo.md), o plano web e as referências de 20/10/2026.
+
 # Histórico de coletas — contrato proposto
 
 A página `/historico` é somente de consulta. Configure `VITE_HISTORY_API_URL` com a URL completa ou caminho relativo acordado com o backend e reinicie o Vite. Sem endpoint, a tela mostra `—` e informa que aguarda conexão. Não usa números demonstrativos.

@@ -1,3 +1,5 @@
+> Histórico do frontend anterior. Para o escopo vigente ADMIN, consulte [portal-administrativo.md](portal-administrativo.md), o plano web e as referências de 20/10/2026.
+
 # Pontos de coleta e habilitação B2B
 
 ## Regras consultadas

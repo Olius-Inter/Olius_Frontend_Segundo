@@ -1,123 +1,75 @@
-# Olius Frontend — segundo ano
+# Olius — portal administrativo
 
-Frontend web do Olius, desenvolvido com Vite, React e TypeScript.
+Portal React/TypeScript para contas **ADMIN** da empresa operadora. Estabelecimento B2B, cidadão ou responsável por PEV não obtém acesso administrativo automaticamente.
+
+## Referências vigentes
+
+Antes de implementar ou alterar um módulo, ler:
+
+1. [Fluxos e Databricks — pedido mais recente](references/fluxos-listagens-e-databricks-2026-10-26.md).
+2. [Ajustes de interface de 26/10/2026](references/ajustes-portal-admin-2026-10-26.md).
+3. [Decisões de produto de 20/10/2026](references/regras-atualizadas-2026-10-20.md).
+4. `references/OLIUS Funcionalidades do Administrador.docx`.
+5. [Plano do portal](docs/plano-web-administrativo.md).
+6. Contrato atual do banco, controller/DTO real e [análise de integração](docs/portal-administrativo.md).
+
+O plano anterior de QR/ofertas e as telas históricas B2B não são o escopo deste portal. Os requisitos oficiais de DAD estão em `references/Requisitos por disciplina - Interdisciplinar - Maio2026.pdf`.
 
 ## Executar
 
-```powershell
+```sh
 npm install
 npm run dev
 ```
 
-O servidor exibirá a URL local no terminal. Para configurar a API, copie `.env.example` para `.env.local` e ajuste `VITE_API_BASE_URL`.
+Copie `.env.example` para `.env.local`, configure `VITE_API_BASE_URL` e reinicie o Vite. Na integração real, é necessária uma conta ADMIN ativa previamente provisionada pela Core; não há credencial padrão nem ligação direta ao PostgreSQL. Para conferir as telas sem API, use somente a demonstração local descrita abaixo.
 
-## Navegação
+## Áreas
 
-A página inicial está em `/` e a área de motoristas em `/motoristas`. Endereços desconhecidos mostram uma página de não encontrado. A listagem consome `GET /api/v1/drivers`, retornando uma lista de motoristas com `id`, `name`, `cpf`, `cnh` e `status` (`ACTIVE` ou `INACTIVE`). CPF e CNH aparecem mascarados na tela.
+| Área          | Conteúdo                                                           |
+| ------------- | ------------------------------------------------------------------ |
+| Visão geral   | Pendências, visitas de hoje/restantes no mês e evolução no período |
+| Operação      | Solicitações, calendário com múltiplas visitas e histórico B2B/B2C |
+| Motorista     | Consulta, cadastro e edição de motoristas                          |
+| Relatórios    | Gráficos do período completo, diretamente na lateral               |
+| Configurações | Perfil, senha, aparência, acessibilidade e cartões de planos       |
+| Notificações  | Categorias, paginação, leitura e contagem global no sino           |
+| Administração | Contas e auditoria                                                 |
 
-O layout usa o logo Olius e mantém as páginas responsivas para desktop e telas menores.
+Login/renovação/logout, perfil, consulta de usuário por UUID, ativação/inativação utilizam os endpoints verificados da Core. Disponibilidade em produção não foi confirmada. Os demais módulos exibem **Integração pendente** até receberem adaptadores de endpoints existentes; não mostram dados fictícios nem confirmam persistência simulada na execução real. A demonstração local optativa utiliza adaptadores separados, dados fictícios e alterações temporárias em memória.
 
-A consulta de motoristas apresenta telas de carregamento, lista vazia e falha, com opção de tentar novamente. Endereços desconhecidos exibem a tela 404. Esses estados usam o mesmo componente visual e preservam a navegação do aplicativo.
+## Estrutura
 
-## Formulários de motoristas
+- src/app/: rotas, layouts, composição de providers e adaptadores locais.
+- src/features/: páginas, componentes, hooks, API, tipos e validações por funcionalidade.
+- src/shared/: transporte HTTP, recursos genéricos e estilos globais.
+- Consulte [arquitetura e limites dos módulos](docs/arquitetura-frontend.md).
+- Prettier e EditorConfig preservados, com indentação de 2 espaços.
 
-- `/motoristas/novo`: cadastro com nome, CPF, CNH e status inicial.
-- `/motoristas/:driverId/editar`: edição de nome e CNH; CPF mascarado e status somente para consulta. Datas são exibidas quando disponíveis, com tratamento de valores ausentes/inválidos.
-- A listagem oferece **Cadastrar motorista** e **Editar** em cada registro.
-- A edição reutiliza `GET /api/v1/drivers` para encontrar o ID informado; não pressupõe um endpoint individual. Trata carregamento, erro com nova tentativa, ID ausente e registro não encontrado. Exige a mesma API configurada para a listagem.
+## Validar
 
-As regras em `src/utils/validateDriver.ts` conferem nome obrigatório (3–120 caracteres), CPF com dígitos verificadores, CNH com 11 dígitos sem sequência de dígitos iguais e status permitido. O nome é normalizado e espaços excedentes são removidos; CPF recebe máscara automática. Limites de nome e validação estrutural de CNH são decisões provisórias do frontend, a reconciliar com o contrato da API.
-
-Os campos relacionados usam um objeto de estado no hook `useDriverForm`. Erros aparecem por campo ao sair do campo ou ao validar, com labels, atributos ARIA e foco no primeiro erro. Novas alterações removem o feedback da validação anterior.
-
-**Validar campos** somente confere o preenchimento: nenhum dado é enviado ou salvo. Cancelar, navegar ou recarregar descarta alterações. Não há POST, PUT, PATCH nem armazenamento local dos formulários. Permanecem pendentes envio, persistência, duplicidade de CPF/CNH, consulta individual e autorização administrativa. O status inicial também precisa ser confirmado com o backend.
-
-Escopo baseado no plano `ChatGPT/Olius/docs/plano-arquitetura-dad-qrcode.md` (seções 15 e 16) e nos requisitos DAD do PDF em `ChatGPT/Olius/references/`. Os campos B2B/B2C do DOCX pertencem aos formulários operacionais e não fazem parte deste incremento.
-
-## Responsabilidades da listagem
-
-A página `DriversPage` compõe a tela usando `useDrivers`, que gerencia consulta e estados de carregamento, resultado e erro. A comunicação HTTP continua em `driverService`.
-
-| Componente          | Responsabilidade                                                  |
-| ------------------- | ----------------------------------------------------------------- |
-| `AppLayout`         | Estrutura visual e navegação da aplicação                         |
-| `PageFeedback`      | Mensagens de carregamento, vazio, erro e página não encontrada    |
-| `PageHeading`       | Título e descrição, compartilhados pela lista e pelos formulários |
-| `DriverTable`       | Cabeçalho da tabela e coleção de linhas com chave por ID          |
-| `DriverRow`         | Dados de um motorista e link para editar                          |
-| `DriverStatusBadge` | Texto e aparência do status Ativo/Inativo                         |
-
-Esses seis componentes têm funções distintas; os componentes de formulário também permanecem disponíveis. As interfaces da listagem estão em `src/types/driverList.ts`; as do cabeçalho estão em `src/types/page.ts`. Os componentes da tabela recebem dados via props e não acessam serviços.
-
-## Relatórios — `/relatorios`
-
-Tela baseada na referência visual fornecida: painel de volumes, gráfico de barras, distribuição do destino do óleo e três planos. Navegue pelo menu **Relatórios** ou pelo cartão da página inicial. **Mensais/Anuais** filtram os gráficos; **Ver planos** abre o diálogo com a periodicidade selecionada. O filtro de ano é salvo como preferência.
-
-### Dados e planos
-
-Sem `VITE_REPORTS_API_URL`, os relatórios usam dados demonstrativos, identificados no DOM. Os preços mensais vêm da imagem (R$ 19,90, R$ 39,90 e R$ 79,90). O valor anual demonstrativo corresponde a 12 mensalidades; nenhum desconto comercial foi presumido. Escolher um plano apenas confirma a seleção em memória, sem assinatura, cobrança ou envio. Recarregar descarta a seleção.
-
-Para integrar, confirme o contrato do backend e configure a URL completa em `VITE_REPORTS_API_URL`. O serviço faz GET com os parâmetros `period=monthly|yearly` e `year=2026`. Contrato **proposto**, a reconciliar com o backend:
-
-```json
-{
-  "collection": [{ "id": "2026-07", "label": "Jul", "liters": 8240 }],
-  "destinations": [{ "id": "biodiesel", "label": "Biodiesel", "liters": 6180 }],
-  "previousPeriodLiters": 7491
-}
+```sh
+npm run build
+npm run format:check
+npm run test:admin
 ```
 
-`previousPeriodLiters` aceita `null` quando não há comparação. Séries devem vir em ordem cronológica, IDs únicos, volumes finitos e não negativos. A distribuição corresponde a todo o período consultado; o valor destacado das coletas corresponde ao último ponto da série. Respostas inválidas geram erro visível com nova tentativa. Erros de API nunca são substituídos silenciosamente por dados demonstrativos.
+Não há script de lint configurado. Os testes locais usam fixtures de protocolo, sem cadastrar contas reais nem acessar o banco. Consulte [integrações, versões, divergências e pendências](docs/portal-administrativo.md). Documentação da interface anterior foi preservada em `docs/legacy-frontend-readme.md`.
 
-### Requisitos DAD aplicados à tela
+## Acesso de demonstração local
 
-| Requisito                                       | Implementação                                                                                                                                                                                         |
-| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Componentes e páginas em pastas com `index.tsx` | `ReportsPage`, `ReportPeriodSelector`, `ReportDashboard`, `CollectionChart`, `DestinationChart`, `PlansDialog`, `PlanCard`                                                                            |
-| Interfaces por domínio e ausência de `any`      | `src/types/reports.ts`; dados externos começam como `unknown`                                                                                                                                         |
-| Serviços tipados com `try/catch`                | `reportService.getReport(): Promise<ReportData>`; sem `fetch` nas páginas ou componentes                                                                                                              |
-| Estado local agrupado e imutável                | Preferências de ano e período em um objeto `useState`                                                                                                                                                 |
-| Efeitos e chaves                                | Dependências explícitas e `key` por IDs de períodos, destinos e planos                                                                                                                                |
-| Navegação e rota curinga                        | `/relatorios` com React Router, links internos e 404 existente                                                                                                                                        |
-| Carregamento, sucesso, vazio e erro             | `PageFeedback`, `role=status`, `role=alert` e nova tentativa                                                                                                                                          |
-| Context API                                     | Provider de relatórios e `useReports`; filtros e dashboard compartilham dados sem atravessar props intermediárias                                                                                     |
-| Reducer tipado                                  | Estados fechado/escolhendo/erro; seleção conclui com feedback; transições não permitem selecionar plano com painel fechado                                                                            |
-| Cancelamento                                    | `useAbortableResource<T>` com `AbortController` no cleanup; troca de filtro cancela consulta anterior                                                                                                 |
-| Carregamento sob demanda                        | Todas as páginas usam `React.lazy`; `Suspense` mantém a navegação visível                                                                                                                             |
-| Armazenamento versionado                        | Somente ano/período em `olius:report-preferences`, com `_versao: 1`; dados incompatíveis são descartados; armazenamento bloqueado usa memória                                                         |
-| Memoização justificada                          | `useCallback` estabiliza o loader para não repetir consulta ao abrir planos; `useMemo` evita repetir agregações ao mudar o diálogo; diferença de desempenho ainda precisa ser demonstrada no Profiler |
-| Validação e sanitização                         | `validateReports.ts` valida filtros, plano e contrato externo e normaliza rótulos; todo conteúdo externo é renderizado por interpolação JSX                                                           |
-| Acessibilidade                                  | Labels, botões com estado pressionado, foco visível, tabelas textuais dos gráficos, contraste de texto, diálogo nativo com foco contido, Escape, foco inicial no fechamento e retorno ao acionador    |
-| Responsividade                                  | Grades adaptam-se a celular; menu pode quebrar linha; tabelas e séries extensas permitem rolagem                                                                                                      |
-| Apenas `.ts`/`.tsx` em `src/`                   | Divergência documentada: a reorganização solicitada usa CSS em `src/styles` e CSS Modules junto dos componentes                                                                                       |
+Por solicitação do usuário, VITE_LOCAL_ADMIN_DEMO=true em .env.local habilita um login fictício somente em localhost/127.0.0.1: admin@olius.test / OliusTeste123!. A sessão vive apenas na memória e não gera JWT, conta real nem gravações. Todas as chamadas à Core ficam bloqueadas nesse modo. Para integrar a API, definir a flag como false, configurar VITE_API_BASE_URL e reiniciar/recompilar o Vite.
 
-A tela não completa sozinha os requisitos de todo o projeto. Permanecem pendentes autenticação real por Context/PrivateRoute (a aplicação atual não possui contrato de sessão/login), autorização dos dados na API, assinatura/pagamento, publicação e URL de produção no README, demonstração com leitor de tela e Profiler e o histórico de 20 commits em 4 semanas. A instrução do usuário de não fazer commits foi mantida. Uma sessão fictícia no navegador não deve ser tratada como proteção de dados reais.
+## Atualização da interface
 
-## Recursos DAD na área de motoristas
+Agenda, planos, notificações e configurações seguem o pedido mais recente. Consulte [escopo, contratos e limites da demonstração](references/ajustes-portal-admin-2026-10-26.md). Os endpoints de edição de perfil/senha e as operações dos novos módulos ainda dependem do backend.
 
-- A listagem e a edição usam o hook genérico `useAbortableResource`, cujos tipos compartilhados foram movidos para `src/types/api.ts`. O `AbortSignal` chega ao `fetch`; trocar o ID ou sair da tela cancela a consulta. Cancelamentos não aparecem como erro de usuário.
-- `DriversProvider` e `useDrivers` compartilham filtros, resultados e ações entre `DriverFilters` e `DriverListResults`. Consultas e regras de busca ficam no hook `useDriverDirectory`; componentes não acessam serviços.
-- Busca local por nome, status e ordenação A–Z/Z–A, com contagem de resultados e estados distintos para lista sem cadastros e busca sem correspondências. Os filtros usam apenas os dados retornados pela API; não há motoristas demonstrativos. A busca ignora diferenças de maiúsculas e acentos e aceita até 120 caracteres.
-- Somente status e ordenação são salvos em `olius:driver-list-preferences`, com `_versao: 1`. Dados incompatíveis são descartados; armazenamento bloqueado mantém preferências em memória. Nome pesquisado, nomes de motoristas, CPF, CNH e valores dos formulários não são armazenados.
-- `useCallback` mantém o loader estável para que filtros locais não repitam consultas. `useMemo` concentra filtragem/ordenação quando dados ou filtros mudam, sem ordenar o array da API diretamente. A demonstração de desempenho no Profiler permanece pendente.
-- O formulário mantém seus campos em um objeto `useState`. Um reducer com State/Action em unions controla edição, validação válida/inválida e campos visitados; qualquer alteração invalida o feedback anterior.
-- As mensagens reais do serviço são exibidas no DOM. IDs vazios ou duplicados na resposta são rejeitados para preservar identificação de registros e chaves únicas.
-- Filtros têm labels, controles nativos e foco visível. A tabela tem descrição textual e área de rolagem acessível por teclado. Os formulários preservam erros associados aos campos e foco no primeiro erro. A auditoria completa WCAG/leitor de tela continua pendente.
+## Fluxos atuais
 
-As rotas de motorista já usam lazy loading. Ainda permanecem pendentes autenticação/PrivateRoute com sessão real, integração do envio/persistência e consulta individual do motorista. Nenhum POST/PUT/PATCH foi adicionado. Publicação e histórico de commits são pendências globais; não foram realizados commits ou pushes neste incremento.
+Detalhes abrem em popups sobre a tabela. Cadastro/edição e ações concluídas retornam à listagem; falhas mantêm o formulário aberto. Ranking foi removido e avisos de demonstração foram ocultados. Os dados locais continuam temporários e separados dos dados reais.
 
-## Organização de CSS
+Relatórios usam uma porta analítica dedicada. Consulte [preparação do Databricks e contratos pendentes](docs/databricks-reports.md).
 
-Os estilos globais e tokens ficam em `src/styles`; páginas e componentes com regras próprias usam `styles.module.css`. Regras responsivas ficam junto do responsável. Os antigos `styles.css` e `b2b-home.css` da raiz foram substituídos. Consulte o [guia de estilos](src/styles/README.md) para estrutura, imports e formatação com dois espaços e uma propriedade por linha.
+## Convites de administradores
 
-## Histórico de coletas
-
-A rota /historico possui consulta por mês/ano, status e página; indicadores do período completo, volumes estimados/confirmados e separação por permissões do estabelecimento/coletor. Sem API configurada, não apresenta dados fictícios. Contrato e limites: [docs/history-api.md](docs/history-api.md). Confirmação de coleta e processamento permanece nos fluxos operacionais.
-
-## Ranking de estabelecimentos B2B
-
-A rota /ranking apresenta posição própria, filtros mensal/anual/geral, pódio, lista paginada e conquistas recebidas do servidor. Usa exclusivamente estabelecimentos B2B; não altera o perfil nem inclui ranking de cidadãos. Sem API configurada, os valores ficam indisponíveis. Contrato: [docs/ranking-api.md](docs/ranking-api.md).
-
-## Pontos de coleta
-
-/mapa possui consulta de pontos aprovados, GPS por ação explícita, busca e filtros, lista paginada e mapa Leaflet configurável. O convite Vire Coletor abre /mapa/virar-coletor, preparado para o formulário que ainda será definido. O ponto próprio só aparece em azul após habilitação retornada pela API; não há conversão para B2C nem concessão local de permissões. Regras e contratos: [docs/collection-map-api.md](docs/collection-map-api.md).
+A criação direta com senha foi substituída por convite em Administração → Contas. A página pública é /convites/aceitar. O aceite projeta somente token e password; confirmação permanece no frontend. A lista inclui Reenviar/Revogar conforme as permissões do registro. O banco já define prazo de 24 horas e revogação do convite anterior no reenvio; endpoints da Core e envio real de e-mail ainda são pendentes. Consulte [regras e contrato interno](references/convites-admin-2026-10-26.md).

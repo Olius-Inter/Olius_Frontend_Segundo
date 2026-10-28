@@ -1,3 +1,5 @@
+> Histórico do frontend anterior. Para o escopo vigente ADMIN, consulte [portal-administrativo.md](portal-administrativo.md), o plano web e as referências de 20/10/2026.
+
 # Início web B2B — integração preparada
 
 A página `/` contém o resumo do estabelecimento. A API ainda não existe: não há dados de demonstração, usuário autenticado artificialmente ou URLs fictícias habilitadas. Sem configuração, os valores aparecem como `—`, as ações ficam desabilitadas e a aba do coletor permanece oculta.
