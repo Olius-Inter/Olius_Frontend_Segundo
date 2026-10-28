@@ -51,7 +51,9 @@ export default function DriversPage() {
       <h1>Motoristas</h1>
       <p className="lead">Lista de profissionais usados nas operações de coleta.</p>
       <div className="drivers-toolbar">
-        <Link className="button" to="/motoristas/novo">Cadastrar motorista</Link>
+        <Link className="button" to="/motoristas/novo">
+          Cadastrar motorista
+        </Link>
       </div>
 
       {state.phase === 'loading' && (
@@ -68,14 +70,12 @@ export default function DriversPage() {
           title="Não foi possível carregar os motoristas"
           description="Verifique sua conexão e tente novamente. Se o problema continuar, tente mais tarde."
         >
-          <button
-            className="button button-secondary"
-            type="button"
-            onClick={retry}
-          >
+          <button className="button button-secondary" type="button" onClick={retry}>
             Tentar novamente
           </button>
-          <Link className="page-feedback-link" to="/">Voltar ao início</Link>
+          <Link className="page-feedback-link" to="/">
+            Voltar ao início
+          </Link>
         </PageFeedback>
       )}
 
@@ -116,7 +116,11 @@ export default function DriversPage() {
                       </span>
                     </td>
                     <td>
-                      <Link className="driver-edit-link" to={`/motoristas/${encodeURIComponent(driver.id)}/editar`} aria-label={`Editar motorista ${driver.name}`}>
+                      <Link
+                        className="driver-edit-link"
+                        to={`/motoristas/${encodeURIComponent(driver.id)}/editar`}
+                        aria-label={`Editar motorista ${driver.name}`}
+                      >
                         Editar
                       </Link>
                     </td>

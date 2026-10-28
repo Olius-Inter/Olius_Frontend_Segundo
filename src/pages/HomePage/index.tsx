@@ -11,8 +11,8 @@ export default function HomePage() {
           <p className="eyebrow">PRIMEIRO MÓDULO</p>
           <h2>Motoristas</h2>
           <p>
-            Consulte os motoristas cadastrados. Nas próximas etapas, entraremos no
-            cadastro, edição e inativação.
+            Consulte os motoristas cadastrados. Nas próximas etapas, entraremos no cadastro, edição
+            e inativação.
           </p>
         </div>
         <Link className="button" to="/motoristas">

@@ -1,0 +1,57 @@
+.filters {
+  display: grid;
+  gap: 18px;
+}
+
+.search label,
+.controls label {
+  font-size: 0.8rem;
+  color: #716b63;
+}
+
+.search > div,
+.controls {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 7px;
+}
+
+.search input {
+  flex: 1;
+  min-width: min(100%, 240px);
+}
+
+.controls label {
+  display: grid;
+  gap: 6px;
+}
+
+.controls .checkbox {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 8px;
+}
+
+.search input,
+.controls select,
+.filters button {
+  border: 1px solid #d9d7d0;
+  border-radius: 10px;
+  background: white;
+  padding: 10px 16px;
+  min-height: 44px;
+  font: inherit;
+  color: #49453e;
+}
+
+.filters button {
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.filters button:disabled {
+  opacity: 0.6;
+}
