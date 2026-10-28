@@ -1,0 +1,43 @@
+.panel p {
+  color: var(--portal-muted);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.panel > label {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--portal-border);
+  align-items: center;
+}
+.panel label small {
+  display: block;
+  margin-top: 8px;
+  color: var(--portal-muted);
+  line-height: 1.5;
+}
+.panel input {
+  width: 44px;
+  height: 24px;
+  accent-color: var(--portal-focus);
+  cursor: pointer;
+}
+.panel > div {
+  margin-top: 25px;
+}
+.restore {
+  border-top: 1px solid var(--portal-border);
+  padding-top: 20px;
+}
+.restore button {
+  padding: 12px 18px;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  min-height: 44px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
