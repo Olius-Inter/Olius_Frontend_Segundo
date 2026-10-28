@@ -1,0 +1,22 @@
+.list {
+  display: grid;
+  gap: 22px;
+}
+.list h2 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+}
+.list header p {
+  color: var(--portal-muted);
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+.list header a {
+  display: inline-flex;
+  min-height: 44px;
+  padding: 10px 18px;
+  background: var(--portal-accent);
+  border-radius: 10px;
+  color: var(--portal-on-accent);
+  text-decoration: none;
+}
