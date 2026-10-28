@@ -9,11 +9,7 @@ export default function AppLayout() {
           <img src="/Olius.svg" alt="" width="122" height="60" />
         </Link>
         <nav aria-label="Menu principal">
-          <NavLink
-            end
-            to="/"
-            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
-          >
+          <NavLink end to="/" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
             <House size={18} strokeWidth={1.6} aria-hidden="true" />
             <span>Início</span>
           </NavLink>
