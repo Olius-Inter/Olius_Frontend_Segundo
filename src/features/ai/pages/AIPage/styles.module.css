@@ -1,0 +1,33 @@
+.page {
+  display: grid;
+  gap: 22px;
+  color: #40382f;
+  max-width: 1050px;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.heading h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.heading button {
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid #dedbd5;
+  border-radius: 10px;
+  font: inherit;
+  background: white;
+  cursor: pointer;
+}
+
+.page :is(button, textarea):focus-visible {
+  outline: 3px solid #846400;
+  outline-offset: 3px;
+}
