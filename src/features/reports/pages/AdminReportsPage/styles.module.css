@@ -1,0 +1,23 @@
+.page {
+  display: grid;
+  gap: 24px;
+}
+.page h1 {
+  margin: 0 0 8px;
+}
+.page header p,
+.note {
+  color: var(--portal-muted);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+@media (max-width: 700px) {
+  .charts {
+    grid-template-columns: 1fr;
+  }
+}
