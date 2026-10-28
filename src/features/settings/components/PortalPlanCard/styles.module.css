@@ -1,0 +1,102 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--portal-border);
+  border-radius: 22px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  padding: 25px 18px 10px;
+  min-width: 0;
+}
+.card h3 {
+  margin: 0 8px 8px;
+  font-size: 1rem;
+}
+.card > p {
+  margin: 0 8px;
+  color: var(--portal-muted);
+  font-size: 0.8rem;
+  min-height: 44px;
+  line-height: 1.6;
+}
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px;
+  margin: 30px 8px 24px;
+}
+.price strong {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  letter-spacing: -0.06em;
+}
+.price span {
+  font-size: 0.75rem;
+  color: var(--portal-muted);
+}
+.card > button {
+  min-height: 44px;
+  padding: 11px;
+  border: 1px solid var(--portal-border);
+  border-radius: 30px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+}
+.card ul {
+  display: grid;
+  align-content: start;
+  gap: 17px;
+  padding: 22px 15px;
+  border-radius: 18px;
+  background: var(--portal-soft);
+  list-style: none;
+  margin: 18px 0 0;
+  flex: 1;
+}
+.card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+.card li svg {
+  flex: none;
+  margin-top: 2px;
+}
+.featured {
+  background: var(--portal-plan-featured);
+  color: var(--portal-plan-text);
+  border-color: var(--portal-plan-featured);
+}
+.card.featured > p,
+.card.featured .price span {
+  color: var(--portal-plan-muted);
+}
+.featured .price strong {
+  color: var(--portal-accent);
+}
+.featured > button {
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  border-color: var(--portal-accent);
+}
+.featured ul {
+  color: var(--portal-text);
+  background: var(--portal-surface);
+}
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 22px;
+  padding: 5px 12px;
+  font-size: 0.65rem;
+  border-radius: 20px;
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  font-weight: 600;
+}

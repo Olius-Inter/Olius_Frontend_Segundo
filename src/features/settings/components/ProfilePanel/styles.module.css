@@ -1,0 +1,108 @@
+.profile {
+  max-width: 650px;
+}
+.profile h2 {
+  margin: 0 0 8px;
+}
+.profile p,
+.profile small {
+  color: var(--portal-muted);
+  line-height: 1.7;
+  font-size: 0.82rem;
+}
+.profile form,
+.profile label {
+  display: grid;
+  gap: 8px;
+}
+.profile form {
+  gap: 20px;
+}
+.profile label {
+  font-size: 0.82rem;
+}
+.profile input,
+.profile button {
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  min-height: 44px;
+  padding: 12px 14px;
+  font: inherit;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+}
+.profile button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  width: fit-content;
+}
+.profile button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.photo {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin: 22px 0 8px;
+  flex-wrap: wrap;
+}
+.photo > img,
+.photo > span {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--portal-accent-soft);
+  display: grid;
+  place-items: center;
+}
+.photo > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.photo small {
+  width: 100%;
+}
+.photo .upload {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 12px;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 44px;
+}
+.upload input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+}
+.profile .primary {
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  border-color: var(--portal-accent);
+}
+.password {
+  border-top: 1px solid var(--portal-border);
+  margin-top: 32px;
+  padding-top: 22px;
+}
+.password summary {
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+}
+.profile .error {
+  color: var(--portal-error);
+}
