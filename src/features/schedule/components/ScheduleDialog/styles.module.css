@@ -1,0 +1,68 @@
+.dialog {
+  width: min(94vw, 560px);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 28px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  border: 1px solid var(--portal-border);
+  border-radius: 20px;
+}
+.dialog::backdrop {
+  background: #0008;
+  backdrop-filter: blur(3px);
+}
+.dialog header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.dialog header h2 {
+  margin: 0;
+}
+.dialog header button {
+  width: 44px;
+  font-size: 1.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--portal-text);
+  cursor: pointer;
+}
+.dialog p,
+.dialog small {
+  color: var(--portal-muted);
+  line-height: 1.6;
+  font-size: 0.85rem;
+}
+.dialog a {
+  color: var(--portal-link);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.dialog form,
+.dialog label {
+  display: grid;
+  gap: 10px;
+}
+.dialog form {
+  gap: 18px;
+  margin-top: 24px;
+}
+.dialog input,
+.dialog textarea,
+.dialog button[type='submit'] {
+  padding: 12px;
+  border: 1px solid var(--portal-border);
+  border-radius: 8px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  min-height: 44px;
+  font: inherit;
+}
+.dialog button[type='submit'] {
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  cursor: pointer;
+}
