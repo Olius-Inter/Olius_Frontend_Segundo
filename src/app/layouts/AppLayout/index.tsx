@@ -4,6 +4,7 @@ import PortalProvider from '../../providers/PortalProvider'
 import styles from './styles.module.css'
 const navigation = [
   ['/', 'Visão geral'],
+  ['/operacao', 'Operação'],
   ['/configuracoes/perfil', 'Configurações'],
 ]
 export default function AppLayout() {
