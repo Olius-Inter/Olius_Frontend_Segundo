@@ -14,6 +14,7 @@ const Motorista = lazy(() => import('../../features/drivers/pages/MotoristaPage'
 const DriverCreate = lazy(() => import('../../features/drivers/pages/DriverCreate'))
 const DriverEdit = lazy(() => import('../../features/drivers/pages/DriverEdit'))
 const Settings = lazy(() => import('../../features/settings/pages/SettingsPage'))
+const Notifications = lazy(() => import('../../features/notifications/pages/NotificationsPage'))
 export default function App() {
   return (
     <BrowserRouter>
@@ -62,6 +63,7 @@ export default function App() {
                     path="comercial/planos"
                     element={<Navigate to="/configuracoes/planos" replace />}
                   />
+                  <Route path="notificacoes" element={<Notifications />} />
                   <Route path="historico" element={<Navigate to="/operacao/historico" replace />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
