@@ -1,0 +1,83 @@
+.page {
+  min-height: 100%;
+  color: var(--portal-text);
+}
+.heading {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 600;
+  color: var(--portal-muted);
+}
+.workspace {
+  width: min(100%, 880px);
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+  padding: 36px 0 20px;
+}
+.welcome {
+  text-align: center;
+  padding: 12px 0 24px;
+}
+.symbol {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 28px;
+  margin: 0 auto 26px;
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  box-shadow: 0 12px 32px rgb(255 199 0 / 16%);
+}
+.welcome p {
+  color: var(--portal-muted);
+  margin: 0 0 10px;
+}
+.welcome h1 {
+  color: var(--portal-text);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 16px;
+}
+.welcome > span {
+  display: block;
+  color: var(--portal-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.conversation {
+  display: grid;
+  gap: 16px;
+}
+.conversation article {
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid var(--portal-border);
+  overflow-wrap: anywhere;
+}
+.conversation p {
+  white-space: pre-wrap;
+  margin-bottom: 0;
+}
+.user {
+  margin-left: 10%;
+  background: var(--portal-surface);
+}
+.reply {
+  margin-right: 10%;
+}
+@media (max-width: 650px) {
+  .workspace {
+    padding-top: 24px;
+    gap: 18px;
+  }
+  .welcome {
+    padding-bottom: 8px;
+  }
+  .symbol {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 18px;
+  }
+}

@@ -1,0 +1,34 @@
+.suggestions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.suggestions button {
+  padding: 20px;
+  text-align: left;
+  background: white;
+  color: #49453e;
+  border: 1px solid #dedbd5;
+  border-radius: 14px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.suggestions strong,
+.suggestions span {
+  display: block;
+}
+
+.suggestions span {
+  margin-top: 9px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: #716b63;
+}
+
+@media (max-width: 700px) {
+  .suggestions {
+    grid-template-columns: 1fr;
+  }
+}

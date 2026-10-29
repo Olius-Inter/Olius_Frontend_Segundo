@@ -1,0 +1,19 @@
+.notice,
+.error {
+  margin: 0;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.notice {
+  background: #f3f1e9;
+  color: #605a4d;
+}
+
+.error {
+  margin-top: 12px;
+  background: #fbeae7;
+  color: #8f3023;
+}
