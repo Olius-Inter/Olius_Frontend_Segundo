@@ -1,0 +1,76 @@
+.page > header {
+  margin-bottom: 28px;
+}
+.page h1 {
+  margin: 0 0 10px;
+}
+.page > header p {
+  color: var(--portal-muted);
+  font-size: 0.9rem;
+}
+.window {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 228px minmax(0, 1fr);
+  border: 1px solid var(--portal-border);
+  background: var(--portal-surface);
+  border-radius: 22px;
+  align-items: stretch;
+  overflow: hidden;
+  box-shadow: var(--portal-shadow);
+}
+.navigation {
+  width: 100%;
+  background: var(--portal-soft);
+  border-right: 1px solid var(--portal-border);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+.navigation a {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  min-height: 44px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--portal-muted);
+  font-size: 0.8rem;
+}
+.navigation .active {
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  box-shadow: var(--portal-shadow);
+  font-weight: 600;
+}
+.content {
+  width: 100%;
+  padding: 32px;
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  .window {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .navigation {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: 0;
+    border-bottom: 1px solid var(--portal-border);
+  }
+  .navigation a {
+    flex: 1 1 150px;
+  }
+}
+@media (max-width: 600px) {
+  .navigation a {
+    flex-basis: 130px;
+  }
+  .content {
+    padding: 24px 18px;
+  }
+}
