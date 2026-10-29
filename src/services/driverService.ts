@@ -26,10 +26,9 @@ export async function listDrivers(): Promise<Driver[]> {
     throw new Error('Configure VITE_API_BASE_URL para consultar os motoristas.')
   }
 
-  const response = await fetch(
-    `${baseUrl.replace(/\/$/, '')}${DRIVERS_ENDPOINT}`,
-    { headers: { Accept: 'application/json' } },
-  )
+  const response = await fetch(`${baseUrl.replace(/\/$/, '')}${DRIVERS_ENDPOINT}`, {
+    headers: { Accept: 'application/json' },
+  })
 
   if (!response.ok) {
     throw new Error(`A API de motoristas respondeu com erro ${response.status}.`)

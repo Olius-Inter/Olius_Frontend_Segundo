@@ -1,0 +1,65 @@
+.b2b-sustainability-heading {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.b2b-sustainability-heading h2 {
+  font-size: 0.78rem;
+  color: #726b60;
+  font-weight: 500;
+}
+
+.b2b-sustainability-heading p {
+  margin: 4px 0 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #413b2f;
+}
+
+.b2b-award-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  color: #2c8351;
+  background: #e4f2e8;
+}
+
+.b2b-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 20px 0 9px;
+  color: #6c6659;
+  font-size: 0.65rem;
+}
+
+.b2b-sustainability progress {
+  appearance: none;
+  width: 100%;
+  height: 16px;
+  border: 0;
+  border-radius: 20px;
+  background: #eeede7;
+  display: block;
+  overflow: hidden;
+}
+
+.b2b-sustainability progress::-webkit-progress-bar {
+  background: #eeede7;
+  border-radius: 20px;
+}
+
+.b2b-sustainability progress::-webkit-progress-value {
+  background: #f2ca00;
+  border-radius: 20px;
+}
+
+.b2b-sustainability progress::-moz-progress-bar {
+  background: #f2ca00;
+  border-radius: 20px;
+}

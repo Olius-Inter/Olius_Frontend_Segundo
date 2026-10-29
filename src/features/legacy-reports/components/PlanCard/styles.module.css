@@ -1,0 +1,117 @@
+.report-plan-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px;
+  border: 1px solid #d2a000;
+  border-radius: 15px;
+}
+
+.report-plan-card.selected {
+  border-width: 2px;
+  background: #fffdf2;
+}
+
+.report-plan-icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  color: #a97800;
+  background: #fff9ec;
+  border: 1px solid #f7e4bc;
+  border-radius: 50%;
+  margin-bottom: 26px;
+}
+
+.report-plan-card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.report-plan-card p {
+  min-height: 45px;
+  max-width: 220px;
+  margin: 0;
+  font-size: 0.7rem;
+}
+
+.report-plan-divider {
+  width: 23px;
+  height: 3px;
+  background: var(--color-accent);
+  margin: 12px 0;
+  border-radius: 2px;
+}
+
+.report-plan-price {
+  width: 100%;
+  padding: 16px 7px;
+  border-radius: 12px;
+  background: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.report-plan-price strong {
+  font-size: 1.6rem;
+  color: #896000;
+  letter-spacing: -0.05em;
+}
+
+.report-plan-price span {
+  font-size: 0.73rem;
+  font-weight: 600;
+}
+
+.report-plan-year-note {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.68rem;
+  color: #555;
+}
+
+.report-plan-choose {
+  width: 100%;
+  margin-top: auto;
+  min-height: 42px;
+  border: 1px solid #c99c00;
+  border-radius: 9px;
+  background: #fffbe5;
+  color: #222;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 10px 6px;
+  cursor: pointer;
+}
+
+.report-plan-price + .report-plan-choose {
+  margin-top: 38px;
+}
+
+.report-plan-year-note + .report-plan-choose {
+  margin-top: 24px;
+}
+
+.report-plan-choose:hover {
+  background: #ffed9f;
+}
+
+@media (max-width: 700px) {
+  .report-plan-icon {
+    margin-bottom: 16px;
+  }
+
+  .report-plan-card p {
+    min-height: 0;
+  }
+
+  .report-plan-price + .report-plan-choose {
+    margin-top: 20px;
+  }
+}

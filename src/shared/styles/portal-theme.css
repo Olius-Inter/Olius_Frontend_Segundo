@@ -1,0 +1,95 @@
+:root {
+  color-scheme: light;
+  --portal-page: #f7f7f3;
+  --portal-surface: #fffefa;
+  --portal-soft: #f0eee7;
+  --portal-text: #302e27;
+  --portal-muted: #686455;
+  --portal-border: #d8d5ca;
+  --portal-accent: #ffce00;
+  --portal-accent-soft: #fff1b5;
+  --portal-on-accent: #392c08;
+  --portal-on-soft: #5c4712;
+  --portal-focus: #8c6800;
+  --portal-link: #806000;
+  --portal-shadow: 0 3px 18px #372b0d08;
+  --portal-error: #ac2c2c;
+  --portal-notification-unread: #fffced;
+  --portal-plan-featured: #13221d;
+  --portal-plan-text: #ffffff;
+  --portal-plan-muted: #ccd7d0;
+  --color-text: var(--portal-text);
+  --color-muted: var(--portal-muted);
+  --color-page: var(--portal-page);
+  --color-surface: var(--portal-surface);
+  --color-border: var(--portal-border);
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --portal-page: #171a17;
+  --portal-surface: #232722;
+  --portal-soft: #2d322b;
+  --portal-text: #f1f2ea;
+  --portal-muted: #b7bdae;
+  --portal-border: #515849;
+  --portal-accent: #f3d043;
+  --portal-accent-soft: #40391b;
+  --portal-on-accent: #29220a;
+  --portal-on-soft: #ffe286;
+  --portal-focus: #ffdc58;
+  --portal-link: #f0ce5b;
+  --portal-shadow: 0 3px 18px #0002;
+  --portal-error: #ffb4ad;
+  --portal-notification-unread: #2c2e21;
+  --portal-plan-featured: #111b16;
+}
+:root[data-contrast='high'] {
+  color-scheme: dark;
+  --portal-page: #000;
+  --portal-surface: #000;
+  --portal-soft: #151515;
+  --portal-text: #fff;
+  --portal-muted: #fff;
+  --portal-border: #fff;
+  --portal-accent: #ffe600;
+  --portal-accent-soft: #ffe600;
+  --portal-on-accent: #000;
+  --portal-on-soft: #000;
+  --portal-focus: #ffe600;
+  --portal-link: #ffe600;
+  --portal-shadow: none;
+  --portal-error: #ffb7b7;
+  --portal-notification-unread: #111;
+  --portal-plan-featured: #000;
+  --portal-plan-text: #fff;
+  --portal-plan-muted: #fff;
+}
+body {
+  background: var(--portal-page);
+  color: var(--portal-text);
+}
+h1 {
+  color: var(--portal-text);
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+:focus-visible {
+  outline: 3px solid var(--portal-focus);
+  outline-offset: 3px;
+}
+:root[data-contrast='high'] a {
+  text-decoration: underline;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

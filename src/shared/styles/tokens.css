@@ -1,0 +1,19 @@
+:root {
+  --font-family: Poppins, 'Segoe UI', Arial, sans-serif;
+  --color-surface: #fff;
+  --color-text: #171717;
+  --color-page: #f9f8f5;
+  --color-accent: #ffc400;
+  --color-accent-soft: #ffe17a;
+  --color-muted: #626262;
+  --color-input-border: #999;
+  --color-border: #dededc;
+  --color-success-background: #e5f4e8;
+  --color-success-text: #236b31;
+  --color-error-text: #a32323;
+  --color-error-background: #ffeded;
+  --space-4: 16px;
+  --space-6: 24px;
+  --radius-small: 4px;
+  --radius-medium: 7px;
+}
