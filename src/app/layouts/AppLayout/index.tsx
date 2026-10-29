@@ -6,6 +6,7 @@ import {
   House,
   CalendarDays,
   Truck,
+  ChartColumn,
   Settings,
   Menu,
   X,
@@ -24,6 +25,7 @@ const navigation = [
   { to: '/', label: 'Visão geral', Icon: House },
   { to: '/operacao', label: 'Operação', Icon: CalendarDays },
   { to: '/motoristas', label: 'Motorista', Icon: Truck },
+  { to: '/relatorios', label: 'Relatórios', Icon: ChartColumn },
 ]
 export default function AppLayout() {
   return (
