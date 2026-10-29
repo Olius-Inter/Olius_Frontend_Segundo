@@ -1,0 +1,21 @@
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--portal-border);
+  padding-bottom: 12px;
+}
+.tabs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  color: var(--portal-muted);
+  text-decoration: none;
+  border-radius: 10px;
+}
+.tabs .active {
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  font-weight: 600;
+}
