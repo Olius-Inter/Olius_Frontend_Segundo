@@ -1,0 +1,96 @@
+.page {
+  display: grid;
+  gap: 22px;
+  max-width: 1000px;
+  margin: auto;
+}
+.page > header,
+.tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.page h1 {
+  margin: 0 0 8px;
+}
+.page header p {
+  color: var(--portal-muted);
+  font-size: 0.9rem;
+}
+.page button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.page button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.filters {
+  display: grid;
+  gap: 20px;
+}
+.filters > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.filters button {
+  border-radius: 25px;
+  padding: 11px 24px;
+}
+.filters button[aria-pressed='true'] {
+  background: var(--portal-accent);
+  color: var(--portal-on-accent);
+  border-color: var(--portal-accent);
+  font-weight: 600;
+}
+.filters label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--portal-muted);
+  font-size: 0.8rem;
+}
+.filters input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--portal-focus);
+}
+.tools {
+  font-size: 0.8rem;
+  color: var(--portal-muted);
+}
+.tools > span,
+.tools > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.list {
+  border: 1px solid var(--portal-border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.list article:last-child {
+  border-bottom: 0;
+}
+.pagination {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
