@@ -1,0 +1,46 @@
+.conversation {
+  background: white;
+  padding: 25px;
+  border: 1px solid #dedbd5;
+  border-radius: 18px;
+  min-height: 240px;
+}
+
+.empty {
+  text-align: center;
+  padding: 25px 0;
+  color: #716b63;
+}
+
+.empty svg {
+  color: #927000;
+}
+
+.empty h2 {
+  font-size: 1.1rem;
+  color: #49453e;
+}
+
+.message {
+  padding: 18px;
+  margin-bottom: 16px;
+  background: #f4f3ee;
+  border-radius: 12px;
+}
+
+.user {
+  background: #fff6cf;
+}
+
+.message h3 {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.message p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}

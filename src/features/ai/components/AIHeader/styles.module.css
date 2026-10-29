@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px;
+  background: linear-gradient(115deg, #fff6c5, #fffdf0);
+  border: 1px solid #eadb9d;
+  border-radius: 20px;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 65px;
+  height: 65px;
+  flex: none;
+  border-radius: 18px;
+  background: #ffce00;
+  color: #624900;
+}
+
+.header h1 {
+  margin: 8px 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.header p {
+  margin: 0;
+  line-height: 1.6;
+  color: #716b63;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 500px) {
+  .header {
+    padding: 20px;
+    align-items: start;
+  }
+
+  .icon {
+    width: 45px;
+    height: 45px;
+  }
+}

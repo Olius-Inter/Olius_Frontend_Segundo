@@ -13,6 +13,7 @@ import {
   LogOut,
   ShieldCheck,
   UserRound,
+  Sparkles,
 } from 'lucide-react'
 import PageFeedback from '../../../shared/ui/PageFeedback'
 import SpeechControls from '../../../features/settings/components/SpeechControls'
@@ -26,6 +27,7 @@ const navigation = [
   { to: '/operacao', label: 'Operação', Icon: CalendarDays },
   { to: '/motoristas', label: 'Motorista', Icon: Truck },
   { to: '/relatorios', label: 'Relatórios', Icon: ChartColumn },
+  { to: '/assistente', label: 'Assistente IA', Icon: Sparkles },
 ]
 export default function AppLayout() {
   return (
