@@ -1,19 +1,15 @@
 import { availableRequestActions, applyDemoRequestAction } from './requestWorkflow'
-import { CoreError } from '../../shared/api/coreClient'
+import { CoreError } from '../../services/coreClient'
 import type {
   AdminRecord,
   AdminFilters,
   AdminResource,
   AdminGateway,
-} from '../../features/admin-records/types/admin'
-import type { DriversGateway } from '../../features/drivers/types/gateway'
-import type {
-  AdminDashboardData,
-  AdminDetail,
-  AdminList,
-} from '../../features/admin-records/types/admin'
+} from '../../types/admin-records/admin'
+import type { DriversGateway } from '../../types/drivers/gateway'
+import type { AdminDashboardData, AdminDetail, AdminList } from '../../types/admin-records/admin'
 import { demoPortal } from './demoPortalStore'
-import { brasiliaDate } from '../../shared/lib/date'
+import { brasiliaDate } from '../../utils/date'
 
 const clone = <T>(value: T): T => structuredClone(value)
 function filtered(rows: AdminRecord[], filters: AdminFilters): AdminRecord[] {

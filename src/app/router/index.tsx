@@ -1,27 +1,25 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import AuthScope from '../../features/auth/components/AuthScope'
-import PreferencesProvider from '../../features/settings/providers/PreferencesContext'
-import AdminRoute from '../../features/auth/components/AdminRoute'
-import AppLayout from '../layouts/AppLayout'
-import PageFeedback from '../../shared/ui/PageFeedback'
+import AuthScope from '../../components/AuthScope'
+import PreferencesProvider from '../../contexts/PreferencesContext'
+import AdminRoute from '../../components/AdminRoute'
+import AppLayout from '../../components/AppLayout'
+import PageFeedback from '../../components/PageFeedback'
 
-const LoginPage = lazy(() => import('../../features/auth/pages/LoginPage'))
-const AcceptInvitation = lazy(
-  () => import('../../features/invitations/pages/AcceptAdminInvitationPage'),
-)
-const Dashboard = lazy(() => import('../../features/dashboard/pages/AdminDashboardPage'))
-const Area = lazy(() => import('./pages/AdminAreaPage'))
-const Detail = lazy(() => import('../../features/admin-records/pages/AdminDetailPage'))
-const DriverCreate = lazy(() => import('../../features/drivers/pages/DriverCreate'))
-const DriverEdit = lazy(() => import('../../features/drivers/pages/DriverEdit'))
-const Motorista = lazy(() => import('../../features/drivers/pages/MotoristaPage'))
-const Agenda = lazy(() => import('../../features/schedule/pages/AgendaPage'))
-const Reports = lazy(() => import('../../features/reports/pages/AdminReportsPage'))
-const Assistant = lazy(() => import('../../features/ai/pages/AssistantPage'))
-const Notifications = lazy(() => import('../../features/notifications/pages/NotificationsPage'))
-const Settings = lazy(() => import('../../features/settings/pages/SettingsPage'))
-const NotFound = lazy(() => import('../../shared/ui/NotFoundPage'))
+const LoginPage = lazy(() => import('../../pages/LoginPage'))
+const AcceptInvitation = lazy(() => import('../../pages/AcceptAdminInvitationPage'))
+const Dashboard = lazy(() => import('../../pages/AdminDashboardPage'))
+const Area = lazy(() => import('../../pages/AdminAreaPage'))
+const Detail = lazy(() => import('../../pages/AdminDetailPage'))
+const DriverCreate = lazy(() => import('../../pages/DriverCreate'))
+const DriverEdit = lazy(() => import('../../pages/DriverEdit'))
+const Motorista = lazy(() => import('../../pages/MotoristaPage'))
+const Agenda = lazy(() => import('../../pages/AgendaPage'))
+const Reports = lazy(() => import('../../pages/AdminReportsPage'))
+const Assistant = lazy(() => import('../../pages/AssistantPage'))
+const Notifications = lazy(() => import('../../pages/NotificationsPage'))
+const Settings = lazy(() => import('../../pages/SettingsPage'))
+const NotFound = lazy(() => import('../../pages/NotFoundPage'))
 
 export default function App() {
   return (

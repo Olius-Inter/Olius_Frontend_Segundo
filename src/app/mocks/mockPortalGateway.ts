@@ -1,6 +1,6 @@
 import { applyDemoRequestAction } from './requestWorkflow'
-import type { PortalGateway } from './portalGatewayTypes'
-import { brasiliaDate } from '../../shared/lib/date'
+import type { PortalGateway } from '../../types/mocks/portalGatewayTypes'
+import { brasiliaDate } from '../../utils/date'
 import { addDemoNotification } from './demoPortalStore'
 import { demoPortal } from './demoPortalStore'
 

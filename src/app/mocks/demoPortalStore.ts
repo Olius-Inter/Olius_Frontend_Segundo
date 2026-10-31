@@ -1,7 +1,7 @@
-import type { Driver } from '../../features/drivers/types/driver'
-import type { PortalNotification } from '../../features/notifications/types/notifications'
-import type { PortalPlan, PortalProfile } from '../../features/settings/types/settings'
-import { brasiliaDate } from '../../shared/lib/date'
+import type { Driver } from '../../types/drivers/driver'
+import type { PortalNotification } from '../../types/notifications/notifications'
+import type { PortalPlan, PortalProfile } from '../../types/settings/settings'
+import { brasiliaDate } from '../../utils/date'
 
 import type { DemoRequest } from './demo'
 const today = brasiliaDate()
