@@ -1,3 +1,4 @@
+import { sanitizeLoginInput, validateLogin } from '../../utils/auth/loginValidation'
 import type { AdminIdentity, LoginInput } from '../../types/auth/auth'
 import {
   coreLogin,
@@ -23,7 +24,10 @@ export async function currentAdmin(): Promise<AdminIdentity> {
 }
 export async function loginAdmin(input: LoginInput): Promise<AdminIdentity> {
   try {
-    await coreLogin(input)
+    const clean = sanitizeLoginInput(input)
+    if (Object.keys(validateLogin(clean)).length)
+      throw new Error('Confira o e-mail e a senha informados.')
+    await coreLogin(clean)
     return await currentAdmin()
   } catch (error: unknown) {
     clearAccess()

@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import type { CollectionMapFiltersProps, MapQuery } from '../../types/legacy-map/collectionMap'
 import styles from '../../../styles/components/CollectionMapFilters/styles.module.css'
 
@@ -10,6 +11,8 @@ export default function CollectionMapFilters({
   onChange,
   onLocate,
 }: CollectionMapFiltersProps) {
+  const fieldId = useId()
+
   return (
     <div className={styles.filters}>
       <form
@@ -35,9 +38,10 @@ export default function CollectionMapFilters({
         <button type="button" onClick={onLocate} disabled={locating}>
           {locating ? 'Localizando…' : 'Usar minha localização'}
         </button>
-        <label>
+        <label htmlFor={`${fieldId}-field-1`}>
           Distância
           <select
+            id={`${fieldId}-field-1`}
             value={query.radiusKm}
             onChange={(event) => onChange({ radiusKm: Number(event.target.value) })}
           >
@@ -48,9 +52,10 @@ export default function CollectionMapFilters({
             ))}
           </select>
         </label>
-        <label>
+        <label htmlFor={`${fieldId}-field-2`}>
           Tipo de ponto
           <select
+            id={`${fieldId}-field-2`}
             value={query.type}
             onChange={(event) => onChange({ type: event.target.value as MapQuery['type'] })}
           >
@@ -59,16 +64,18 @@ export default function CollectionMapFilters({
             <option value="ESTABLISHMENT">Estabelecimento</option>
           </select>
         </label>
-        <label className={styles.checkbox}>
+        <label htmlFor={`${fieldId}-field-3`} className={styles.checkbox}>
           <input
+            id={`${fieldId}-field-3`}
             type="checkbox"
             checked={query.openNow}
             onChange={(event) => onChange({ openNow: event.target.checked })}
           />
           Aberto agora
         </label>
-        <label className={styles.checkbox}>
+        <label htmlFor={`${fieldId}-field-4`} className={styles.checkbox}>
           <input
+            id={`${fieldId}-field-4`}
             type="checkbox"
             checked={query.withSeal}
             onChange={(event) => onChange({ withSeal: event.target.checked })}

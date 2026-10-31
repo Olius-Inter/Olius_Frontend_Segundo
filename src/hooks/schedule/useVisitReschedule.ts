@@ -2,6 +2,7 @@ import { scheduleInputToIso, toScheduleInput } from '../../utils/scheduleInput'
 import { useEffect, useRef, useState } from 'react'
 import type { CalendarEvent } from '../../types/schedule/schedule'
 import { rescheduleVisit } from '../../services/schedule/scheduleService'
+import { portalGateway } from '../../services/schedule/scheduleGateway'
 
 export function useVisitReschedule(event: CalendarEvent | null, onSaved: () => void) {
   const [values, setValues] = useState({ when: toScheduleInput(event?.startsAt) })
@@ -40,5 +41,11 @@ export function useVisitReschedule(event: CalendarEvent | null, onSaved: () => v
       lock.current = false
     }
   }
-  return { values, setValues, feedback, save }
+  return {
+    values,
+    setValues,
+    feedback,
+    save,
+    available: Boolean(portalGateway.calendar?.reschedule),
+  }
 }

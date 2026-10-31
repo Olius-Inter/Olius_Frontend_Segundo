@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import type { AdminAccountsProps } from '../../types/auth'
 import { useAdminAccounts } from '../../hooks/accounts/useAdminAccounts'
 import { AdminInvitations } from '../../modules/invitations'
@@ -5,6 +6,8 @@ import Modal from '../Modal'
 import styles from '../../../styles/components/AdminAccounts/styles.module.css'
 
 export default function AdminAccounts({ allowInvite = true, expectedType }: AdminAccountsProps) {
+  const fieldId = useId()
+
   const { lookup, setLookup, users, user, close, feedback, consult, toggleStatus } =
     useAdminAccounts(expectedType)
   return (
@@ -23,9 +26,10 @@ export default function AdminAccounts({ allowInvite = true, expectedType }: Admi
           void consult()
         }}
       >
-        <label>
+        <label htmlFor={`${fieldId}-field-1`}>
           Identificador da conta (UUID)
           <input
+            id={`${fieldId}-field-1`}
             required
             maxLength={36}
             disabled={feedback.busy}

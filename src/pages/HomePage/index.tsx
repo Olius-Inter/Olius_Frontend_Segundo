@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, RefreshCw } from 'lucide-react'
 import type { B2BHomeFeedback, B2BHomeTab, B2BOperation } from '../../types/legacy-b2b-home/b2bHome'
 import { useB2BHome } from '../../hooks/legacy-b2b-home/useB2BHome'
-import { b2bEndpoints } from '../../services/legacy-b2b-home/b2bHomeService'
 import B2BHomeHeader from '../../components/B2BHomeHeader'
 import B2BHomeTabs from '../../components/B2BHomeTabs'
 import B2BHomeNotice from '../../components/B2BHomeNotice'
@@ -17,7 +16,15 @@ import B2BOffers from '../../components/B2BOffers'
 import B2BOperationDialog from '../../components/B2BOperationDialog'
 
 export default function HomePage() {
-  const { resource, data, reload, showOffers, registerEnabled, requestEnabled } = useB2BHome()
+  const {
+    resource,
+    data,
+    reload,
+    showOffers,
+    registerEnabled,
+    requestEnabled,
+    operationsConfigured,
+  } = useB2BHome()
   const [tab, setTab] = useState<B2BHomeTab>('own')
   const [operation, setOperation] = useState<B2BOperation | null>(null)
   const [feedback, setFeedback] = useState<B2BHomeFeedback | null>(null)
@@ -76,7 +83,7 @@ export default function HomePage() {
             : 'Este início está disponível apenas para contas B2B ativas e autorizadas.'}
         </B2BHomeNotice>
       )}
-      {data && (!b2bEndpoints.register || !b2bEndpoints.request) && (
+      {data && !operationsConfigured && (
         <B2BHomeNotice>
           Algumas ações do estabelecimento ainda estão sendo disponibilizadas.
         </B2BHomeNotice>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useId, useEffect } from 'react'
 import type { AdminAction, AdminActionFormProps } from '../../types/admin-records/admin'
 import { useAdminAction } from '../../hooks/admin-records/useAdminAction'
 import styles from '../../../styles/components/AdminActionForm/styles.module.css'
@@ -15,6 +15,8 @@ const labels: Record<AdminAction, string> = {
   annul: 'Anular',
 }
 export default function AdminActionForm(props: AdminActionFormProps) {
+  const fieldId = useId()
+
   const { detail, onRefresh, onBusyChange } = props
   const { allowed, values, setValues, feedback, scheduling, submit } = useAdminAction(props)
   useEffect(() => {
@@ -37,9 +39,10 @@ export default function AdminActionForm(props: AdminActionFormProps) {
             void submit()
           }}
         >
-          <label>
+          <label htmlFor={`${fieldId}-field-1`}>
             Ação
             <select
+              id={`${fieldId}-field-1`}
               value={values.action}
               disabled={feedback.busy}
               onChange={(event) =>
@@ -58,9 +61,10 @@ export default function AdminActionForm(props: AdminActionFormProps) {
           </label>
           {scheduling && (
             <>
-              <label>
+              <label htmlFor={`${fieldId}-field-2`}>
                 Data e horário exatos da visita
                 <input
+                  id={`${fieldId}-field-2`}
                   disabled={feedback.busy}
                   type="datetime-local"
                   required
@@ -70,9 +74,10 @@ export default function AdminActionForm(props: AdminActionFormProps) {
                   }
                 />
               </label>
-              <label>
+              <label htmlFor={`${fieldId}-field-3`}>
                 Quando o horário foi combinado
                 <input
+                  id={`${fieldId}-field-3`}
                   disabled={feedback.busy}
                   type="datetime-local"
                   required
@@ -85,9 +90,10 @@ export default function AdminActionForm(props: AdminActionFormProps) {
               <p>Os horários usam o fuso do seu navegador e serão enviados com UTC.</p>
             </>
           )}
-          <label>
+          <label htmlFor={`${fieldId}-field-4`}>
             Motivo
             <textarea
+              id={`${fieldId}-field-4`}
               disabled={feedback.busy}
               required
               minLength={3}

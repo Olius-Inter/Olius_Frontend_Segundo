@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import type { InvitationFormProps } from '../../types/invitations/adminInvitation'
 import styles from '../../../styles/components/AdminInvitationForm/styles.module.css'
 
@@ -9,6 +10,8 @@ export default function AdminInvitationForm({
   available,
   error,
 }: InvitationFormProps) {
+  const fieldId = useId()
+
   return (
     <form
       className={styles.form}
@@ -18,9 +21,10 @@ export default function AdminInvitationForm({
       }}
     >
       <p>O destinatário definirá a própria senha pelo link do convite, válido por 24 horas.</p>
-      <label>
+      <label htmlFor={`${fieldId}-field-1`}>
         Nome
         <input
+          id={`${fieldId}-field-1`}
           required
           maxLength={150}
           autoComplete="name"
@@ -29,9 +33,10 @@ export default function AdminInvitationForm({
           onChange={(event) => onChange({ ...values, name: event.target.value })}
         />
       </label>
-      <label>
+      <label htmlFor={`${fieldId}-field-2`}>
         E-mail
         <input
+          id={`${fieldId}-field-2`}
           required
           type="email"
           maxLength={255}

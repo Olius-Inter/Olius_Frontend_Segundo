@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:admin": "node --experimental-strip-types --test tests/mocks/requestWorkflow.test.mjs tests/admin-records/adminValidation.test.mjs tests/services/coreClient.test.mjs",
+    "test:admin": "node --experimental-strip-types --test tests/mocks/requestWorkflow.test.mjs tests/admin-records/adminValidation.test.mjs tests/services/coreClient.test.mjs tests/auth/loginValidation.test.mjs",
     "architecture:check": "node scripts/check-architecture.mjs"
   },
   "dependencies": {

@@ -1,11 +1,8 @@
-import { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AdminFilters } from '../../modules/admin-records'
 import AdminChart from '../../components/AdminChart'
 import PageFeedback from '../../components/PageFeedback'
-import { getAdminDashboard } from '../../services/dashboard/dashboardService'
-import { useAbortableResource } from '../../hooks/useAbortableResource'
-import { defaultAdminFilters } from '../../modules/admin-records'
+import { useAdminDashboard } from '../../hooks/dashboard/useAdminDashboard'
 import { formatAdminValue } from '../../modules/admin-records'
 import type { AdminDashboardData } from '../../types/admin-records'
 import styles from '../../../styles/pages/AdminDashboardPage/styles.module.css'
@@ -20,10 +17,7 @@ const emptyCharts: AdminDashboardData['charts'] = [
   { id: 'collections', title: 'Coletas ao longo do tempo', unit: 'count', values: [] },
 ]
 export default function AdminDashboardPage() {
-  const [filters, setFilters] = useState(defaultAdminFilters)
-  const loader = useCallback((signal: AbortSignal) => getAdminDashboard(filters, signal), [filters])
-  const { state, reload } = useAbortableResource(loader)
-  const data = state.phase === 'ready' && state.data.kind === 'ready' ? state.data.data : null
+  const { filters, changeFilters, state, reload, data } = useAdminDashboard()
   return (
     <div className={styles.dashboard}>
       <header>
@@ -31,12 +25,7 @@ export default function AdminDashboardPage() {
         <h1>Visão geral</h1>
         <p>O essencial para acompanhar sua operação.</p>
       </header>
-      <AdminFilters
-        hideSearch
-        value={filters}
-        statuses={[]}
-        onChange={(patch) => setFilters((previous) => ({ ...previous, ...patch }))}
-      />
+      <AdminFilters hideSearch value={filters} statuses={[]} onChange={changeFilters} />
       {state.phase === 'loading' && <p role="status">Carregando indicadores…</p>}
       {state.phase === 'error' && (
         <PageFeedback

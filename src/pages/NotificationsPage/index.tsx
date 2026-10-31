@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { useNotificationCenter } from '../../contexts/NotificationsContext'
 import { Bell, RefreshCw } from 'lucide-react'
 import { useAuth } from '../../modules/auth'
@@ -13,6 +14,8 @@ const categories: { value: NotificationCategory; label: string }[] = [
   { value: 'SYSTEM', label: 'Sistema' },
 ]
 export default function NotificationsPage() {
+  const fieldId = useId()
+
   const notifications = useNotificationCenter()
   const { demo } = useAuth()
   const { state, query, change, feedback, act, reload, canRead, canClear } = notifications
@@ -43,8 +46,9 @@ export default function NotificationsPage() {
             </button>
           ))}
         </div>
-        <label>
+        <label htmlFor={`${fieldId}-field-1`}>
           <input
+            id={`${fieldId}-field-1`}
             type="checkbox"
             checked={query.unreadOnly}
             onChange={(e) => change({ unreadOnly: e.target.checked })}

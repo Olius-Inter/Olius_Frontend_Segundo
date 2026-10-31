@@ -1,22 +1,13 @@
-import { useRef, useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
-import { useAuth } from '../../hooks/auth/useAuth'
+import { useId, useRef } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useLogin } from '../../hooks/auth/useLogin'
 import styles from '../../../styles/pages/LoginPage/styles.module.css'
 
 export default function LoginPage() {
-  const { state, login, retry } = useAuth()
-  const location = useLocation()
-  const [values, setValues] = useState({ email: '', password: '' })
-  const [feedback, setFeedback] = useState({ busy: false, message: '' })
-  const lock = useRef(false)
-  const from: unknown = location.state?.from
-  const target =
-    typeof from === 'string' &&
-    from.startsWith('/') &&
-    !from.startsWith('//') &&
-    !from.startsWith('/login')
-      ? from
-      : '/'
+  const { state, retry, values, errors, feedback, target, notice, change, blur, submit } =
+    useLogin()
+  const formRef = useRef<HTMLFormElement>(null)
+  const id = useId()
   if (state.phase === 'ready') return <Navigate to={target} replace />
   return (
     <main className={styles.page}>
@@ -25,7 +16,7 @@ export default function LoginPage() {
         <p>PORTAL ADMINISTRATIVO</p>
         <h1>Acesse a operação</h1>
         <p>Exclusivo para contas ADMIN da empresa operadora.</p>
-        {typeof location.state?.notice === 'string' && <p role="status">{location.state.notice}</p>}
+        {notice && <p role="status">{notice}</p>}
         {state.phase === 'not-configured' && (
           <p role="status">A conexão com a Core ainda não está configurada.</p>
         )}
@@ -36,51 +27,61 @@ export default function LoginPage() {
           <p role="status">Verificando sessão…</p>
         ) : (
           <form
-            onSubmit={async (event) => {
+            ref={formRef}
+            noValidate
+            aria-busy={feedback.busy}
+            onSubmit={(event) => {
               event.preventDefault()
-              if (lock.current) return
-              lock.current = true
-              setFeedback({ busy: true, message: '' })
-              try {
-                await login({ email: values.email.trim(), password: values.password })
-                setValues((previous) => ({ ...previous, password: '' }))
-              } catch (error: unknown) {
-                setFeedback({
-                  busy: false,
-                  message: error instanceof Error ? error.message : 'Não foi possível entrar.',
-                })
-              } finally {
-                lock.current = false
-                setFeedback((previous) => ({ ...previous, busy: false }))
-              }
+              void submit().then((field) => {
+                if (field)
+                  formRef.current?.querySelector<HTMLInputElement>(`[name="${field}"]`)?.focus()
+              })
             }}
           >
-            <label>
+            <label htmlFor={`${id}-email`}>
               E-mail
               <input
+                id={`${id}-email`}
+                name="email"
+                disabled={feedback.busy}
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? `${id}-email-error` : undefined}
+                onBlur={() => blur('email')}
                 type="email"
                 required
                 maxLength={255}
                 autoComplete="username"
                 value={values.email}
-                onChange={(event) =>
-                  setValues((previous) => ({ ...previous, email: event.target.value }))
-                }
+                onChange={(event) => change('email', event.target.value)}
               />
             </label>
-            <label>
+            {errors.email && (
+              <p id={`${id}-email-error`} role="alert">
+                {errors.email}
+              </p>
+            )}
+            <label htmlFor={`${id}-password`}>
               Senha
               <input
+                id={`${id}-password`}
+                name="password"
+                disabled={feedback.busy}
+                aria-invalid={Boolean(errors.password)}
+                aria-describedby={errors.password ? `${id}-password-error` : undefined}
+                onBlur={() => blur('password')}
                 type="password"
                 required
                 maxLength={256}
                 autoComplete="current-password"
                 value={values.password}
-                onChange={(event) =>
-                  setValues((previous) => ({ ...previous, password: event.target.value }))
-                }
+                onChange={(event) => change('password', event.target.value)}
               />
             </label>
+            {errors.password && (
+              <p id={`${id}-password-error`} role="alert">
+                {errors.password}
+              </p>
+            )}
             {feedback.message && <p role="alert">{feedback.message}</p>}
             <button type="submit" disabled={feedback.busy || state.phase === 'not-configured'}>
               {feedback.busy ? 'Entrando…' : 'Entrar'}

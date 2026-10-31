@@ -1,14 +1,15 @@
-import { useEffect, useRef } from 'react'
+import { useId, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import type { ScheduleDialogProps } from '../../types/schedule/schedule'
 import { useVisitReschedule } from '../../hooks/schedule/useVisitReschedule'
-import { portalGateway } from '../../services/schedule/scheduleGateway'
 import { formatAdminValue } from '../../modules/admin-records'
 import styles from '../../../styles/components/ScheduleDialog/styles.module.css'
 
 export default function ScheduleDialog({ event, onClose, onSaved }: ScheduleDialogProps) {
+  const fieldId = useId()
+
   const dialog = useRef<HTMLDialogElement>(null)
-  const { values, setValues, feedback, save } = useVisitReschedule(event, onSaved)
+  const { values, setValues, feedback, save, available } = useVisitReschedule(event, onSaved)
   useEffect(() => {
     if (event) {
       dialog.current?.showModal()
@@ -60,9 +61,10 @@ export default function ScheduleDialog({ event, onClose, onSaved }: ScheduleDial
               <p>
                 Informe a data e o horário da coleta combinados externamente com o estabelecimento.
               </p>
-              <label>
+              <label htmlFor={`${fieldId}-field-1`}>
                 Data e horário programados para a coleta
                 <input
+                  id={`${fieldId}-field-1`}
                   disabled={feedback.busy}
                   autoFocus
                   type="datetime-local"
@@ -75,7 +77,7 @@ export default function ScheduleDialog({ event, onClose, onSaved }: ScheduleDial
                 Os campos usam o fuso do navegador; a apresentação da agenda usa Brasília.
               </small>
               {feedback.error && <p role="alert">{feedback.error}</p>}
-              <button type="submit" disabled={feedback.busy || !portalGateway.calendar?.reschedule}>
+              <button type="submit" disabled={feedback.busy || !available}>
                 {feedback.busy ? 'Reagendando…' : 'Confirmar reagendamento'}
               </button>
             </form>

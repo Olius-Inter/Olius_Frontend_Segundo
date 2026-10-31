@@ -21,6 +21,7 @@ export default function AdminInvitations() {
     send,
     perform,
     revoke,
+    getLocalInvitationPath,
     canCreate,
     canResend,
     canRevoke,
@@ -75,6 +76,7 @@ export default function AdminInvitations() {
           <>
             <AdminInvitationTable
               items={data.items}
+              getLocalPath={getLocalInvitationPath}
               busy={feedback.busy}
               canResend={canResend}
               canRevoke={canRevoke}

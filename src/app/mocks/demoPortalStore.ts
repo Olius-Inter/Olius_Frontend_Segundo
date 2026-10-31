@@ -3,7 +3,7 @@ import type { PortalNotification } from '../../types/notifications/notifications
 import type { PortalPlan, PortalProfile } from '../../types/settings/settings'
 import { brasiliaDate } from '../../utils/date'
 
-import type { DemoRequest } from './demo'
+import type { DemoRequest } from '../../types/mocks/demoRequest'
 const today = brasiliaDate()
 const stamp = (offset: number, hour: number, minute = 0): string => {
   const date = new Date(`${today}T12:00:00-03:00`)

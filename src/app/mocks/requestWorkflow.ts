@@ -1,5 +1,5 @@
 import type { AdminAction, AdminActionInput } from '../../types/admin-records/admin'
-import type { DemoRequest } from './demo'
+import type { DemoRequest } from '../../types/mocks/demoRequest'
 
 export function availableRequestActions(request: DemoRequest): AdminAction[] {
   if (request.completed) return []

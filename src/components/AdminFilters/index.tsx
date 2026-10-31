@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useId, useEffect, useState } from 'react'
 import type { AdminFiltersProps } from '../../types/admin-records/admin'
 import { validateAdminFilters } from '../../utils/admin-records/adminValidation'
 import { adminStatusLabels } from '../../utils/admin-records/adminFormatting'
 import styles from '../../../styles/components/AdminFilters/styles.module.css'
 
 export default function AdminFilters({ value, statuses, onChange, hideSearch }: AdminFiltersProps) {
+  const fieldId = useId()
+
   const [draft, setDraft] = useState(value)
   const [error, setError] = useState('')
   useEffect(() => setDraft(value), [value])
@@ -22,9 +24,10 @@ export default function AdminFilters({ value, statuses, onChange, hideSearch }: 
       }}
     >
       {!hideSearch && (
-        <label>
+        <label htmlFor={`${fieldId}-field-1`}>
           Buscar
           <input
+            id={`${fieldId}-field-1`}
             value={draft.search}
             maxLength={150}
             onChange={(event) =>
@@ -34,9 +37,10 @@ export default function AdminFilters({ value, statuses, onChange, hideSearch }: 
         </label>
       )}
       {statuses.length > 0 && (
-        <label>
+        <label htmlFor={`${fieldId}-field-2`}>
           Situação
           <select
+            id={`${fieldId}-field-2`}
             value={draft.status}
             onChange={(event) =>
               setDraft((previous) => ({ ...previous, status: event.target.value }))
@@ -52,9 +56,10 @@ export default function AdminFilters({ value, statuses, onChange, hideSearch }: 
         </label>
       )}
       <>
-        <label>
+        <label htmlFor={`${fieldId}-field-3`}>
           De
           <input
+            id={`${fieldId}-field-3`}
             type="date"
             value={draft.from}
             onChange={(event) =>
@@ -62,9 +67,10 @@ export default function AdminFilters({ value, statuses, onChange, hideSearch }: 
             }
           />
         </label>
-        <label>
+        <label htmlFor={`${fieldId}-field-4`}>
           Até
           <input
+            id={`${fieldId}-field-4`}
             type="date"
             value={draft.to}
             onChange={(event) => setDraft((previous) => ({ ...previous, to: event.target.value }))}

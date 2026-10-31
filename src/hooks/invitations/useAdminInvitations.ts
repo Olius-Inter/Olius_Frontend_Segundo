@@ -9,6 +9,7 @@ import {
   changeAdminInvitation,
   createAdminInvitation,
   listAdminInvitations,
+  getLocalInvitationPath,
 } from '../../services/invitations/adminInvitationService'
 import { validateInvitationInput } from '../../utils/invitations/adminInvitationValidation'
 import { useAbortableResource } from '../useAbortableResource'
@@ -101,6 +102,7 @@ export function useAdminInvitations() {
     send,
     perform,
     revoke,
+    getLocalInvitationPath,
     canCreate: Boolean(adminInvitationGateway.create),
     canResend: Boolean(adminInvitationGateway.resend),
     canRevoke: Boolean(adminInvitationGateway.revoke),

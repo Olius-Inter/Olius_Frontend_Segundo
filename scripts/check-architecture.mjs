@@ -40,6 +40,29 @@ for (const file of files) {
       file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
     )
     const collect = (node) => {
+      if (ts.isInterfaceDeclaration(node) && !/^src\/types\//.test(relative(file)))
+        errors.push('Interface deve ficar em src/types: ' + relative(file))
+      if (
+        ts.isJsxOpeningElement(node) &&
+        node.tagName.getText(source) === 'label' &&
+        !node.attributes.properties.some(
+          (attribute) =>
+            ts.isJsxAttribute(attribute) && attribute.name.getText(source) === 'htmlFor',
+        )
+      )
+        errors.push('Label deve ter htmlFor explícito: ' + relative(file))
+      if (
+        (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) &&
+        ['input', 'select', 'textarea'].includes(node.tagName.getText(source)) &&
+        !node.attributes.properties.some(
+          (attribute) =>
+            ts.isJsxSpreadAttribute(attribute) ||
+            (ts.isJsxAttribute(attribute) && attribute.name.getText(source) === 'id'),
+        )
+      )
+        errors.push(
+          'Controle deve ter id explícito ou atributos tipados por spread: ' + relative(file),
+        )
       if (
         (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
         node.moduleSpecifier &&
@@ -79,6 +102,16 @@ for (const file of files) {
       errors.push('Import inexistente: ' + relative(file) + ' → ' + spec)
       continue
     }
+    if (
+      /^src\/(components|pages)\//.test(relative(file)) &&
+      /^src\/services\//.test(relative(target))
+    )
+      errors.push(
+        'Componentes e páginas devem acessar serviços pelos hooks: ' +
+          relative(file) +
+          ' → ' +
+          relative(target),
+      )
     if (/^src\/types\//.test(relative(file)) && !/^src\/types\//.test(relative(target)))
       errors.push(
         'Tipos não devem depender da implementação: ' + relative(file) + ' → ' + relative(target),
