@@ -1,4 +1,4 @@
-import type { DemoInvitationRecord } from '../../features/invitations/types/adminInvitation'
+import type { DemoInvitationRecord } from '../../types/invitations/adminInvitation'
 
 const future = () => new Date(Date.now() + 86400000).toISOString()
 export const demoInvitations: DemoInvitationRecord[] = [

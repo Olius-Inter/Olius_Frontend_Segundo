@@ -1,4 +1,4 @@
-import type { AdminAction, AdminActionInput } from '../../features/admin-records/types/admin'
+import type { AdminAction, AdminActionInput } from '../../types/admin-records/admin'
 import type { DemoRequest } from './demo'
 
 export function availableRequestActions(request: DemoRequest): AdminAction[] {

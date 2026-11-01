@@ -1,7 +1,7 @@
 import type {
   AdminInvitationGateway,
   DemoInvitationRecord,
-} from '../../features/invitations/types/adminInvitation'
+} from '../../types/invitations/adminInvitation'
 import { demoInvitations } from './adminInvitationDemo'
 const clone = <T>(value: T): T => structuredClone(value)
 function current(record: DemoInvitationRecord) {
