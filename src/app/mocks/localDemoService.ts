@@ -1,5 +1,5 @@
 import { demoPortal } from './demoPortalStore'
-import type { AdminIdentity, LoginInput } from '../../features/auth/types/auth'
+import type { AdminIdentity, LoginInput } from '../../types/auth/auth'
 
 // Credenciais públicas e fictícias, exclusivas da demonstração local solicitada.
 // Não representam uma conta da Core e não geram JWT ou permissões no backend.

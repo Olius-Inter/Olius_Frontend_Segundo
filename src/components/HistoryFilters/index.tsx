@@ -1,0 +1,57 @@
+import { useId } from 'react'
+import type { HistoryFiltersProps, HistoryStatus } from '../../types/legacy-history/history'
+import { historyLabels } from '../../utils/legacy-history/historyRules'
+import styles from '../../../styles/components/HistoryFilters/styles.module.css'
+
+export default function HistoryFilters({ query, onChange }: HistoryFiltersProps) {
+  const fieldId = useId()
+
+  return (
+    <div className={styles.filters}>
+      <div className={styles.period}>
+        <label htmlFor={`${fieldId}-field-1`}>
+          Mês
+          <select
+            id={`${fieldId}-field-1`}
+            value={query.month}
+            onChange={(event) => onChange({ month: Number(event.target.value) })}
+          >
+            {Array.from({ length: 12 }, (_, index) => (
+              <option key={index} value={index + 1}>
+                {new Intl.DateTimeFormat('pt-BR', { month: 'long', timeZone: 'UTC' }).format(
+                  new Date(Date.UTC(2026, index, 1)),
+                )}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor={`${fieldId}-field-2`}>
+          Ano
+          <select
+            id={`${fieldId}-field-2`}
+            value={query.year}
+            onChange={(event) => onChange({ year: Number(event.target.value) })}
+          >
+            {Array.from({ length: 101 }, (_, index) => 2100 - index).map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <div className={styles.statuses} role="group" aria-label="Filtrar por status">
+        {(Object.keys(historyLabels) as HistoryStatus[]).map((status) => (
+          <button
+            key={status}
+            type="button"
+            aria-pressed={query.status === status}
+            onClick={() => onChange({ status })}
+          >
+            {historyLabels[status]}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}

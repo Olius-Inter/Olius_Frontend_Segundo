@@ -1,19 +1,19 @@
-import { localDemoEnabled } from '../../shared/api/coreClient'
-import { configureAdminGateway } from '../../features/admin-records/api/adminGateway'
-import { configureDriversGateway } from '../../features/drivers/api/driversGateway'
-import { configureAnalyticsGateway } from '../../features/reports/api/analyticsGateway'
-import { configureSettingsGateway } from '../../features/settings/api/settingsGateway'
+import { localDemoEnabled } from '../../services/coreClient'
+import { configureAdminGateway } from '../../services/admin-records/adminGateway'
+import { configureDriversGateway } from '../../services/drivers/driversGateway'
+import { configureAnalyticsGateway } from '../../services/reports/analyticsGateway'
+import { configureSettingsGateway } from '../../services/settings/settingsGateway'
 import {
   configureNotificationsGateway,
   configureNotificationDemo,
-} from '../../features/notifications/api/notificationsGateway'
-import { configureScheduleGateway } from '../../features/schedule/api/scheduleGateway'
+} from '../../services/notifications/notificationsGateway'
+import { configureScheduleGateway } from '../../services/schedule/scheduleGateway'
 import {
   configureAdminInvitationGateway,
   configureLocalInvitationPath,
-} from '../../features/invitations/api/adminInvitationGateway'
-import { configureLocalDemoLogin } from '../../features/auth/api/localDemoService'
-import { defaultAdminFilters } from '../../features/admin-records/validation/adminValidation'
+} from '../../services/invitations/adminInvitationGateway'
+import { configureLocalDemoLogin } from '../../services/auth/localDemoService'
+import { defaultAdminFilters } from '../../utils/admin-records/adminValidation'
 if (localDemoEnabled) {
   const [
     { createMockAdminGateway },
