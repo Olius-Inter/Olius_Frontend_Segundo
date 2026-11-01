@@ -13,7 +13,7 @@
 
 .driver-form .section-description {
   margin: 8px 0 22px;
-  color: #595959;
+  color: var(--color-muted);
   font-size: 0.8rem;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .driver-form input::placeholder {
-  color: #666;
+  color: var(--color-muted);
 }
 
 .driver-form input[readonly] {
@@ -91,7 +91,7 @@
 }
 
 .driver-form .record-meta dt {
-  color: #595959;
+  color: var(--color-muted);
 }
 
 .driver-form .record-meta dd {
@@ -116,11 +116,12 @@
 
 .driver-form .form-cancel {
   background: var(--color-surface);
+  color: var(--color-text);
   border-color: var(--color-input-border);
 }
 
 .driver-form .form-cancel:hover {
-  background: #f4f3ef;
+  background: var(--portal-soft);
 }
 
 @media (max-width: 600px) {

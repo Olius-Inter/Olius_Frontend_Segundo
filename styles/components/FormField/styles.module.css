@@ -16,9 +16,9 @@
 }
 
 .driverFormClass .help {
-  color: #595959;
+  color: var(--color-muted);
 }
 
 .driverFormClass .field-error {
-  color: var(--color-error-text);
+  color: var(--portal-error);
 }

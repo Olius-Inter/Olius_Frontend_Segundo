@@ -1,10 +1,10 @@
+import { selectDrivers } from '../../utils/drivers/selectDrivers'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { listDrivers } from '../../services/drivers/driverService'
 import { useAbortableResource } from '../useAbortableResource'
 import {
   defaultDriverPreferences,
   loadDriverPreferences,
-  normalizeDriverSearch,
   saveDriverPreferences,
   validateDriverPreferences,
 } from '../../utils/drivers/driverListPreferences'
@@ -27,19 +27,7 @@ export function useDriverDirectory(): UseDriversResult {
   // Filtragem e ordenação não são refeitas quando só o aviso de armazenamento muda.
   const visibleDrivers = useMemo(() => {
     if (!drivers) return []
-    const query = normalizeDriverSearch(filters.name)
-    return drivers
-      .filter(
-        (driver) =>
-          (filters.status === 'ALL' || driver.status === filters.status) &&
-          normalizeDriverSearch(driver.name).includes(query),
-      )
-      .sort((left, right) => {
-        const comparison =
-          left.name.localeCompare(right.name, 'pt-BR', { sensitivity: 'base' }) ||
-          left.id.localeCompare(right.id)
-        return filters.sort === 'name-desc' ? -comparison : comparison
-      })
+    return selectDrivers(drivers, filters)
   }, [drivers, filters])
 
   useEffect(() => {

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useId, useRef, useState } from 'react'
+import { useDialogFocus } from '../../hooks/useDialogFocus'
 import type { PortalPlan } from '../../types/settings/settings'
 import { usePortalPlans } from '../../hooks/settings/usePortalPlans'
 import PortalPlanCard from '../../components/PortalPlanCard'
@@ -10,10 +11,8 @@ export default function PlansSettingsPage() {
   const [annual, setAnnual] = useState(false)
   const [selected, setSelected] = useState<PortalPlan | null>(null)
   const dialog = useRef<HTMLDialogElement>(null)
-  useEffect(() => {
-    if (selected) dialog.current?.showModal()
-    else dialog.current?.close()
-  }, [selected])
+  const titleId = useId()
+  useDialogFocus(dialog, Boolean(selected))
   return (
     <section className={styles.plans}>
       <header>
@@ -75,14 +74,14 @@ export default function PlansSettingsPage() {
       </p>
       <dialog
         className={styles.dialog}
-        aria-labelledby="plan-details-title"
+        aria-labelledby={titleId}
         ref={dialog}
         onCancel={() => setSelected(null)}
         onClose={() => setSelected(null)}
       >
         {selected && (
           <>
-            <h2 id="plan-details-title">{selected.name}</h2>
+            <h2 id={titleId}>{selected.name}</h2>
             <p>{selected.description}</p>
             <ul>
               {selected.features.map((feature) => (

@@ -8,7 +8,7 @@
 
 .lead {
   margin: 0 0 22px;
-  color: #666;
+  color: var(--color-muted);
   font-size: 0.86rem;
 }
 

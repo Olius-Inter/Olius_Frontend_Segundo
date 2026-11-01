@@ -5,6 +5,8 @@ autorizam restaurar funcionalidades removidas.
 
 ## Documentos vigentes
 
+Consulte o [roteiro de apresentação e testes de DAD](apresentacao-dad.md).
+
 Veja também os [ajustes locais de DAD e suas verificações](ajustes-dad-locais.md).
 
 | Documento                                         | Finalidade                                                              |
