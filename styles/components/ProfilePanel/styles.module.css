@@ -106,3 +106,8 @@
 .profile .error {
   color: var(--portal-error);
 }
+
+.upload:focus-within {
+  outline: 3px solid var(--portal-focus);
+  outline-offset: 3px;
+}

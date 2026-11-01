@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef } from 'react'
+import { useId, useRef } from 'react'
+import { useDialogFocus } from '../../hooks/useDialogFocus'
 import { X } from 'lucide-react'
 import type { ModalProps } from '../../types/modal'
 import styles from '../../../styles/components/Modal/styles.module.css'
@@ -6,25 +7,7 @@ import styles from '../../../styles/components/Modal/styles.module.css'
 export default function Modal({ open, title, onClose, busy = false, children }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null)
   const titleId = useId()
-  useEffect(() => {
-    if (!open) {
-      ref.current?.close()
-      return
-    }
-    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null
-    ref.current?.showModal()
-    const content = document.querySelector('main')
-    const contentOverflow = content?.style.overflow ?? ''
-    if (content) content.style.overflow = 'hidden'
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = previous
-      if (content) content.style.overflow = contentOverflow
-      ref.current?.close()
-      if (opener?.isConnected) opener.focus({ preventScroll: true })
-    }
-  }, [open])
+  useDialogFocus(ref, open)
   return (
     <dialog
       ref={ref}

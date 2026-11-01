@@ -51,6 +51,7 @@
 }
 .navLink:hover {
   background: var(--portal-accent-soft);
+  color: var(--portal-on-soft);
 }
 .footer {
   margin-top: auto;
@@ -130,7 +131,7 @@
   z-index: 10000;
   padding: 14px;
   background: var(--portal-surface);
-  color: #5b450d;
+  color: var(--portal-link);
 }
 .skip:focus {
   top: 10px;
@@ -252,4 +253,14 @@
   .account {
     gap: 10px;
   }
+}
+
+.menuClose {
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--portal-border);
+  border-radius: 8px;
+  background: var(--portal-soft);
+  color: var(--portal-text);
+  cursor: pointer;
 }

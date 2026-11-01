@@ -1,6 +1,7 @@
 import { usePortalProfile } from '../../contexts/ProfileContext'
 import { NotificationPopover } from '../../modules/notifications'
-import { Suspense, useEffect, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { useMobileMenu } from '../../hooks/useMobileMenu'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   House,
@@ -41,6 +42,8 @@ function PortalShell() {
   const [loggingOut, setLoggingOut] = useState(false)
   const menu = useRef<HTMLButtonElement>(null)
   const main = useRef<HTMLElement>(null)
+  const sidebar = useRef<HTMLElement>(null)
+  const workspace = useRef<HTMLDivElement>(null)
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const { state, logout } = useAuth()
@@ -54,16 +57,17 @@ function PortalShell() {
     main.current?.scrollTo({ top: 0, left: 0 })
     main.current?.focus({ preventScroll: true })
   }, [pathname])
-  function close() {
+  const close = useCallback(() => {
     setOpen(false)
     if (menu.current?.offsetParent) menu.current.focus()
-  }
+  }, [])
+  useMobileMenu(open, close, sidebar, workspace, menu)
   return (
     <div className={styles.shell}>
       <a className={styles.skip} href="#admin-main">
         Ir para o conteúdo
       </a>
-      <header className={styles.mobile}>
+      <header className={styles.mobile} inert={open}>
         <Link to="/" aria-label="Olius — visão geral">
           <img src="/Olius.svg" alt="" width={105} height={50} />
         </Link>
@@ -78,10 +82,22 @@ function PortalShell() {
           <span>{open ? 'Fechar menu' : 'Abrir menu'}</span>
         </button>
       </header>
-      <aside id="admin-sidebar" className={`${styles.sidebar} ${open ? styles.open : ''}`}>
+      <aside
+        ref={sidebar}
+        role={open ? 'dialog' : undefined}
+        aria-modal={open ? true : undefined}
+        aria-label={open ? 'Menu de navegação' : undefined}
+        id="admin-sidebar"
+        className={`${styles.sidebar} ${open ? styles.open : ''}`}
+      >
         <Link className={styles.brand} to="/" aria-label="Olius — visão geral">
           <img src="/Olius.svg" alt="" width={125} height={62} />
         </Link>
+        {open && (
+          <button type="button" className={styles.menuClose} onClick={close}>
+            Fechar menu de navegação
+          </button>
+        )}
         <p className={styles.caption}>PORTAL ADMINISTRATIVO</p>
         <nav aria-label="Menu principal">
           {navigation.map(({ to, label, Icon }) => (
@@ -149,7 +165,7 @@ function PortalShell() {
           </button>
         </footer>
       </aside>
-      <div className={styles.workspace}>
+      <div ref={workspace} className={styles.workspace}>
         <header className={styles.topbar}>
           <span>Operação da empresa administradora</span>
           <div className={styles.account}>

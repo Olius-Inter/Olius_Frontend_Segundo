@@ -14,6 +14,19 @@ export function useNotificationPopover() {
     panel.current?.hidePopover()
   }, [location.key])
 
+  const wasOpen = useRef(false)
+  useEffect(() => {
+    if (open) {
+      panel.current?.querySelector<HTMLElement>('button:not(:disabled), a[href]')?.focus()
+    } else if (
+      wasOpen.current &&
+      (document.activeElement === document.body || panel.current?.contains(document.activeElement))
+    ) {
+      trigger.current?.focus({ preventScroll: true })
+    }
+    wasOpen.current = open
+  }, [open])
+
   useLayoutEffect(() => {
     if (!open) return
     const place = () => {

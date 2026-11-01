@@ -1,4 +1,5 @@
-import { useId, useEffect, useRef } from 'react'
+import { useId, useRef } from 'react'
+import { useDialogFocus } from '../../hooks/useDialogFocus'
 import { Link } from 'react-router-dom'
 import type { ScheduleDialogProps } from '../../types/schedule/schedule'
 import { useVisitReschedule } from '../../hooks/schedule/useVisitReschedule'
@@ -10,17 +11,13 @@ export default function ScheduleDialog({ event, onClose, onSaved }: ScheduleDial
 
   const dialog = useRef<HTMLDialogElement>(null)
   const { values, setValues, feedback, save, available } = useVisitReschedule(event, onSaved)
-  useEffect(() => {
-    if (event) {
-      dialog.current?.showModal()
-    } else dialog.current?.close()
-  }, [event])
+  useDialogFocus(dialog, Boolean(event))
 
   return (
     <dialog
       ref={dialog}
       className={styles.dialog}
-      aria-labelledby="schedule-title"
+      aria-labelledby={`${fieldId}-title`}
       onCancel={(e) => {
         if (feedback.busy) {
           e.preventDefault()
@@ -33,7 +30,7 @@ export default function ScheduleDialog({ event, onClose, onSaved }: ScheduleDial
       {event && (
         <>
           <header>
-            <h2 id="schedule-title">{event.title}</h2>
+            <h2 id={`${fieldId}-title`}>{event.title}</h2>
             <button
               type="button"
               onClick={onClose}

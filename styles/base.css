@@ -61,7 +61,7 @@ td {
 }
 
 th {
-  color: #5d5d5d;
+  color: var(--color-muted);
   font-size: 0.7rem;
   font-weight: 600;
 }
