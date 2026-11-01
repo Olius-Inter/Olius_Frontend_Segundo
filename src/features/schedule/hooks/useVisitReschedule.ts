@@ -1,14 +1,15 @@
+import { scheduleInputToIso, toScheduleInput } from '../../../shared/lib/scheduleInput'
 import { useEffect, useRef, useState } from 'react'
 import type { CalendarEvent } from '../types/schedule'
 import { rescheduleVisit } from '../api/scheduleService'
 
 export function useVisitReschedule(event: CalendarEvent | null, onSaved: () => void) {
-  const [values, setValues] = useState({ when: '', agreed: '', reason: '' })
+  const [values, setValues] = useState({ when: toScheduleInput(event?.startsAt) })
   const [feedback, setFeedback] = useState({ busy: false, error: '' })
   const controller = useRef<AbortController | null>(null)
   const lock = useRef(false)
   useEffect(() => {
-    setValues({ when: '', agreed: '', reason: '' })
+    setValues({ when: toScheduleInput(event?.startsAt) })
     setFeedback({ busy: false, error: '' })
   }, [event])
   useEffect(() => () => controller.current?.abort(), [])
@@ -18,16 +19,12 @@ export function useVisitReschedule(event: CalendarEvent | null, onSaved: () => v
     controller.current = new AbortController()
     setFeedback({ busy: true, error: '' })
     try {
-      const startsAt = new Date(values.when)
-      const agreedAt = new Date(values.agreed)
-      if (!Number.isFinite(startsAt.getTime()) || !Number.isFinite(agreedAt.getTime()))
-        throw new Error('Informe as datas e os horários.')
+      const startsAt = scheduleInputToIso(values.when)
+      if (!startsAt) throw new Error('Informe a data e o horário programados para a coleta.')
       await rescheduleVisit(
         event,
         {
-          startsAt: startsAt.toISOString(),
-          agreedAt: agreedAt.toISOString(),
-          reason: values.reason.trim(),
+          startsAt,
           expectedRevision: event.revision,
         },
         controller.current.signal,

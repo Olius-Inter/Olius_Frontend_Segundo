@@ -4,6 +4,8 @@ import type { AdminRecordDialogProps } from '../../types/admin'
 import { useAdminDetail } from '../../hooks/useAdminDetail'
 import { formatAdminValue } from '../../lib/adminFormatting'
 import AdminActionForm from '../AdminActionForm'
+import CollectionRequestActions from '../CollectionRequestActions'
+import CollectionRequestContact from '../CollectionRequestContact'
 import PageFeedback from '../../../../shared/ui/PageFeedback'
 import Modal from '../../../../shared/ui/Modal'
 import styles from './styles.module.css'
@@ -23,6 +25,8 @@ export default function AdminRecordDialog({
   const returnTo = `${location.pathname}${params.size ? `?${params}` : ''}`
   const result = state.phase === 'ready' ? state.data : null
   const data = result?.kind === 'ready' ? result.data : null
+  const isRequest = resource === 'requests' || resource === 'agenda'
+  const ActionForm = isRequest ? CollectionRequestActions : AdminActionForm
   return (
     <Modal open title={data?.title ?? 'Detalhes do registro'} busy={busy} onClose={onClose}>
       <div className={styles.content}>
@@ -54,7 +58,18 @@ export default function AdminRecordDialog({
                 Editar motorista
               </Link>
             )}
+            {isRequest && <CollectionRequestContact request={data.request} />}
             {data.sections
+              .map((section) =>
+                isRequest
+                  ? {
+                      ...section,
+                      fields: section.fields.filter(
+                        (field) => field.format !== 'status' && field.label !== 'Situação',
+                      ),
+                    }
+                  : section,
+              )
               .filter((section) => section.fields.length > 0)
               .map((section) => (
                 <section key={section.title} className={styles.section}>
@@ -69,7 +84,7 @@ export default function AdminRecordDialog({
                   </dl>
                 </section>
               ))}
-            {data.history.length > 0 && (
+            {!isRequest && data.history.length > 0 && (
               <section className={styles.section}>
                 <h3>Histórico e autoria</h3>
                 <ol className={styles.history}>
@@ -83,7 +98,7 @@ export default function AdminRecordDialog({
                 </ol>
               </section>
             )}
-            <AdminActionForm
+            <ActionForm
               key={`${data.id}:${data.revision}:${data.actions.join(',')}`}
               resource={resource}
               detail={data}

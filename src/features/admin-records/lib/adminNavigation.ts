@@ -1,5 +1,5 @@
 import type { AdminArea, AdminResource } from '../types/admin'
-import { adminTabs } from '../data/adminResources'
+import { adminTabs } from '../data/adminResources.ts'
 
 export function resolveAdminArea(area: string | undefined): AdminArea | null {
   return area && ['operacao', 'administracao'].includes(area) && Object.hasOwn(adminTabs, area)
@@ -11,8 +11,11 @@ export function resolveAdminResource(
   tab: string,
   search: URLSearchParams,
 ): AdminResource | null {
-  if (area === 'operacao' && tab === 'historico')
-    return search.get('tipo') === 'b2c' ? 'deliveries' : 'collections'
+  if (area === 'operacao' && tab === 'historico') {
+    const type = search.get('tipo')
+    if (type === 'rejeitadas') return 'requests'
+    return type ? null : 'collections'
+  }
   if (area === 'comercial' && tab === 'financeiro')
     return search.get('tipo') === 'pagamentos'
       ? 'payments'

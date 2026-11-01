@@ -1,0 +1,33 @@
+.contact {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--portal-border);
+}
+.contact h3 {
+  font-size: 1rem;
+  margin: 0 0 10px;
+}
+.contact p {
+  color: var(--portal-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.contact dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 16px;
+  margin: 0;
+}
+.contact dt {
+  font-size: 0.8rem;
+  color: var(--portal-muted);
+}
+.contact dd {
+  margin: 6px 0 0;
+  overflow-wrap: anywhere;
+}
+.contact a {
+  color: var(--portal-link);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

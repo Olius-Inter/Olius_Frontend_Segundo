@@ -1,3 +1,5 @@
+import { availableRequestActions, applyDemoRequestAction } from './requestWorkflow'
+import { CoreError } from '../../shared/api/coreClient'
 import type {
   AdminRecord,
   AdminFilters,
@@ -34,7 +36,16 @@ function records(resource: AdminResource): AdminRecord[] {
       .map((r) => ({
         id: r.id,
         title: r.name,
+        request: {
+          status: r.status,
+          scheduledAt: r.scheduledAt,
+          telephone: r.telephone,
+          email: r.email,
+          revision: r.revision,
+          actions: availableRequestActions(r),
+        },
         cells: {
+          address: r.address,
           establishment: r.name,
           requestAt: r.requestedAt,
           date: resource === 'agenda' ? r.scheduledAt : r.requestedAt,
@@ -92,7 +103,6 @@ export function createMockAdminGateway(): AdminGateway & DriversGateway {
     'agenda',
     'drivers',
     'collections',
-    'deliveries',
     'reports',
     'audit',
   ] as AdminResource[]) {
@@ -150,14 +160,14 @@ export function createMockAdminGateway(): AdminGateway & DriversGateway {
               ],
             },
           ],
+          request: {
+            status: request.status,
+            scheduledAt: request.scheduledAt,
+            telephone: request.telephone,
+            email: request.email,
+          },
           history: request.history,
-          actions: request.completed
-            ? []
-            : request.status === 'PENDING'
-              ? ['approve', 'reject']
-              : request.status === 'APPROVED'
-                ? ['reschedule', 'cancel']
-                : [],
+          actions: availableRequestActions(request),
         })
       },
       act: async (id, input, signal) => {
@@ -169,24 +179,11 @@ export function createMockAdminGateway(): AdminGateway & DriversGateway {
           return
         }
         const request = demoPortal.requests.find((item) => item.id === id)
-        if (!request || request.completed) throw new Error('Esta solicitação não admite alteração.')
-        if (input.action === 'approve' || input.action === 'reschedule') {
-          if (!input.scheduledAt) throw new Error('Informe o horário.')
-          request.scheduledAt = input.scheduledAt
-          request.endsAt = null
-          request.status = 'APPROVED'
-        } else if (input.action === 'reject' && request.status === 'PENDING')
-          request.status = 'REJECTED'
-        else if (input.action === 'cancel' && request.status === 'APPROVED')
-          request.status = 'CANCELLED'
-        else throw new Error('Ação incompatível com a situação atual.')
-        request.revision++
-        request.history.push({
-          id: crypto.randomUUID(),
-          date: new Date().toISOString(),
-          author: 'Administrador Olius',
-          description: `${input.action}: ${input.reason}`,
-        })
+        if (!request) throw new Error('Solicitação não encontrada.')
+        if (request.revision !== input.expectedRevision)
+          throw new CoreError('A revisão mudou. Atualize a solicitação.', 409)
+        const index = demoPortal.requests.findIndex((item) => item.id === id)
+        demoPortal.requests[index] = applyDemoRequestAction(request, input)
       },
     }
   }

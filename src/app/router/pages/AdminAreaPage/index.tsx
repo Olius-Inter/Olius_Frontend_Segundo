@@ -23,6 +23,13 @@ export default function AdminAreaPage() {
   const area = resolveAdminArea(rawArea)
   if (!area) return <NotFoundPage />
   if (!tab) return <Navigate to={`/${area}/${adminTabs[area][0].slug}`} replace />
+  if (
+    area === 'operacao' &&
+    tab === 'historico' &&
+    search.get('tipo') &&
+    search.get('tipo') !== 'rejeitadas'
+  )
+    return <Navigate to="/operacao/historico" replace />
   const resource = resolveAdminResource(area, tab, search)
   if (!resource) return <NotFoundPage />
   return (
@@ -38,10 +45,10 @@ export default function AdminAreaPage() {
             Coletas B2B
           </Link>
           <Link
-            aria-current={resource === 'deliveries' ? 'page' : undefined}
-            to="/operacao/historico?tipo=b2c"
+            aria-current={resource === 'requests' ? 'page' : undefined}
+            to="/operacao/historico?tipo=rejeitadas"
           >
-            Entregas B2C
+            Solicitações rejeitadas
           </Link>
         </nav>
       )}
@@ -56,12 +63,8 @@ export default function AdminAreaPage() {
         <AdminAccounts />
       ) : (
         <>
-          {(resource === 'citizens' || resource === 'establishments') && (
-            <AdminAccounts
-              key={resource}
-              allowInvite={false}
-              expectedType={resource === 'citizens' ? 'CITIZENS' : 'ESTABLISHMENT'}
-            />
+          {resource === 'establishments' && (
+            <AdminAccounts key={resource} allowInvite={false} expectedType="ESTABLISHMENT" />
           )}
           <AdminResourceList key={resource} resource={resource} />
         </>

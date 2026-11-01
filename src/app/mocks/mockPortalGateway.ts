@@ -1,3 +1,4 @@
+import { applyDemoRequestAction } from './requestWorkflow'
 import type { PortalGateway } from './portalGatewayTypes'
 import { brasiliaDate } from '../../shared/lib/date'
 import { addDemoNotification } from './demoPortalStore'
@@ -104,15 +105,11 @@ export function createMockPortalGateway(): PortalGateway {
           throw new Error('Esta visita não pode ser reagendada.')
         if (request.revision !== input.expectedRevision)
           throw new Error('A revisão mudou. Feche e atualize a agenda antes de tentar novamente.')
-        const previous = request.scheduledAt
-        request.scheduledAt = input.startsAt
-        request.endsAt = null
-        request.revision++
-        request.history.push({
-          id: crypto.randomUUID(),
-          date: new Date().toISOString(),
-          author: 'Administrador Olius',
-          description: `Reagendamento: ${previous} → ${input.startsAt}. Combinado em: ${input.agreedAt}. Motivo: ${input.reason}`,
+        const index = demoPortal.requests.findIndex((item) => item.id === event.requestId)
+        demoPortal.requests[index] = applyDemoRequestAction(request, {
+          action: 'reschedule',
+          scheduledAt: input.startsAt,
+          expectedRevision: input.expectedRevision,
         })
         addDemoNotification('Visita reagendada', request.name, '/operacao/agenda')
         emit()

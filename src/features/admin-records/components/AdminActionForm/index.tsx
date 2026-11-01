@@ -6,6 +6,7 @@ import styles from './styles.module.css'
 const labels: Record<AdminAction, string> = {
   approve: 'Aprovar',
   reject: 'Rejeitar',
+  restore: 'Recuperar solicitação',
   reschedule: 'Reagendar',
   cancel: 'Cancelar',
   activate: 'Ativar',

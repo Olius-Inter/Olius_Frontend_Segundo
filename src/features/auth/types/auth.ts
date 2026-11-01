@@ -35,5 +35,5 @@ export interface AuthProviderProps {
 }
 export interface AdminAccountsProps {
   allowInvite?: boolean
-  expectedType?: ManagedUser['userType']
+  expectedType?: Extract<ManagedUser['userType'], 'ADMIN' | 'ESTABLISHMENT'>
 }

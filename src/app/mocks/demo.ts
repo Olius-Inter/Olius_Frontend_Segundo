@@ -2,6 +2,8 @@ export interface DemoRequest {
   id: string
   name: string
   address: string
+  telephone: string | null
+  email: string | null
   status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED'
   requestedAt: string
   scheduledAt: string | null

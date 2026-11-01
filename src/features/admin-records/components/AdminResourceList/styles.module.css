@@ -20,3 +20,23 @@
   color: var(--portal-on-accent);
   text-decoration: none;
 }
+
+.filterOptions {
+  border: 1px solid var(--portal-border);
+  border-radius: 12px;
+  background: var(--portal-surface);
+}
+.filterOptions summary {
+  cursor: pointer;
+  padding: 14px 18px;
+  min-height: 44px;
+  font-size: 0.85rem;
+  color: var(--portal-link);
+}
+.filterOptions summary:focus-visible {
+  outline: 3px solid var(--portal-focus);
+  outline-offset: 3px;
+}
+.filterOptions[open] summary {
+  border-bottom: 1px solid var(--portal-border);
+}

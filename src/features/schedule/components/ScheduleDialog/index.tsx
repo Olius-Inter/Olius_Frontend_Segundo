@@ -58,11 +58,10 @@ export default function ScheduleDialog({ event, onClose, onSaved }: ScheduleDial
             >
               <h3>Reagendar visita</h3>
               <p>
-                Registre o horário combinado externamente. O anterior e o motivo permanecem no
-                histórico.
+                Informe a data e o horário da coleta combinados externamente com o estabelecimento.
               </p>
               <label>
-                Nova data e horário
+                Data e horário programados para a coleta
                 <input
                   disabled={feedback.busy}
                   autoFocus
@@ -70,31 +69,6 @@ export default function ScheduleDialog({ event, onClose, onSaved }: ScheduleDial
                   required
                   value={values.when}
                   onChange={(e) => setValues((previous) => ({ ...previous, when: e.target.value }))}
-                />
-              </label>
-              <label>
-                Quando foi combinado
-                <input
-                  disabled={feedback.busy}
-                  type="datetime-local"
-                  required
-                  value={values.agreed}
-                  onChange={(e) =>
-                    setValues((previous) => ({ ...previous, agreed: e.target.value }))
-                  }
-                />
-              </label>
-              <label>
-                Motivo
-                <textarea
-                  disabled={feedback.busy}
-                  required
-                  minLength={3}
-                  maxLength={1000}
-                  value={values.reason}
-                  onChange={(e) =>
-                    setValues((previous) => ({ ...previous, reason: e.target.value }))
-                  }
                 />
               </label>
               <small>

@@ -43,7 +43,7 @@ export function useAdminAccounts(expectedType: AdminAccountsProps['expectedType'
   const consult = (id = lookup.trim()) =>
     run(async (signal) => {
       const found = await getManagedUser(id, signal)
-      if (expectedType && found.userType !== expectedType)
+      if (found.userType !== (expectedType ?? 'ADMIN'))
         throw new Error('O registro não pertence ao perfil desta consulta.')
       if (!signal.aborted) {
         remember(found)

@@ -5,6 +5,7 @@ import type {
   AdminFilters,
   AdminList,
   AdminResource,
+  CollectionRequestListDetails,
 } from '../types/admin'
 
 export function defaultAdminFilters(): AdminFilters {
@@ -40,7 +41,29 @@ export function validateAdminFilters(filters: AdminFilters): boolean {
     Number.isInteger(filters.year) &&
     filters.year >= 2000 &&
     filters.year <= 2100 &&
-    ['ESTABLISHMENT', 'CITIZENS'].includes(filters.audience)
+    filters.audience === 'ESTABLISHMENT'
+  )
+}
+
+function validRequestSummary(request: CollectionRequestListDetails | undefined): boolean {
+  if (request === undefined) return true
+  return Boolean(
+    request &&
+      ['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'].includes(request.status) &&
+      Number.isSafeInteger(request.revision) &&
+      request.revision > 0 &&
+      Array.isArray(request.actions) &&
+      request.actions.every((action) =>
+        ['approve', 'reject', 'restore', 'reschedule', 'cancel'].includes(action),
+      ) &&
+      (request.scheduledAt === null ||
+        (typeof request.scheduledAt === 'string' &&
+          Number.isFinite(Date.parse(request.scheduledAt)))) &&
+      (request.telephone === null ||
+        (typeof request.telephone === 'string' &&
+          /^\+?[\d\s()-]{10,22}$/.test(request.telephone))) &&
+      (request.email === null ||
+        (typeof request.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(request.email))),
   )
 }
 
@@ -65,6 +88,7 @@ export function validateAdminList(data: AdminList, filters: AdminFilters): boole
         typeof item.id === 'string' &&
         item.id.length > 0 &&
         typeof item.title === 'string' &&
+        validRequestSummary(item.request) &&
         item.cells &&
         Object.values(item.cells).every(
           (value) =>
@@ -116,6 +140,17 @@ export function validateAdminDetail(data: AdminDetail, id: string): boolean {
   )
     return false
   return (
+    (!data.request ||
+      (['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'].includes(data.request.status) &&
+        (data.request.scheduledAt === null ||
+          (typeof data.request.scheduledAt === 'string' &&
+            Number.isFinite(Date.parse(data.request.scheduledAt)))) &&
+        (data.request.telephone === null ||
+          (typeof data.request.telephone === 'string' &&
+            /^\+?[\d\s()-]{10,22}$/.test(data.request.telephone))) &&
+        (data.request.email === null ||
+          (typeof data.request.email === 'string' &&
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.request.email))))) &&
     data.id === id &&
     typeof data.title === 'string' &&
     Array.isArray(data.sections) &&
@@ -126,6 +161,7 @@ export function validateAdminDetail(data: AdminDetail, id: string): boolean {
       [
         'approve',
         'reject',
+        'restore',
         'reschedule',
         'cancel',
         'activate',
@@ -145,12 +181,21 @@ export function validateAdminAction(
 ): string | null {
   if (!detail.actions.includes(input.action))
     return 'Esta ação não foi autorizada para o registro atual.'
-  if (input.reason.trim().length < 3 || input.reason.length > 1000)
+  if (resource === 'requests' || resource === 'agenda') {
+    if (detail.revision === null || input.expectedRevision !== detail.revision)
+      return 'Releia a revisão atual antes da alteração.'
+    if (!['approve', 'reject', 'restore', 'reschedule', 'cancel'].includes(input.action))
+      return 'Ação inválida para a solicitação.'
+    if (
+      (input.action === 'approve' || input.action === 'reschedule') &&
+      (!input.scheduledAt || !Number.isFinite(Date.parse(input.scheduledAt)))
+    )
+      return 'Informe a data e o horário programados para a coleta.'
+    return null
+  }
+  if (!input.reason || input.reason.trim().length < 3 || input.reason.length > 1000)
     return 'Informe o motivo, entre 3 e 1000 caracteres.'
-  if (
-    (input.action === 'approve' && (resource === 'requests' || resource === 'agenda')) ||
-    input.action === 'reschedule'
-  ) {
+  if (input.action === 'reschedule') {
     if (
       !input.scheduledAt ||
       !input.agreedAt ||
