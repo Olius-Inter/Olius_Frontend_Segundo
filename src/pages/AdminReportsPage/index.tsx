@@ -1,34 +1,19 @@
-import { useCallback, useState } from 'react'
 import { AdminFilters } from '../../modules/admin-records'
 import { AdminChart } from '../../modules/dashboard'
 import PageFeedback from '../../components/PageFeedback'
-import { defaultAdminFilters } from '../../modules/admin-records'
-import { getAdminReports } from '../../services/reports/adminReportService'
+import { useAdminReports } from '../../hooks/reports/useAdminReports'
 import { formatAdminValue } from '../../modules/admin-records'
-import { useAbortableResource } from '../../hooks/useAbortableResource'
 import styles from '../../../styles/pages/AdminReportsPage/styles.module.css'
 
 export default function AdminReportsPage() {
-  const [filters, setFilters] = useState(defaultAdminFilters)
-  const loader = useCallback(
-    (signal: AbortSignal) => getAdminReports({ from: filters.from, to: filters.to }, signal),
-    [filters],
-  )
-  const { state, reload } = useAbortableResource(loader)
-  const result = state.phase === 'ready' ? state.data : null
-  const data = result?.kind === 'ready' ? result.data : null
+  const { filters, changeFilters, state, reload, result, data } = useAdminReports()
   return (
     <div className={styles.page}>
       <header>
         <h1>Relatórios</h1>
         <p>Acompanhe a evolução da operação no período.</p>
       </header>
-      <AdminFilters
-        hideSearch
-        value={filters}
-        statuses={[]}
-        onChange={(patch) => setFilters((previous) => ({ ...previous, ...patch }))}
-      />
+      <AdminFilters hideSearch value={filters} statuses={[]} onChange={changeFilters} />
       {state.phase === 'loading' && (
         <PageFeedback
           kind="loading"

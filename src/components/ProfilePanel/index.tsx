@@ -1,9 +1,12 @@
+import { useId } from 'react'
 import { Eye, EyeOff, UserRound } from 'lucide-react'
 import type { ProfilePanelProps } from '../../types/settings/settings'
 import { useProfileSettings } from '../../hooks/settings/useProfileSettings'
 import styles from '../../../styles/components/ProfilePanel/styles.module.css'
 
 export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
+  const fieldId = useId()
+
   const {
     values,
     setValues,
@@ -39,9 +42,10 @@ export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
             </span>
           )}
           <div>
-            <label className={styles.upload}>
+            <label htmlFor={`${fieldId}-field-1`} className={styles.upload}>
               Alterar imagem
               <input
+                id={`${fieldId}-field-1`}
                 disabled={feedback.busy}
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
@@ -63,9 +67,10 @@ export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
             <small>PNG, JPEG ou WebP · até 2 MB</small>
           </div>
         </div>
-        <label>
+        <label htmlFor={`${fieldId}-field-2`}>
           Nome
           <input
+            id={`${fieldId}-field-2`}
             required
             maxLength={150}
             disabled={feedback.busy}
@@ -74,9 +79,10 @@ export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
             onChange={(e) => setValues((previous) => ({ ...previous, name: e.target.value }))}
           />
         </label>
-        <label>
+        <label htmlFor={`${fieldId}-field-3`}>
           E-mail
           <input
+            id={`${fieldId}-field-3`}
             required
             type="email"
             maxLength={255}
@@ -86,9 +92,10 @@ export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
             onChange={(e) => setValues((previous) => ({ ...previous, email: e.target.value }))}
           />
         </label>
-        <label>
+        <label htmlFor={`${fieldId}-field-4`}>
           Telefone
           <input
+            id={`${fieldId}-field-4`}
             type="tel"
             maxLength={22}
             disabled={feedback.busy}
@@ -116,9 +123,10 @@ export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
             void run('password')
           }}
         >
-          <label>
+          <label htmlFor={`${fieldId}-field-5`}>
             Senha atual
             <input
+              id={`${fieldId}-field-5`}
               required
               type={showPassword ? 'text' : 'password'}
               disabled={feedback.busy}
@@ -130,9 +138,10 @@ export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
               }
             />
           </label>
-          <label>
+          <label htmlFor={`${fieldId}-field-6`}>
             Nova senha
             <input
+              id={`${fieldId}-field-6`}
               required
               type={showPassword ? 'text' : 'password'}
               disabled={feedback.busy}
@@ -147,9 +156,10 @@ export default function ProfilePanel({ profile, onSaved }: ProfilePanelProps) {
           <small id="new-password-help">
             10–128 caracteres, com letra maiúscula, número e símbolo.
           </small>
-          <label>
+          <label htmlFor={`${fieldId}-field-7`}>
             Confirmar nova senha
             <input
+              id={`${fieldId}-field-7`}
               required
               type={showPassword ? 'text' : 'password'}
               disabled={feedback.busy}

@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useId, useEffect } from 'react'
 import type { AdminActionFormProps } from '../../types/admin-records/admin'
 import { useCollectionRequestAction } from '../../hooks/admin-records/useCollectionRequestAction'
 import styles from '../../../styles/components/CollectionRequestActions/styles.module.css'
 
 export default function CollectionRequestActions(props: AdminActionFormProps) {
+  const fieldId = useId()
+
   const { detail, onRefresh, onBusyChange } = props
   const { scheduledAt, setScheduledAt, editing, setEditing, feedback, submit } =
     useCollectionRequestAction(props)
@@ -25,9 +27,10 @@ export default function CollectionRequestActions(props: AdminActionFormProps) {
     >
       {canRestore && <p>Recupere a solicitação para analisar e programar uma nova coleta.</p>}
       {(canApprove || editing) && (
-        <label>
+        <label htmlFor={`${fieldId}-field-1`}>
           Data e horário programados para a coleta
           <input
+            id={`${fieldId}-field-1`}
             type="datetime-local"
             required
             disabled={feedback.busy || feedback.conflict}

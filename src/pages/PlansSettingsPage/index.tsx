@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import type { PortalPlan } from '../../types/settings/settings'
-import { getPortalPlans } from '../../services/settings/settingsService'
-import { useAbortableResource } from '../../hooks/useAbortableResource'
+import { usePortalPlans } from '../../hooks/settings/usePortalPlans'
 import PortalPlanCard from '../../components/PortalPlanCard'
 import PageFeedback from '../../components/PageFeedback'
 import styles from '../../../styles/pages/PlansSettingsPage/styles.module.css'
 
 export default function PlansSettingsPage() {
-  const { state, reload } = useAbortableResource(getPortalPlans)
+  const { state, reload, data } = usePortalPlans()
   const [annual, setAnnual] = useState(false)
   const [selected, setSelected] = useState<PortalPlan | null>(null)
   const dialog = useRef<HTMLDialogElement>(null)
@@ -15,7 +14,6 @@ export default function PlansSettingsPage() {
     if (selected) dialog.current?.showModal()
     else dialog.current?.close()
   }, [selected])
-  const data = state.phase === 'ready' && state.data.kind === 'ready' ? state.data.data : null
   return (
     <section className={styles.plans}>
       <header>

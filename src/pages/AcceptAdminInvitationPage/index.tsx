@@ -1,8 +1,11 @@
+import { useId } from 'react'
 import { Link } from 'react-router-dom'
 import { useAcceptAdminInvitation } from '../../hooks/invitations/useAcceptAdminInvitation'
 import styles from '../../../styles/pages/AcceptAdminInvitationPage/styles.module.css'
 
 export default function AcceptAdminInvitationPage() {
+  const fieldId = useId()
+
   const {
     state,
     reload,
@@ -76,9 +79,10 @@ export default function AcceptAdminInvitationPage() {
                         void submit()
                       }}
                     >
-                      <label>
+                      <label htmlFor={`${fieldId}-field-1`}>
                         Senha
                         <input
+                          id={`${fieldId}-field-1`}
                           type={showPassword ? 'text' : 'password'}
                           autoComplete="new-password"
                           required
@@ -95,9 +99,10 @@ export default function AcceptAdminInvitationPage() {
                       <small id="invitation-password-help">
                         10–128 caracteres, com letra maiúscula, número e símbolo.
                       </small>
-                      <label>
+                      <label htmlFor={`${fieldId}-field-2`}>
                         Confirmação de senha
                         <input
+                          id={`${fieldId}-field-2`}
                           type={showPassword ? 'text' : 'password'}
                           autoComplete="new-password"
                           required

@@ -1,14 +1,18 @@
+import { useId } from 'react'
 import type { HistoryFiltersProps, HistoryStatus } from '../../types/legacy-history/history'
 import { historyLabels } from '../../utils/legacy-history/historyRules'
 import styles from '../../../styles/components/HistoryFilters/styles.module.css'
 
 export default function HistoryFilters({ query, onChange }: HistoryFiltersProps) {
+  const fieldId = useId()
+
   return (
     <div className={styles.filters}>
       <div className={styles.period}>
-        <label>
+        <label htmlFor={`${fieldId}-field-1`}>
           Mês
           <select
+            id={`${fieldId}-field-1`}
             value={query.month}
             onChange={(event) => onChange({ month: Number(event.target.value) })}
           >
@@ -21,9 +25,10 @@ export default function HistoryFilters({ query, onChange }: HistoryFiltersProps)
             ))}
           </select>
         </label>
-        <label>
+        <label htmlFor={`${fieldId}-field-2`}>
           Ano
           <select
+            id={`${fieldId}-field-2`}
             value={query.year}
             onChange={(event) => onChange({ year: Number(event.target.value) })}
           >

@@ -53,6 +53,7 @@ export interface InvitationFormProps {
   error: string
 }
 export interface InvitationTableProps {
+  getLocalPath: (id: string) => string | null
   items: AdminInvitation[]
   busy: boolean
   canResend: boolean

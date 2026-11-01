@@ -5,6 +5,8 @@ autorizam restaurar funcionalidades removidas.
 
 ## Documentos vigentes
 
+Veja também os [ajustes locais de DAD e suas verificações](ajustes-dad-locais.md).
+
 | Documento                                         | Finalidade                                                              |
 | ------------------------------------------------- | ----------------------------------------------------------------------- |
 | [Arquitetura](arquitetura-frontend.md)            | Pastas, imports, responsabilidades e verificações de DAD                |

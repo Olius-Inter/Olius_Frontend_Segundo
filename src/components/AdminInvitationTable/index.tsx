@@ -3,7 +3,6 @@ import type {
   InvitationStatus,
   InvitationTableProps,
 } from '../../types/invitations/adminInvitation'
-import { getLocalInvitationPath } from '../../services/invitations/adminInvitationService'
 import styles from '../../../styles/components/AdminInvitationTable/styles.module.css'
 
 const labels: Record<InvitationStatus, string> = {
@@ -14,6 +13,7 @@ const labels: Record<InvitationStatus, string> = {
 }
 export default function AdminInvitationTable({
   items,
+  getLocalPath,
   busy,
   canResend,
   canRevoke,
@@ -38,7 +38,7 @@ export default function AdminInvitationTable({
         </thead>
         <tbody>
           {items.map((item) => {
-            const localPath = getLocalInvitationPath(item.id)
+            const localPath = getLocalPath(item.id)
             return (
               <tr key={item.id}>
                 <td>{item.name}</td>

@@ -23,6 +23,7 @@ export function useB2BHome() {
     data,
     reload,
     showOffers: data ? canViewB2BOffers(collector, data.establishment.id, now) : false,
+    operationsConfigured: Boolean(b2bEndpoints.register && b2bEndpoints.request),
     registerEnabled: Boolean(data?.canRegisterOil && b2bEndpoints.register),
     requestEnabled: Boolean(
       data?.oilStock.canRequestCollection &&
