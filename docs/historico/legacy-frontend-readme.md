@@ -200,9 +200,3 @@ mapa Leaflet configurável. O convite Vire Coletor abre /mapa/virar-coletor, pre
 formulário que ainda será definido. O ponto próprio só aparece em azul após habilitação retornada
 pela API; não há conversão para B2C nem concessão local de permissões. Regras e contratos:
 [docs/collection-map-api.md](collection-map-api.md).
-
-## Assistente IA
-
-A rota /ia prepara a consulta ao assistente para estabelecimentos B2B. Sem VITE_AI_API_URL, o envio
-permanece desabilitado e nenhuma resposta é simulada. Contrato e limites:
-[docs/ai-api.md](ai-api.md).
