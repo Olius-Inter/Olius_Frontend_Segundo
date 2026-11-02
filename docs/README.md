@@ -9,15 +9,14 @@ Consulte o [roteiro de apresentação e testes de DAD](apresentacao-dad.md).
 
 Veja também os [ajustes locais de DAD e suas verificações](ajustes-dad-locais.md).
 
-| Documento                                         | Finalidade                                                              |
-| ------------------------------------------------- | ----------------------------------------------------------------------- |
-| [Arquitetura](arquitetura-frontend.md)            | Pastas, imports, responsabilidades e verificações de DAD                |
-| [Estilos](estilos.md)                             | CSS Modules, estilos globais e formatação                               |
-| [Build e publicação](build.md)                    | Geração de dist, minificação e separação de JS/CSS                      |
-| [Portal administrativo](portal-administrativo.md) | Endpoints verificados, autenticação e integrações pendentes             |
-| [Plano web](plano-web-administrativo.md)          | Base do escopo; decisões posteriores em references prevalecem           |
-| [Assistente](assistente-ia.md)                    | Interface preservada para receber o backend desenvolvido por outro time |
-| [Relatórios](databricks-reports.md)               | Porta de integração com backend/Databricks                              |
+| Documento                                         | Finalidade                                                    |
+| ------------------------------------------------- | ------------------------------------------------------------- |
+| [Arquitetura](arquitetura-frontend.md)            | Pastas, imports, responsabilidades e verificações de DAD      |
+| [Estilos](estilos.md)                             | CSS Modules, estilos globais e formatação                     |
+| [Build e publicação](build.md)                    | Geração de dist, minificação e separação de JS/CSS            |
+| [Portal administrativo](portal-administrativo.md) | Endpoints verificados, autenticação e integrações pendentes   |
+| [Plano web](plano-web-administrativo.md)          | Base do escopo; decisões posteriores em references prevalecem |
+| [Relatórios](databricks-reports.md)               | Porta de integração com backend/Databricks                    |
 
 ## Ordem das decisões de produto
 
@@ -34,7 +33,6 @@ Consulte as atualizações de 28/10 antes das decisões de 26/10 e 20/10:
 ## Histórico
 
 - [Frontend anterior](historico/legacy-frontend-readme.md).
-- [Contrato antigo de IA](historico/ai-api.md).
 - [Página inicial B2B](historico/b2b-home-api.md).
 - [Mapa anterior](historico/collection-map-api.md).
 - [Histórico anterior](historico/history-api.md).

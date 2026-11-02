@@ -16,7 +16,6 @@ const DriverEdit = lazy(() => import('../../pages/DriverEdit'))
 const Motorista = lazy(() => import('../../pages/MotoristaPage'))
 const Agenda = lazy(() => import('../../pages/AgendaPage'))
 const Reports = lazy(() => import('../../pages/AdminReportsPage'))
-const Assistant = lazy(() => import('../../pages/AssistantPage'))
 const Notifications = lazy(() => import('../../pages/NotificationsPage'))
 const Settings = lazy(() => import('../../pages/SettingsPage'))
 const NotFound = lazy(() => import('../../pages/NotFoundPage'))
@@ -47,7 +46,6 @@ export default function App() {
                   <Route path="motoristas/:id" element={<Detail />} />
                   <Route path="operacao/agenda" element={<Agenda />} />
                   <Route path="relatorios" element={<Reports />} />
-                  <Route path="assistente" element={<Assistant />} />
                   <Route path="notificacoes" element={<Notifications />} />
                   <Route path="configuracoes/:section?" element={<Settings />} />
                   <Route
