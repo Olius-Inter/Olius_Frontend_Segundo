@@ -3,24 +3,6 @@
 Portal React/TypeScript para contas **ADMIN** da empresa operadora. O portal trabalha com empresas
 B2B e seu contexto de PEV; esse cadastro não concede acesso administrativo automaticamente.
 
-## Referências vigentes
-
-Antes de implementar ou alterar um módulo, consultar o [índice vigente](docs/README.md). As decisões
-de 28/10 (fila, agenda e escopo web B2B) prevalecem sobre documentos anteriores nos pontos de
-conflito. Referências de base:
-
-1. [Fluxos e Databricks — pedido mais recente](references/fluxos-listagens-e-databricks-2026-10-26.md).
-2. [Ajustes de interface de 26/10/2026](references/ajustes-portal-admin-2026-10-26.md).
-3. [Decisões de produto de 20/10/2026](references/regras-atualizadas-2026-10-20.md).
-4. `references/OLIUS Funcionalidades do Administrador.docx`.
-5. [Plano do portal](docs/plano-web-administrativo.md).
-6. Contrato atual do banco, controller/DTO real e
-   [análise de integração](docs/portal-administrativo.md).
-
-O plano anterior de QR/ofertas e as telas históricas B2B não são o escopo deste portal. Os
-requisitos oficiais de DAD estão em
-`references/Requisitos por disciplina - Interdisciplinar - Maio2026.pdf`.
-
 ## Executar
 
 ```sh
@@ -60,8 +42,6 @@ utiliza adaptadores separados, dados fictícios e alterações temporárias em m
 - `styles/`: CSS global e CSS Modules fora de src.
 - `tests/`: testes existentes fora de src.
 - `dist/assets/js/` e `dist/assets/css/`: build minificado, gerado automaticamente.
-- [Índice da documentação](docs/README.md), [arquitetura](docs/arquitetura-frontend.md),
-  [estilos](docs/estilos.md) e [build](docs/build.md).
 - Prettier e EditorConfig com indentação de 2 espaços.
 
 ## Validar
@@ -74,9 +54,7 @@ npm run test:admin
 ```
 
 Não há script de lint configurado. Os testes locais usam fixtures de protocolo, sem cadastrar contas
-reais nem acessar o banco. Consulte
-[integrações, versões, divergências e pendências](docs/portal-administrativo.md). Documentação da
-interface anterior foi preservada em `docs/legacy-frontend-readme.md`.
+reais nem acessar o banco.
 
 ## Acesso de demonstração local
 
@@ -88,9 +66,8 @@ Vite.
 
 ## Atualização da interface
 
-Agenda, planos, notificações e configurações seguem o pedido mais recente. Consulte
-[escopo, contratos e limites da demonstração](references/ajustes-portal-admin-2026-10-26.md). Os
-endpoints de edição de perfil/senha e as operações dos novos módulos ainda dependem do backend.
+Agenda, planos, notificações e configurações seguem o pedido mais recente. Os endpoints de edição de
+perfil/senha e as operações dos novos módulos ainda dependem do backend.
 
 ## Fluxos atuais
 
@@ -98,8 +75,8 @@ Detalhes abrem em popups sobre a tabela. Cadastro/edição e ações concluídas
 falhas mantêm o formulário aberto. Ranking foi removido e avisos de demonstração foram ocultados. Os
 dados locais continuam temporários e separados dos dados reais.
 
-Relatórios usam uma porta analítica dedicada. Consulte
-[preparação do Databricks e contratos pendentes](docs/databricks-reports.md).
+Relatórios usam uma porta analítica dedicada; a integração com o backend e o Databricks permanece
+pendente.
 
 ## Convites de administradores
 
@@ -107,4 +84,4 @@ A criação direta com senha foi substituída por convite em Administração →
 /convites/aceitar. O aceite projeta somente token e password; confirmação permanece no frontend. A
 lista inclui Reenviar/Revogar conforme as permissões do registro. O banco já define prazo de 24
 horas e revogação do convite anterior no reenvio; endpoints da Core e envio real de e-mail ainda são
-pendentes. Consulte [regras e contrato interno](references/convites-admin-2026-10-26.md).
+pendentes.
