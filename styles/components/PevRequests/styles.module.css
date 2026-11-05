@@ -1,0 +1,82 @@
+.queue {
+  display: grid;
+  gap: 14px;
+}
+.queue h2,
+.description {
+  margin: 0;
+}
+.description,
+.meta,
+.address {
+  color: var(--portal-muted);
+}
+.queue > [role='status']:empty {
+  display: none;
+}
+.card {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--portal-border);
+  border-radius: 18px;
+  background: var(--portal-surface);
+}
+.card h3 {
+  margin: 10px 0;
+}
+.meta,
+.actions,
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.meta,
+.pagination {
+  justify-content: space-between;
+}
+.meta {
+  font-size: 0.85rem;
+}
+.address {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+.address svg {
+  flex: none;
+  margin-top: 3px;
+}
+.actions {
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+.actions button,
+.pagination button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--portal-border);
+  border-radius: 9px;
+  background: var(--portal-surface);
+  color: var(--portal-text);
+  cursor: pointer;
+}
+.actions button:disabled,
+.pagination button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.actions .approve {
+  color: #fff;
+  background: #176144;
+  border-color: #176144;
+}
+.actions .reject {
+  color: var(--portal-error);
+  border-color: var(--portal-error);
+}
+.error {
+  color: var(--portal-error);
+}
