@@ -19,7 +19,7 @@ demonstração local descrita abaixo.
 
 | Área          | Conteúdo                                                                  |
 | ------------- | ------------------------------------------------------------------------- |
-| Visão geral   | Pendências, visitas de hoje/restantes no mês e evolução no período        |
+| Visão geral   | Visitas, litros recolhidos e empresas atendidas no período                |
 | Operação      | Solicitações, calendário com múltiplas visitas e histórico de coletas B2B |
 | Motorista     | Consulta, cadastro e edição de motoristas                                 |
 | Relatórios    | Gráficos do período completo, diretamente na lateral                      |
@@ -27,11 +27,13 @@ demonstração local descrita abaixo.
 | Notificações  | Categorias, paginação, leitura e contagem global no sino                  |
 | Administração | Contas e auditoria                                                        |
 
-Login/renovação/logout, perfil, consulta de usuário por UUID, ativação/inativação utilizam os
-endpoints verificados da Core. Disponibilidade em produção não foi confirmada. Os demais módulos
-exibem **Integração pendente** até receberem adaptadores de endpoints existentes; não mostram dados
-fictícios nem confirmam persistência simulada na execução real. A demonstração local optativa
-utiliza adaptadores separados, dados fictícios e alterações temporárias em memória.
+Login, renovação de sessão, logout, consulta de contas e leitura do perfil utilizam a Core.
+Motoristas, solicitações em consulta, agenda em consulta, coletas, indicadores, planos e convites
+possuem adaptadores HTTP reais. As operações ainda sem integração permanecem indisponíveis. A
+demonstração local optativa utiliza dados fictícios e alterações temporárias em memória.
+
+Consulte [funções integradas e limites](docs/integracao-api-web.md) e
+[contrato de convites](docs/integracao-convites.md).
 
 ## Estrutura
 
@@ -75,13 +77,29 @@ Detalhes abrem em popups sobre a tabela. Cadastro/edição e ações concluídas
 falhas mantêm o formulário aberto. Ranking foi removido e avisos de demonstração foram ocultados. Os
 dados locais continuam temporários e separados dos dados reais.
 
-Relatórios usam uma porta analítica dedicada; a integração com o backend e o Databricks permanece
-pendente.
+Relatórios consultam indicadores operacionais agregados da API. A integração com Databricks
+permanece pendente.
 
 ## Convites de administradores
 
 A criação direta com senha foi substituída por convite em Administração → Contas. A página pública é
 /convites/aceitar. O aceite projeta somente token e password; confirmação permanece no frontend. A
 lista inclui Reenviar/Revogar conforme as permissões do registro. O banco já define prazo de 24
-horas e revogação do convite anterior no reenvio; endpoints da Core e envio real de e-mail ainda são
-pendentes.
+horas e revogação do convite anterior no reenvio. O frontend está conectado aos endpoints de
+convites; o envio real depende do serviço de e-mail configurado na API.
+
+## Build e publicação
+
+Execute `npm run build` para verificar TypeScript e gerar `dist/`. Use `npm run preview` apenas para
+conferir o resultado localmente. No Render, publique como Static Site com `npm ci && npm run build`,
+diretório `dist` e rewrite `/*` para `/index.html`. O arquivo `render.yaml` também permite criar o
+serviço por Blueprint.
+
+Configure `VITE_API_BASE_URL` com a origem HTTPS da API, sem `/api/v1`, e
+`VITE_LOCAL_ADMIN_DEMO=false` em produção. As variáveis VITE são públicas e entram no build;
+recompile após alterar. Não inclua senhas, tokens ou chaves privadas nessas variáveis.
+
+Scripts e testes próprios usam TypeScript. As ferramentas são resolvidas pelas dependências
+instaladas. `.env.local`, `node_modules/` e `dist/` permanecem ignorados pelo Git. Componentes
+apresentam a interface, hooks coordenam o estado e serviços realizam o acesso HTTP.
+`src/app/providers/configureGateways.ts` seleciona adaptadores reais ou demonstração local.

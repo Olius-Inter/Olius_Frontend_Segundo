@@ -18,9 +18,12 @@ export default function AcceptAdminInvitationPage() {
     feedback,
     submit,
     available,
+    canAcceptWithoutPreview,
   } = useAcceptAdminInvitation()
   const unavailable =
-    state.phase === 'ready' && state.data.kind === 'unavailable' ? state.data.message : ''
+    !canAcceptWithoutPreview && state.phase === 'ready' && state.data.kind === 'unavailable'
+      ? state.data.message
+      : ''
   const statusMessages = {
     ACCEPTED: 'Este convite já foi aceito. Entre com sua conta.',
     EXPIRED: 'Este convite expirou. Solicite um novo convite ao administrador.',
@@ -61,7 +64,9 @@ export default function AcceptAdminInvitationPage() {
                 {preview && preview.status !== 'PENDING' && (
                   <p role="status">{statusMessages[preview.status]}</p>
                 )}
-                {(preview?.status === 'PENDING' || Boolean(unavailable)) && (
+                {(preview?.status === 'PENDING' ||
+                  canAcceptWithoutPreview ||
+                  Boolean(unavailable)) && (
                   <>
                     <p>
                       {preview ? (

@@ -36,8 +36,8 @@ export async function getCalendar(
           (e.endsAt !== null &&
             (!Number.isFinite(Date.parse(e.endsAt)) ||
               Date.parse(e.endsAt) <= Date.parse(e.startsAt))) ||
-          !Number.isInteger(e.revision) ||
-          e.revision < 1 ||
+          (e.revision !== null && (!Number.isInteger(e.revision) || e.revision < 1)) ||
+          (e.canReschedule && e.revision === null) ||
           typeof e.completed !== 'boolean' ||
           typeof e.canReschedule !== 'boolean',
       ) ||

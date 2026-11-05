@@ -15,7 +15,7 @@ export function useVisitReschedule(event: CalendarEvent | null, onSaved: () => v
   }, [event])
   useEffect(() => () => controller.current?.abort(), [])
   const save = async () => {
-    if (!event || lock.current) return
+    if (!event || event.revision === null || lock.current) return
     lock.current = true
     controller.current = new AbortController()
     setFeedback({ busy: true, error: '' })

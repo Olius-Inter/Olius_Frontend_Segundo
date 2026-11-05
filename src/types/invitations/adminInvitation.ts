@@ -35,7 +35,7 @@ export interface InvitationPasswordValues {
   password: string
   confirmation: string
 }
-// Portas internas: os endpoints e DTOs HTTP ainda precisam ser homologados.
+// Modelo da interface; o adaptador da Core normaliza estados e paginação HTTP.
 export interface AdminInvitationGateway {
   list?: (query: InvitationQuery, signal: AbortSignal) => Promise<InvitationPage>
   create?: (input: AdminInvitationInput, signal: AbortSignal) => Promise<AdminInvitation>

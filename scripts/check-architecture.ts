@@ -15,6 +15,15 @@ const files = [...sourceFiles, ...walk(path.resolve('styles'))]
 const graph = new Map()
 const errors = []
 const relative = (file) => path.relative(project, file).replaceAll('\\', '/')
+// Código próprio deve permanecer em TypeScript, inclusive ferramentas e testes.
+for (const dir of ['src', 'demo', 'scripts', 'tests']) {
+  const directory = path.resolve(dir)
+  if (!fs.existsSync(directory)) continue
+  for (const file of walk(directory))
+    if (/\.(?:js|jsx|mjs|cjs)$/.test(file))
+      errors.push('JavaScript de autoria não permitido: ' + relative(file))
+}
+
 for (const file of sourceFiles) {
   if (!/\.(ts|tsx)$/.test(file)) errors.push('Extensão fora do padrão em src: ' + relative(file))
   if (/^src\/(components|pages)\//.test(relative(file)) && path.basename(file) !== 'index.tsx')

@@ -10,7 +10,16 @@ const server = process.env.OLIUS_TEST_URL
   ? null
   : spawn(
       process.execPath,
-      ['node_modules/vite/bin/vite.js', '--host', '127.0.0.1', '--port', '5190', '--strictPort'],
+      [
+        '--experimental-strip-types',
+        'scripts/run-tool.ts',
+        'vite',
+        '--host',
+        '127.0.0.1',
+        '--port',
+        '5190',
+        '--strictPort',
+      ],
       { env: { ...process.env, VITE_LOCAL_ADMIN_DEMO: 'true' }, windowsHide: true, stdio: 'pipe' },
     )
 const results = {
