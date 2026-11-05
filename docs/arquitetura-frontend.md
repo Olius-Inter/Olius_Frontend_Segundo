@@ -47,8 +47,8 @@ efetivamente nas pastas exigidas.
 
 Somente `.ts` e `.tsx` ficam dentro de `src/`. Os CSS Modules ficam em `styles/`, na raiz do
 projeto, para cumprir também a leitura literal de "todos os arquivos" do PDF. O componente importa
-seu módulo por caminho relativo. Os testes `.mjs` ficam em `tests/`; não há JavaScript de autoria
-manual em `src/`.
+seu módulo por caminho relativo. Os testes TypeScript ficam em `tests/`; não há JavaScript de
+autoria manual em `src/`.
 
 ## Verificações
 

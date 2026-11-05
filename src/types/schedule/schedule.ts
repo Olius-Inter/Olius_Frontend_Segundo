@@ -10,7 +10,7 @@ export interface CalendarEvent {
   address: string
   startsAt: string
   endsAt: string | null
-  revision: number
+  revision: number | null
   completed: boolean
   canReschedule: boolean
 }

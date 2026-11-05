@@ -36,3 +36,12 @@ Consulte as atualizações de 28/10 antes das decisões de 26/10 e 20/10:
 - [Página inicial B2B](historico/b2b-home-api.md).
 - [Mapa anterior](historico/collection-map-api.md).
 - [Histórico anterior](historico/history-api.md).
+
+## Integração real de convites
+
+Consulte [contrato e configuração SMTP](integracao-convites.md). O adaptador HTTP de convites já
+está implementado; a descrição histórica de integração pendente foi superada para este módulo.
+
+## Integração operacional
+
+Consulte [funções conectadas e limites da integração](integracao-api-web.md).

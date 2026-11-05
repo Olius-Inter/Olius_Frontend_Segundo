@@ -1,4 +1,17 @@
-import { localDemoEnabled } from '../../services/coreClient'
+import { localDemoEnabled, coreConfigured } from '../../services/coreClient'
+import { createCoreAdminInvitationGateway } from '../../services/invitations/coreAdminInvitationGateway'
+import {
+  createCoreDriverResource,
+  createCoreDriversGateway,
+} from '../../services/drivers/coreDriversGateway'
+import { createCoreRequestsResource } from '../../services/admin-records/coreRequestsResource'
+import { createCoreCollectionsResource } from '../../services/admin-records/coreCollectionsResource'
+import { createCoreScheduleGateway } from '../../services/schedule/coreScheduleGateway'
+import { createCoreSettingsGateway } from '../../services/settings/coreSettingsGateway'
+import {
+  coreDashboard,
+  createCoreAnalyticsGateway,
+} from '../../services/reports/coreOperationalReports'
 import { configureAdminGateway } from '../../services/admin-records/adminGateway'
 import { configureDriversGateway } from '../../services/drivers/driversGateway'
 import { configureAnalyticsGateway } from '../../services/reports/analyticsGateway'
@@ -66,4 +79,20 @@ if (localDemoEnabled) {
       }
     },
   })
+}
+
+if (!localDemoEnabled && coreConfigured) {
+  configureAdminInvitationGateway(createCoreAdminInvitationGateway())
+  configureAdminGateway({
+    resources: {
+      drivers: createCoreDriverResource(),
+      requests: createCoreRequestsResource(),
+      collections: createCoreCollectionsResource(),
+    },
+    dashboard: coreDashboard,
+  })
+  configureDriversGateway(createCoreDriversGateway())
+  configureScheduleGateway(createCoreScheduleGateway())
+  configureSettingsGateway(createCoreSettingsGateway())
+  configureAnalyticsGateway(createCoreAnalyticsGateway())
 }

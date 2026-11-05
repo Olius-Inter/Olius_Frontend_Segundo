@@ -93,5 +93,8 @@ export function useAcceptAdminInvitation() {
     feedback,
     submit,
     available: Boolean(adminInvitationGateway.accept),
+    canAcceptWithoutPreview: Boolean(
+      adminInvitationGateway.accept && !adminInvitationGateway.inspect,
+    ),
   }
 }

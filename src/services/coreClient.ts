@@ -155,6 +155,41 @@ export async function coreRequest(path: string, init: RequestInit = {}): Promise
     throw error
   }
 }
+// Aceite público: não usa sessão, cookies, Bearer nem renovação automática.
+export async function acceptCoreAdminInvitation(
+  input: { token: string; password: string },
+  signal: AbortSignal,
+): Promise<void> {
+  try {
+    const response = await checkedFetch('/api/v1/auth/admin-invitations/acceptance', {
+      method: 'POST',
+      signal,
+      credentials: 'omit',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: input.token, password: input.password }),
+    })
+    if (response.status !== 204) throw new CoreError('A confirmação do aceite é inválida.', 0)
+  } catch (error: unknown) {
+    if (error instanceof CoreError && error.status === 409)
+      throw new CoreError(
+        'O convite é inválido, expirou ou já foi utilizado. Solicite um novo convite ao administrador.',
+        409,
+      )
+    throw error
+  }
+}
+// Consultas públicas homologadas: não renovam a sessão nem enviam cookies ou Bearer.
+export async function corePublicGet(
+  path: '/api/v1/subscription-plans',
+  signal: AbortSignal,
+): Promise<Response> {
+  if (path !== '/api/v1/subscription-plans') throw new CoreError('Consulta pública inválida.', 0)
+  return checkedFetch(path, {
+    signal,
+    credentials: 'omit',
+    headers: { Accept: 'application/json' },
+  })
+}
 export async function coreLogout(): Promise<void> {
   clearAccess()
   if (refreshing) {

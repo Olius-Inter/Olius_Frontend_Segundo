@@ -4,14 +4,14 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test:admin": "node --experimental-strip-types --test tests/mocks/requestWorkflow.test.mjs tests/admin-records/adminValidation.test.mjs tests/services/coreClient.test.mjs tests/auth/loginValidation.test.mjs",
-    "architecture:check": "node scripts/check-architecture.mjs",
-    "test:ui": "node tests/browser/dad.mjs"
+    "dev": "node --experimental-strip-types scripts/run-tool.ts vite",
+    "build": "node --experimental-strip-types scripts/run-tool.ts typescript -b && node --experimental-strip-types scripts/run-tool.ts vite build",
+    "preview": "node --experimental-strip-types scripts/run-tool.ts vite preview",
+    "format": "node --experimental-strip-types scripts/run-tool.ts prettier --write .",
+    "format:check": "node --experimental-strip-types scripts/run-tool.ts prettier --check .",
+    "test:admin": "node --experimental-strip-types --test tests/admin-records/adminValidation.test.ts tests/auth/loginValidation.test.ts tests/mocks/requestWorkflow.test.ts tests/services/adminInvitations.test.ts tests/services/coreClient.test.ts tests/services/webIntegration.test.ts",
+    "architecture:check": "node --experimental-strip-types scripts/check-architecture.ts",
+    "test:ui": "node --experimental-strip-types tests/browser/dad.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
