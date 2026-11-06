@@ -26,7 +26,6 @@ async function modules() {
   }
   const paths = {
     core: 'coreClient',
-    collectionSections: 'admin-records/coreCollectionSections',
     data: 'core/coreData',
     drivers: 'drivers/coreDriversGateway',
     requests: 'admin-records/coreRequestsResource',
@@ -353,7 +352,7 @@ test('anulação não confirma sucesso se a resposta não trouxer estado e revis
   )
 })
 
-test('indicadores usam agregado B2B e não incluem entregas B2C no volume', async () => {
+test('relatórios usam agregado B2B e não incluem entregas B2C no volume', async () => {
   await fixture(
     () =>
       Response.json({
@@ -367,15 +366,12 @@ test('indicadores usam agregado B2B e não incluem entregas B2C no volume', asyn
         deliveries: { count: 10, acceptedVolumeLiters: 999 },
       }),
     async ({ reports }, calls) => {
-      const dashboard = await reports.coreDashboard(filters, signal())
-      assert.equal(dashboard.metrics.find((metric) => metric.id === 'liters').value, 50)
-      assert.equal(dashboard.metrics.find((metric) => metric.id === 'visits').value, 3)
       const result = await reports
         .createCoreAnalyticsGateway()
         .reports({ from: filters.from, to: filters.to }, signal())
       assert.equal(result.complete, true)
       assert.equal(result.charts.find((chart) => chart.unit === 'L').values[0].value, 50)
-      assert.ok(calls.filter((call) => call.url.includes('/environmental-summary?')).length === 2)
+      assert.ok(calls.filter((call) => call.url.includes('/environmental-summary?')).length === 1)
     },
   )
 })
@@ -423,28 +419,63 @@ test('cancelamento de consulta é propagado pelo transporte', async () => {
   )
 })
 
-test('detalhes da coleta preservam pontos negativos e a revisão do cálculo independente', async () => {
-  const api = await modules()
-  const result = api.collectionSections.collectionSections({
-    collection: {
-      oilCondition: 'ACCEPTABLE',
-      hasCompromisingOccurrence: false,
-      failureReasonCodes: [],
-      pointsEarned: -3,
+test('dashboard conserva os indicadores originais com contagens e séries dos endpoints corretos', async () => {
+  await fixture(
+    (url) => {
+      const size = Number(url.searchParams.get('size'))
+      if (url.pathname.endsWith('/collection-requests')) {
+        const status = url.searchParams.get('status')
+        return page(
+          [
+            request({
+              status,
+              scheduledAt: status === 'APPROVED' ? new Date().toISOString() : null,
+            }),
+          ],
+          size,
+        )
+      }
+      return page([collection()], size)
     },
-    calculation: {
-      revision: 7,
-      nominalPoints: -3,
-      balanceBefore: -10,
-      balanceAfter: -13,
-      successfulCollectionsCount: 0,
-      components: [{ component: 'Ajuste', points: -3 }],
+    async ({ reports }, calls) => {
+      const result = await reports.coreDashboard(filters, signal())
+      assert.deepEqual(
+        result.metrics.map((item) => [item.id, item.value]),
+        [
+          ['pending', 1],
+          ['today', 1],
+          ['remaining', 1],
+        ],
+      )
+      assert.deepEqual(
+        result.charts.map((chart) => chart.id),
+        ['liters', 'collections'],
+      )
+      assert.equal(
+        result.charts[0].values.reduce((sum, item) => sum + item.value, 0),
+        15,
+      )
+      assert.equal(
+        result.charts[1].values.reduce((sum, item) => sum + item.value, 0),
+        1,
+      )
+      assert.equal(
+        calls.some((call) => call.url.includes('/environmental-summary')),
+        false,
+      )
+      const queries = calls
+        .filter((call) => call.url.includes('/collection-requests?'))
+        .map((call) => new URL(call.url))
+      assert.equal(
+        queries
+          .find((url) => url.searchParams.get('status') === 'PENDING')
+          .searchParams.get('size'),
+        '1',
+      )
+      assert.equal(
+        queries.every((url) => !url.searchParams.has('from')),
+        true,
+      )
     },
-  })
-  const fields = result.flatMap((section) => section.fields)
-  assert.equal(fields.find((field) => field.label === 'Pontos da coleta').value, -3)
-  assert.equal(fields.find((field) => field.label === 'Saldo anterior').value, -10)
-  assert.equal(fields.find((field) => field.label === 'Saldo após o cálculo').value, -13)
-  assert.equal(fields.find((field) => field.label === 'Revisão do cálculo').value, 7)
-  assert.equal(fields.find((field) => field.label === 'Coletas bem-sucedidas acumuladas').value, 0)
+  )
 })

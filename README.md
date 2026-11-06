@@ -19,7 +19,7 @@ demonstração local descrita abaixo.
 
 | Área          | Conteúdo                                                                  |
 | ------------- | ------------------------------------------------------------------------- |
-| Visão geral   | Visitas, litros recolhidos e empresas atendidas no período                |
+| Visão geral   | Pendências, visitas de hoje/restantes no mês e evolução no período        |
 | Operação      | Solicitações, calendário com múltiplas visitas e histórico de coletas B2B |
 | Motorista     | Consulta, cadastro e edição de motoristas                                 |
 | Relatórios    | Gráficos do período completo, diretamente na lateral                      |

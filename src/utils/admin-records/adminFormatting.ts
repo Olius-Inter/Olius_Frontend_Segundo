@@ -1,9 +1,6 @@
 import type { AdminColumn, AdminScalar } from '../../types/admin-records/admin'
 
 export const adminStatusLabels: Record<string, string> = {
-  ACCEPTABLE: 'Aceitável',
-  UNACCEPTABLE: 'Inaceitável',
-  NOT_ASSESSED: 'Não avaliado',
   ACTIVE: 'Ativo',
   INACTIVE: 'Inativo',
   PENDING: 'Pendente',

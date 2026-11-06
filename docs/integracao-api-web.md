@@ -5,26 +5,27 @@ disponibilidade da mesma versão na AWS deve ser validada no deploy.
 
 ## Integrado nesta etapa
 
-| Área          | Endpoints e comportamento                                                                                         |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Motoristas    | GET/POST /api/v1/admin/drivers, GET/PATCH /{id}, PATCH /{id}/status, GET /{id}/metrics                            |
-| Solicitações  | GET /api/v1/admin/collection-requests e GET /{id}; nome/endereço/contatos por GET /api/v1/users/{establishmentId} |
-| Agenda        | Consulta todas as páginas de solicitações APPROVED e filtra scheduledAt no período; somente leitura               |
-| Coletas B2B   | GET /api/v1/admin/collections e GET /{id}; POST /{id}/annulments com justificativa e expectedRevision reais       |
-| Dashboard     | GET /api/v1/admin/environmental-summary; indicadores B2B oficiais do período                                      |
-| Relatórios    | Mesma consulta agregada, gráficos de resultado e volume B2B; não é integração Databricks                          |
-| Planos        | GET /api/v1/subscription-plans público, sem renovar sessão                                                        |
-| Convites      | Integração anterior preservada; detalhes em integracao-convites.md                                                |
-| Contas/perfil | Consulta por UUID, ativação/inativação e leitura do próprio perfil já existentes preservadas                      |
+| Área          | Endpoints e comportamento                                                                                           |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Motoristas    | GET/POST /api/v1/admin/drivers, GET/PATCH /{id}, PATCH /{id}/status, GET /{id}/metrics                              |
+| Solicitações  | GET /api/v1/admin/collection-requests e GET /{id}; nome/endereço/contatos por GET /api/v1/users/{establishmentId}   |
+| Agenda        | Consulta todas as páginas de solicitações APPROVED e filtra scheduledAt no período; somente leitura                 |
+| Coletas B2B   | GET /api/v1/admin/collections e GET /{id}; POST /{id}/annulments com justificativa e expectedRevision reais         |
+| Dashboard     | GET /api/v1/admin/collection-requests e GET /api/v1/admin/collections; contagens e séries dos indicadores originais |
+| Relatórios    | GET /api/v1/admin/environmental-summary; gráficos de resultado e volume B2B; não é integração Databricks            |
+| Planos        | GET /api/v1/subscription-plans público, sem renovar sessão                                                          |
+| Convites      | Integração anterior preservada; detalhes em integracao-convites.md                                                  |
+| Contas/perfil | Consulta por UUID, ativação/inativação e leitura do próprio perfil já existentes preservadas                        |
 
 Motoristas são criados ACTIVE pela API. Solicitação de cadastro INACTIVE é recusada antes do POST,
 orientando cadastrar ativo e inativar depois. Edição conserva CPF somente leitura; envia nome/CNH.
 Ativação e inativação enviam apenas status; o motivo do formulário genérico não faz parte desse DTO.
-Dashboard mostra visitas, litros e empresas efetivamente atendidas no período, sem métricas
-simuladas. Preço anual, destaque e benefícios extras não existem no catálogo: não são
-calculados/inventados. Anulação preserva a coleta e exige confirmação da nova revisão na resposta.
-Correção/restauração aguardam formulários específicos; não se envia JSON livre ou se reproduzem
-fatos antigos sem confirmação.
+Dashboard preserva solicitações pendentes, visitas de hoje e restantes no mês. As séries de litros e
+coletas usam somente registros RECORDED do período físico selecionado, com todas as páginas
+verificadas e os mesmos intervalos de apresentação originais. Preço anual, destaque e benefícios
+extras não existem no catálogo: não são calculados/inventados. Anulação preserva a coleta e exige
+confirmação da nova revisão na resposta. Correção/restauração aguardam formulários específicos; não
+se envia JSON livre ou se reproduzem fatos antigos sem confirmação.
 
 ## Limites conhecidos e próxima etapa acordada
 
