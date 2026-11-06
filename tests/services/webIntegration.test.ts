@@ -26,6 +26,7 @@ async function modules() {
   }
   const paths = {
     core: 'coreClient',
+    collectionSections: 'admin-records/coreCollectionSections',
     data: 'core/coreData',
     drivers: 'drivers/coreDriversGateway',
     requests: 'admin-records/coreRequestsResource',
@@ -420,4 +421,30 @@ test('cancelamento de consulta é propagado pelo transporte', async () => {
     },
     false,
   )
+})
+
+test('detalhes da coleta preservam pontos negativos e a revisão do cálculo independente', async () => {
+  const api = await modules()
+  const result = api.collectionSections.collectionSections({
+    collection: {
+      oilCondition: 'ACCEPTABLE',
+      hasCompromisingOccurrence: false,
+      failureReasonCodes: [],
+      pointsEarned: -3,
+    },
+    calculation: {
+      revision: 7,
+      nominalPoints: -3,
+      balanceBefore: -10,
+      balanceAfter: -13,
+      successfulCollectionsCount: 0,
+      components: [{ component: 'Ajuste', points: -3 }],
+    },
+  })
+  const fields = result.flatMap((section) => section.fields)
+  assert.equal(fields.find((field) => field.label === 'Pontos da coleta').value, -3)
+  assert.equal(fields.find((field) => field.label === 'Saldo anterior').value, -10)
+  assert.equal(fields.find((field) => field.label === 'Saldo após o cálculo').value, -13)
+  assert.equal(fields.find((field) => field.label === 'Revisão do cálculo').value, 7)
+  assert.equal(fields.find((field) => field.label === 'Coletas bem-sucedidas acumuladas').value, 0)
 })

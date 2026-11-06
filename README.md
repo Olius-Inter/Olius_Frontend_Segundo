@@ -53,6 +53,7 @@ npm run architecture:check
 npm run build
 npm run format:check
 npm run test:admin
+npm run test:integration
 ```
 
 Não há script de lint configurado. Os testes locais usam fixtures de protocolo, sem cadastrar contas

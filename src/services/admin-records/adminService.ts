@@ -1,3 +1,4 @@
+import { adminResources } from '../../data/admin-records/adminResources'
 import type {
   AdminActionInput,
   AdminDetail,
@@ -30,7 +31,7 @@ export async function listAdminRecords(
     const adapter = adminGateway.resources[resource]
     if (!adapter) return pending
     const data = await adapter.list(filters, signal)
-    if (!validateAdminList(data, filters))
+    if (!validateAdminList(data, filters, adminResources[resource].columns))
       throw new Error('A consulta administrativa retornou dados inconsistentes.')
     if (
       resource === 'requests' &&

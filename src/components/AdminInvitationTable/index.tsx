@@ -1,3 +1,4 @@
+import { formatAdminValue } from '../../utils/admin-records/adminFormatting'
 import { Link } from 'react-router-dom'
 import type {
   InvitationStatus,
@@ -33,6 +34,7 @@ export default function AdminInvitationTable({
             <th scope="col">Nome</th>
             <th scope="col">E-mail</th>
             <th scope="col">Situação</th>
+            <th scope="col">Validade</th>
             <th scope="col">Ações</th>
           </tr>
         </thead>
@@ -46,6 +48,7 @@ export default function AdminInvitationTable({
                 <td>
                   <span className={styles.status}>{labels[item.status]}</span>
                 </td>
+                <td>{formatAdminValue(item.expiresAt, 'date')}</td>
                 <td>
                   <div className={styles.actions}>
                     {item.allowedActions.includes('RESEND') && canResend && (

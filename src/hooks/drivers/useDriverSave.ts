@@ -1,3 +1,4 @@
+import { localDemoEnabled } from '../../services/coreClient'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import type { DriverFormMode, DriverFormValues } from '../../types/drivers/driver'
@@ -49,5 +50,12 @@ export function useDriverSave(mode: DriverFormMode, id: string | undefined) {
       lock.current = false
     }
   }
-  return { feedback, savedValues, available, save, returnTo }
+  return {
+    feedback,
+    savedValues,
+    available,
+    save,
+    returnTo,
+    allowInactiveCreation: localDemoEnabled,
+  }
 }

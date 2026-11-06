@@ -90,20 +90,22 @@ export default function AdminActionForm(props: AdminActionFormProps) {
               <p>Os horários usam o fuso do seu navegador e serão enviados com UTC.</p>
             </>
           )}
-          <label htmlFor={`${fieldId}-field-4`}>
-            Motivo
-            <textarea
-              id={`${fieldId}-field-4`}
-              disabled={feedback.busy}
-              required
-              minLength={3}
-              maxLength={1000}
-              value={values.reason}
-              onChange={(event) =>
-                setValues((previous) => ({ ...previous, reason: event.target.value }))
-              }
-            />
-          </label>
+          {props.resource !== 'drivers' && (
+            <label htmlFor={`${fieldId}-field-4`}>
+              Motivo
+              <textarea
+                id={`${fieldId}-field-4`}
+                disabled={feedback.busy}
+                required
+                minLength={3}
+                maxLength={1000}
+                value={values.reason}
+                onChange={(event) =>
+                  setValues((previous) => ({ ...previous, reason: event.target.value }))
+                }
+              />
+            </label>
+          )}
           {values.action === 'annul' && (
             <p>
               Revisão esperada: {detail.revision ?? 'Indisponível'}. O registro será preservado no
