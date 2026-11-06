@@ -6,6 +6,11 @@ import { useAdminDashboard } from '../../hooks/dashboard/useAdminDashboard'
 import { formatAdminValue } from '../../modules/admin-records'
 import styles from '../../../styles/pages/AdminDashboardPage/styles.module.css'
 
+const metrics = [
+  { id: 'pending', label: 'Solicitações pendentes', href: '/operacao/solicitacoes?status=PENDING' },
+  { id: 'today', label: 'Visitas agendadas hoje', href: '/operacao/agenda' },
+  { id: 'remaining', label: 'Visitas restantes no mês', href: '/operacao/agenda' },
+]
 export default function AdminDashboardPage() {
   const { filters, changeFilters, state, reload, data } = useAdminDashboard()
   return (
@@ -33,29 +38,30 @@ export default function AdminDashboardPage() {
           Indicadores aguardando integração. Valores indisponíveis aparecem como —.
         </p>
       )}
-      {data && (
-        <>
-          <section className={styles.metrics} aria-label="Indicadores operacionais">
-            {data.metrics.map((metric) => (
-              <Link key={metric.id} to={metric.href}>
-                <span>{metric.label}</span>
-                <strong>
-                  {formatAdminValue(metric.value, metric.unit === 'L' ? 'liters' : 'number')}
-                </strong>
-                <small>Consultar registros →</small>
-              </Link>
-            ))}
-          </section>
-          <div className={styles.charts}>
-            {data.charts.map((chart) => (
-              <AdminChart key={chart.id} chart={chart} />
-            ))}
-          </div>
-        </>
-      )}
+      <section className={styles.metrics} aria-label="Indicadores operacionais">
+        {metrics.map((metric) => (
+          <Link key={metric.id} to={metric.href}>
+            <span>{metric.label}</span>
+            <strong>
+              {formatAdminValue(
+                data?.metrics.find((item) => item.id === metric.id)?.value,
+                'number',
+              )}
+            </strong>
+            <small>Consultar registros →</small>
+          </Link>
+        ))}
+      </section>
+      <div className={styles.charts}>
+        {(data?.charts ?? [])
+          .filter((chart) => ['liters', 'collections'].includes(chart.id))
+          .map((chart) => (
+            <AdminChart key={chart.id} chart={chart} />
+          ))}
+      </div>
       <p className={styles.help}>
-        Os indicadores e gráficos usam os valores vigentes do período completo selecionado. Volumes
-        estimados não compõem os totais de recolhimento.
+        Os indicadores mostram a situação atual. Os gráficos usam os valores vigentes do período
+        completo selecionado. Volumes estimados não compõem os totais de recolhimento.
       </p>
     </div>
   )

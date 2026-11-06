@@ -129,7 +129,7 @@ export function fixturePage(items: unknown[], url: URL) {
 }
 export function fixturePayload(url: URL, mode: FixtureMode): unknown {
   const path = url.pathname
-  const items = <T>(value: T[]): T[] => (mode === 'empty' ? [] : value)
+  const items = <T>(value: T[]): T[] => (mode === 'populated' ? value : [])
   if (path === '/api/v1/users/me' || path === `/api/v1/users/${fixtureIds.admin}`)
     return fixtureAdmin
   if (path === `/api/v1/users/${fixtureIds.establishment}`) return fixtureEstablishment

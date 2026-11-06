@@ -187,10 +187,6 @@ export function validateAdminAction(
 ): string | null {
   if (!detail.actions.includes(input.action))
     return 'Esta ação não foi autorizada para o registro atual.'
-  if (resource === 'drivers')
-    return ['activate', 'inactivate'].includes(input.action)
-      ? null
-      : 'Ação inválida para o motorista.'
   if (resource === 'requests' || resource === 'agenda') {
     if (detail.revision === null || input.expectedRevision !== detail.revision)
       return 'Releia a revisão atual antes da alteração.'

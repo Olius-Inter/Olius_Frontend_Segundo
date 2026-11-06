@@ -27,7 +27,8 @@ export default function AdminResourceList({ resource }: AdminResourceListProps) 
       ? {
           ...adminResources[resource],
           title: 'Solicitações rejeitadas',
-          description: 'Pedidos rejeitados preservados para consulta no histórico.',
+          description:
+            'Pedidos preservados no histórico. Recupere uma solicitação para analisá-la novamente.',
         }
       : adminResources[resource]
   const [notice, setNotice] = useState('')
@@ -126,7 +127,7 @@ export default function AdminResourceList({ resource }: AdminResourceListProps) 
           (data.items.length ? (
             <>
               {pendingQueue ? (
-                <PendingRequestList records={data.items} total={data.total} onView={open} />
+                <PendingRequestList records={data.items} total={data.total} />
               ) : (
                 <AdminTable config={config} records={data.items} onView={open} />
               )}

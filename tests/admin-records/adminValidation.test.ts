@@ -215,15 +215,3 @@ test('colunas das listas recusam identificadores antigos e preservam valores zer
     )
   }
 })
-
-test('status de motorista não exige motivo que não existe no contrato da API', () => {
-  const detail = {
-    id: 'motorista',
-    title: 'Motorista',
-    revision: null,
-    sections: [],
-    history: [],
-    actions: ['inactivate'],
-  }
-  assert.equal(validateAdminAction(detail, { action: 'inactivate' }, 'drivers'), null)
-})

@@ -1,4 +1,3 @@
-import { formatAdminValue } from '../../utils/admin-records/adminFormatting'
 import { useId, useRef, useState } from 'react'
 import { useDialogFocus } from '../../hooks/useDialogFocus'
 import type { PortalPlan } from '../../types/settings/settings'
@@ -10,8 +9,6 @@ import styles from '../../../styles/pages/PlansSettingsPage/styles.module.css'
 export default function PlansSettingsPage() {
   const { state, reload, data } = usePortalPlans()
   const [annual, setAnnual] = useState(false)
-  const annualAvailable = Boolean(data?.some((plan) => plan.annualPrice !== null))
-  const displayAnnual = annual && annualAvailable
   const [selected, setSelected] = useState<PortalPlan | null>(null)
   const dialog = useRef<HTMLDialogElement>(null)
   const titleId = useId()
@@ -24,13 +21,13 @@ export default function PlansSettingsPage() {
         <p>Compare limites e recursos de um jeito simples.</p>
       </header>
       <div role="group" aria-label="Periodicidade dos planos" className={styles.period}>
-        <button type="button" aria-pressed={!displayAnnual} onClick={() => setAnnual(false)}>
+        <button type="button" aria-pressed={!annual} onClick={() => setAnnual(false)}>
           Mensal
         </button>
         <button
           type="button"
-          aria-pressed={displayAnnual}
-          disabled={!annualAvailable}
+          aria-pressed={annual}
+          disabled={Boolean(data && !data.some((p) => p.annualPrice !== null))}
           onClick={() => setAnnual(true)}
         >
           Anual
@@ -65,12 +62,7 @@ export default function PlansSettingsPage() {
         (data.length ? (
           <div className={styles.cards}>
             {data.map((plan) => (
-              <PortalPlanCard
-                key={plan.id}
-                plan={plan}
-                annual={displayAnnual}
-                onSelect={setSelected}
-              />
+              <PortalPlanCard key={plan.id} plan={plan} annual={annual} onSelect={setSelected} />
             ))}
           </div>
         ) : (
@@ -91,26 +83,6 @@ export default function PlansSettingsPage() {
           <>
             <h2 id={titleId}>{selected.name}</h2>
             <p>{selected.description}</p>
-            <dl>
-              <div>
-                <dt>Mensalidade</dt>
-                <dd>{formatAdminValue(selected.monthlyPrice, 'money')}</dd>
-              </div>
-              {selected.annualPrice !== null && (
-                <div>
-                  <dt>Valor anual</dt>
-                  <dd>{formatAdminValue(selected.annualPrice, 'money')}</dd>
-                </div>
-              )}
-              <div>
-                <dt>Franquia por ciclo</dt>
-                <dd>{formatAdminValue(selected.liters, 'liters')}</dd>
-              </div>
-              <div>
-                <dt>Coletas por ciclo</dt>
-                <dd>{formatAdminValue(selected.collections, 'number')}</dd>
-              </div>
-            </dl>
             <ul>
               {selected.features.map((feature) => (
                 <li key={feature}>{feature}</li>

@@ -50,8 +50,8 @@ export function validateDriver(values: DriverFormValues, mode: DriverFormMode): 
   const errors: DriverFormErrors = {}
   const name = sanitizeName(values.name)
   if (!name) errors.name = 'Informe o nome do motorista.'
-  else if (name.length < 3 || name.length > 150)
-    errors.name = 'O nome deve ter entre 3 e 150 caracteres.'
+  else if (name.length < 3 || name.length > 120)
+    errors.name = 'O nome deve ter entre 3 e 120 caracteres.'
   else if (!/^[\p{L}\p{M}][\p{L}\p{M}\s.'’\-]*$/u.test(name))
     errors.name = 'Use letras, espaços, apóstrofos, pontos ou hífens no nome.'
 

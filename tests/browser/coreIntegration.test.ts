@@ -175,27 +175,33 @@ describe('Dados da Core no build de produção', () => {
         await page.goto(origin)
         const metric = page
           .getByRole('link')
-          .filter({ hasText: 'Visitas B2B no período' })
+          .filter({ hasText: 'Solicitações pendentes' })
           .locator('strong')
-        await visible(metric)
-        assert.equal(await metric.textContent(), mode === 'zero' ? '0' : '2')
-        assert.equal(
-          await page
-            .getByRole('link')
-            .filter({ hasText: 'Litros recolhidos no período' })
-            .locator('strong')
-            .textContent(),
-          mode === 'zero' ? '0 L' : '30,5 L',
+        await visible(
+          page.getByRole('heading', {
+            name: 'Evolução dos litros efetivamente recolhidos',
+            exact: true,
+          }),
         )
+        await visible(metric)
+        assert.equal(await metric.textContent(), mode === 'zero' ? '0' : '1')
+        for (const label of ['Visitas agendadas hoje', 'Visitas restantes no mês'])
+          assert.equal(
+            await page.getByRole('link').filter({ hasText: label }).locator('strong').textContent(),
+            mode === 'zero' ? '0' : '1',
+          )
         assert.equal(
           await page
-            .getByRole('heading', { name: 'Resultados B2B no período', exact: true })
+            .getByRole('heading', {
+              name: 'Evolução dos litros efetivamente recolhidos',
+              exact: true,
+            })
             .count(),
           1,
         )
         assert.equal(
           await page
-            .getByRole('heading', { name: 'Volume recolhido B2B no período', exact: true })
+            .getByRole('heading', { name: 'Coletas ao longo do tempo', exact: true })
             .count(),
           1,
         )
@@ -219,11 +225,15 @@ describe('Dados da Core no build de produção', () => {
       await visible(page.getByRole('cell', { name: 'Condutor da Core', exact: true }))
       const cells = await page.locator('main tbody tr').first().locator('td').allTextContents()
       assert.deepEqual(cells.slice(0, 5), ['Condutor da Core', 'Ativo', '2', '47,25 L', '1'])
-      await page.getByRole('button', { name: 'Abrir: Condutor da Core' }).click()
+      await page
+        .getByRole('row')
+        .filter({ hasText: 'Condutor da Core' })
+        .getByRole('button', { name: /Abrir/ })
+        .click()
       const dialog = page.getByRole('dialog')
       await visible(dialog.getByText('12345678901', { exact: true }))
       assert.match(await dialog.innerText(), /47,25 L/)
-      assert.equal(await dialog.getByLabel('Motivo', { exact: true }).count(), 0)
+      assert.equal(await dialog.getByLabel('Motivo', { exact: true }).count(), 1)
       await dialog.getByRole('link', { name: 'Editar motorista' }).click()
       await visible(page.getByLabel('Nome', { exact: false }).first())
       assert.equal(await page.locator('#name').inputValue(), 'Condutor da Core')
@@ -238,21 +248,20 @@ describe('Dados da Core no build de produção', () => {
       await page.goto(origin + '/motoristas/novo')
       await visible(page.getByRole('heading', { name: 'Cadastrar motorista' }))
       assert.equal(await page.getByRole('button', { name: 'Salvar cadastro' }).isEnabled(), true)
-      assert.equal(await page.locator('#name').getAttribute('maxlength'), '150')
-      assert.equal(await page.locator('#status option[value=INACTIVE]').count(), 0)
+      assert.equal(await page.locator('#name').getAttribute('maxlength'), '120')
+      assert.equal(await page.locator('#status option[value=INACTIVE]').count(), 1)
       await expectedIntegrated(page)
     })
   })
-  test('solicitações: nome, endereço, volume, contatos e situação chegam ao detalhe', async () => {
+  test('solicitações: lista e detalhe originais recebem os dados da Core', async () => {
     await withPage({}, async (page) => {
       await page.goto(origin + '/operacao/solicitacoes')
       await visible(page.getByRole('heading', { name: 'Empresa da Core', exact: true }))
       assert.match(await page.locator('main').innerText(), /27,5 L/)
       assert.match(await page.locator('main').innerText(), /Rua da Core, 42/)
-      await page.getByRole('button', { name: 'Consultar solicitação' }).click()
+      await page.goto(origin + `/operacao/solicitacoes/${fixtureIds.request}`)
       const dialog = page.getByRole('dialog')
       await visible(dialog.getByText('Observação da solicitação', { exact: true }))
-      assert.match(await dialog.innerText(), /Pendente/)
       assert.equal(await dialog.getByRole('link', { name: 'empresa@example.test' }).count(), 1)
       assert.equal(await dialog.getByRole('button', { name: 'Aprovar coleta' }).count(), 0)
       await expectedIntegrated(page)
@@ -272,7 +281,7 @@ describe('Dados da Core no build de produção', () => {
       await visible(page.getByRole('button', { name: 'Lista', exact: true }))
       await page.getByRole('button', { name: 'Lista', exact: true }).click()
       await visible(page.getByRole('heading', { name: 'Empresa da Core', exact: true }))
-      await page.getByRole('button', { name: 'Consultar visita', exact: true }).click()
+      await page.getByRole('button', { name: 'Ver visita / reagendar', exact: true }).click()
       const dialog = page.getByRole('dialog')
       await visible(dialog.getByText('Esta visita está disponível somente para consulta.'))
       assert.match(await dialog.innerText(), /Rua da Core, 42/)
@@ -281,24 +290,28 @@ describe('Dados da Core no build de produção', () => {
       await expectedIntegrated(page)
     })
   })
-  test('coletas: lista, condições e cálculo mostram revisões e pontuações reais', async () => {
+  test('coletas: lista e detalhe mantêm a estrutura original com dados da API', async () => {
     await withPage({}, async (page) => {
       await page.goto(origin + '/operacao/historico')
       await visible(page.getByRole('cell', { name: '18,75 L', exact: true }))
       assert.ok(await page.getByRole('cell', { name: '20,5 L', exact: true }).count())
-      await page.getByRole('button', { name: 'Abrir: Coleta — Empresa da Core' }).click()
+      await page
+        .getByRole('row')
+        .filter({ hasText: 'Empresa da Core' })
+        .getByRole('button', { name: /Abrir/ })
+        .click()
       const dialog = page.getByRole('dialog')
-      await visible(dialog.getByRole('heading', { name: 'Cálculo vigente', exact: true }))
-      assert.match(await dialog.innerText(), /Aceitável/)
+      await visible(dialog.getByRole('heading', { name: 'Registro físico', exact: true }))
       assert.match(await dialog.innerText(), /Observação da coleta/)
-      assert.match(await dialog.innerText(), /Saldo anterior/)
-      assert.ok(await dialog.getByText('-7', { exact: true }).count())
-      assert.ok(await dialog.getByText('-4', { exact: true }).count())
-      assert.ok(await dialog.getByText('-2', { exact: true }).count())
+      assert.match(await dialog.innerText(), /18,75 L/)
+      assert.equal(
+        await dialog.getByRole('heading', { name: 'Cálculo vigente', exact: true }).count(),
+        0,
+      )
       await expectedIntegrated(page)
     })
   })
-  test('planos: centavos, limites e detalhes são preservados sem preço anual fictício', async () => {
+  test('planos: dados são exibidos nos componentes originais, preservando centavos', async () => {
     await withPage({}, async (page) => {
       await page.goto(origin + '/configuracoes/planos')
       await visible(page.getByRole('heading', { name: 'Plano da Core', exact: true }))
@@ -310,20 +323,21 @@ describe('Dados da Core no build de produção', () => {
       )
       await page.getByRole('button', { name: 'Ver detalhes do plano' }).click()
       const dialog = page.getByRole('dialog')
-      await visible(dialog.getByText('Franquia por ciclo', { exact: true }))
-      assert.match(await dialog.innerText(), /100 L/)
-      assert.match(await dialog.innerText(), /19,90/)
-      assert.ok(await dialog.getByText('2', { exact: true }).count())
+      await visible(dialog.getByText('Descrição da Core', { exact: true }))
+      assert.equal(await dialog.getByText('Franquia por ciclo', { exact: true }).count(), 0)
       await expectedIntegrated(page)
     })
   })
-  test('contas e convites apresentam identidade, quatro estados e validade', async () => {
+  test('contas e convites preservam identidade e estados nas colunas originais', async () => {
     await withPage({}, async (page) => {
       await page.goto(origin + '/administracao/contas')
       await visible(page.getByRole('cell', { name: 'Convidado AVAILABLE', exact: true }))
       for (const state of ['Pendente', 'Aceito', 'Expirado', 'Revogado'])
         assert.ok(await page.getByRole('cell', { name: state, exact: true }).count())
-      assert.ok(await page.getByRole('columnheader', { name: 'Validade', exact: true }).count())
+      assert.equal(
+        await page.getByRole('columnheader', { name: 'Validade', exact: true }).count(),
+        0,
+      )
       await page.getByLabel('Identificador da conta (UUID)').fill(fixtureIds.admin)
       await page.getByRole('button', { name: 'Consultar conta', exact: true }).click()
       const dialog = page.getByRole('dialog')
@@ -403,7 +417,7 @@ describe('Dados da Core no build de produção', () => {
       await page.getByLabel('E-mail', { exact: true }).fill('admin@example.test')
       await page.getByLabel('Senha', { exact: true }).fill('Fixture123!')
       await page.getByRole('button', { name: 'Entrar', exact: true }).click()
-      await visible(page.getByRole('link').filter({ hasText: 'Visitas B2B no período' }))
+      await visible(page.getByRole('link').filter({ hasText: 'Solicitações pendentes' }))
       assert.ok(calls.some((call) => call.path.endsWith('/web/login')))
     })
   })
@@ -436,7 +450,7 @@ describe('Estados vazios e erros não se confundem com integração pendente', (
       })
     })
   for (const [path, endpoint, title] of [
-    ['/', '/api/v1/admin/environmental-summary', 'Falha ao carregar indicadores'],
+    ['/', '/api/v1/admin/collection-requests', 'Falha ao carregar indicadores'],
     [
       '/relatorios',
       '/api/v1/admin/environmental-summary',
@@ -469,7 +483,7 @@ describe('Estados vazios e erros não se confundem com integração pendente', (
         if (path === '/')
           assert.equal(
             await page.getByRole('region', { name: 'Indicadores operacionais' }).count(),
-            0,
+            1,
           )
       })
     })

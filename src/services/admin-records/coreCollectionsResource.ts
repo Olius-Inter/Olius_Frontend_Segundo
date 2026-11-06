@@ -1,4 +1,3 @@
-import { collectionSections } from './coreCollectionSections'
 import type { AdminDetail, AdminResourceAdapter } from '../../types/admin-records/admin'
 import {
   date,
@@ -85,7 +84,6 @@ export function createCoreCollectionsResource(): AdminResourceAdapter {
         actions: row.status === 'RECORDED' ? ['annul'] : [],
         history: [],
         sections: [
-          ...collectionSections(data),
           {
             title: 'Registro físico',
             fields: [
