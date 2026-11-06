@@ -44,7 +44,9 @@ export default function CalendarDay({ events, date, onSelectEvent }: CalendarDay
               )}
               {!event.endsAt && <small>Duração não informada</small>}
               <button type="button" onClick={() => onSelectEvent(event)}>
-                {event.completed ? 'Consultar visita' : 'Ver visita / reagendar'}
+                {event.canReschedule && !event.completed
+                  ? 'Ver visita / reagendar'
+                  : 'Consultar visita'}
               </button>
             </article>
           ))}

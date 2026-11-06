@@ -1,6 +1,7 @@
 import { validDate } from '../validDate.ts'
 import type {
   AdminActionInput,
+  AdminColumn,
   AdminDetail,
   AdminFilters,
   AdminList,
@@ -67,7 +68,11 @@ function validRequestSummary(request: CollectionRequestListDetails | undefined):
   )
 }
 
-export function validateAdminList(data: AdminList, filters: AdminFilters): boolean {
+export function validateAdminList(
+  data: AdminList,
+  filters: AdminFilters,
+  columns: readonly AdminColumn[] = [],
+): boolean {
   if (
     !data ||
     !Array.isArray(data.items) ||
@@ -89,6 +94,7 @@ export function validateAdminList(data: AdminList, filters: AdminFilters): boole
         item.id.length > 0 &&
         typeof item.title === 'string' &&
         validRequestSummary(item.request) &&
+        columns.every((column) => Object.hasOwn(item.cells, column.key)) &&
         item.cells &&
         Object.values(item.cells).every(
           (value) =>
@@ -181,6 +187,10 @@ export function validateAdminAction(
 ): string | null {
   if (!detail.actions.includes(input.action))
     return 'Esta ação não foi autorizada para o registro atual.'
+  if (resource === 'drivers')
+    return ['activate', 'inactivate'].includes(input.action)
+      ? null
+      : 'Ação inválida para o motorista.'
   if (resource === 'requests' || resource === 'agenda') {
     if (detail.revision === null || input.expectedRevision !== detail.revision)
       return 'Releia a revisão atual antes da alteração.'

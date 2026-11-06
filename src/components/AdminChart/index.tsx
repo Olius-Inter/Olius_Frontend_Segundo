@@ -43,7 +43,7 @@ export default function AdminChart({ chart }: AdminChartProps) {
       ) : (
         <div className={styles.empty}>
           <span>—</span>
-          <p>Dados oficiais do período aguardando integração.</p>
+          <p>Nenhum valor disponível para este gráfico no período selecionado.</p>
         </div>
       )}
     </section>

@@ -31,7 +31,12 @@ export default function AdminTable({ config, records, onView }: AdminTableProps)
                 </td>
               ))}
               <td>
-                <button type="button" aria-haspopup="dialog" onClick={() => onView(record.id)}>
+                <button
+                  type="button"
+                  aria-haspopup="dialog"
+                  aria-label={`Abrir: ${record.title}`}
+                  onClick={() => onView(record.id)}
+                >
                   Abrir<span className={styles.srOnly}>: {record.title}</span>
                 </button>
               </td>

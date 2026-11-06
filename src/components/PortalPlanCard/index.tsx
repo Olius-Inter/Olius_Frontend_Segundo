@@ -16,7 +16,8 @@ export default function PortalPlanCard({ plan, annual, onSelect }: PlanCardProps
             : new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
-                maximumFractionDigits: 0,
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
               }).format(price)}
         </strong>
         <span>/{annual ? 'ano' : 'mês'}</span>

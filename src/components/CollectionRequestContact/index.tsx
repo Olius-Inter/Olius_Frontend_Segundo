@@ -5,10 +5,7 @@ export default function CollectionRequestContact({ request }: CollectionRequestC
   return (
     <section className={styles.contact}>
       <h3>Contato do estabelecimento</h3>
-      <p>
-        Combine a coleta diretamente com a empresa por telefone ou e-mail e informe abaixo a data e
-        o horário programados.
-      </p>
+      <p>Combine a coleta diretamente com o estabelecimento pelos contatos disponíveis.</p>
       <dl>
         <div>
           <dt>Telefone</dt>

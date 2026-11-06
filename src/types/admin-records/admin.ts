@@ -87,11 +87,13 @@ export interface CollectionRequestListDetails extends CollectionRequestDetails {
 
 export interface PendingRequestCardProps {
   record: AdminRecord
+  onView?: (id: string) => void
 }
 
 export interface PendingRequestListProps {
   records: AdminRecord[]
   total: number
+  onView?: (id: string) => void
 }
 
 export type CollectionRequestAction = Extract<

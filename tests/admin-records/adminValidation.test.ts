@@ -189,3 +189,41 @@ test('cartões recusam metadados de ação sem revisão válida', () => {
     false,
   )
 })
+
+test('colunas das listas recusam identificadores antigos e preservam valores zero', () => {
+  const filters = defaultAdminFilters()
+  for (const resource of ['drivers', 'requests', 'collections']) {
+    const columns = adminResources[resource].columns
+    const cells = Object.fromEntries(columns.map((column) => [column.key, 0]))
+    const data = {
+      items: [{ id: 'registro-de-teste', title: 'Registro', cells }],
+      total: 1,
+      page: 1,
+      pageSize: 10,
+      totalPages: 1,
+    }
+    assert.equal(validateAdminList(data, filters, columns), true)
+    const oldCells = { ...cells, legacyField: cells[columns[0].key] }
+    delete oldCells[columns[0].key]
+    assert.equal(
+      validateAdminList(
+        { ...data, items: [{ ...data.items[0], cells: oldCells }] },
+        filters,
+        columns,
+      ),
+      false,
+    )
+  }
+})
+
+test('status de motorista não exige motivo que não existe no contrato da API', () => {
+  const detail = {
+    id: 'motorista',
+    title: 'Motorista',
+    revision: null,
+    sections: [],
+    history: [],
+    actions: ['inactivate'],
+  }
+  assert.equal(validateAdminAction(detail, { action: 'inactivate' }, 'drivers'), null)
+})

@@ -26,7 +26,10 @@ function formatDate(value?: string): string {
 export default function DriverForm({ mode, initialValues, driver }: DriverFormProps) {
   const { state, change, blur, check } = useDriverForm(initialValues, mode)
   const formRef = useRef<HTMLFormElement>(null)
-  const { feedback, savedValues, available, save, returnTo } = useDriverSave(mode, driver?.id)
+  const { feedback, savedValues, available, save, returnTo, allowInactiveCreation } = useDriverSave(
+    mode,
+    driver?.id,
+  )
   useUnsavedForm(
     JSON.stringify(sanitizeDriver(state.values)) !==
       JSON.stringify(sanitizeDriver(savedValues ?? initialValues)),
@@ -61,7 +64,7 @@ export default function DriverForm({ mode, initialValues, driver }: DriverFormPr
           id="name"
           label="Nome"
           required
-          help="Entre 3 e 120 caracteres."
+          help="Entre 3 e 150 caracteres."
           error={state.touched.name ? state.errors.name : undefined}
         >
           <input
@@ -69,7 +72,7 @@ export default function DriverForm({ mode, initialValues, driver }: DriverFormPr
             value={state.values.name}
             onChange={(event) => change('name', event.target.value)}
             required
-            maxLength={120}
+            maxLength={150}
             autoComplete="name"
             placeholder="Nome do motorista"
           />
@@ -123,8 +126,8 @@ export default function DriverForm({ mode, initialValues, driver }: DriverFormPr
           required={!editing}
           help={
             editing
-              ? 'Inativação e reativação serão tratadas em um fluxo próprio.'
-              : 'Situação inicial do cadastro.'
+              ? 'Inativação e reativação estão disponíveis no detalhe do motorista.'
+              : 'A API cria o cadastro como Ativo. Para inativar, use o detalhe após o cadastro.'
           }
           error={state.touched.status ? state.errors.status : undefined}
         >
@@ -142,7 +145,7 @@ export default function DriverForm({ mode, initialValues, driver }: DriverFormPr
               required
             >
               <option value="ACTIVE">Ativo</option>
-              <option value="INACTIVE">Inativo</option>
+              {allowInactiveCreation && <option value="INACTIVE">Inativo</option>}
             </select>
           )}
         </FormField>

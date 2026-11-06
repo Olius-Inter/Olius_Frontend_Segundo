@@ -60,16 +60,6 @@ export default function AdminRecordDialog({
             )}
             {isRequest && <CollectionRequestContact request={data.request} />}
             {data.sections
-              .map((section) =>
-                isRequest
-                  ? {
-                      ...section,
-                      fields: section.fields.filter(
-                        (field) => field.format !== 'status' && field.label !== 'Situação',
-                      ),
-                    }
-                  : section,
-              )
               .filter((section) => section.fields.length > 0)
               .map((section) => (
                 <section key={section.title} className={styles.section}>
@@ -84,7 +74,7 @@ export default function AdminRecordDialog({
                   </dl>
                 </section>
               ))}
-            {!isRequest && data.history.length > 0 && (
+            {data.history.length > 0 && (
               <section className={styles.section}>
                 <h3>Histórico e autoria</h3>
                 <ol className={styles.history}>

@@ -2,7 +2,7 @@ import type { PendingRequestListProps } from '../../types/admin-records/admin'
 import PendingRequestCard from '../PendingRequestCard'
 import styles from '../../../styles/components/PendingRequestList/styles.module.css'
 
-export default function PendingRequestList({ records, total }: PendingRequestListProps) {
+export default function PendingRequestList({ records, total, onView }: PendingRequestListProps) {
   return (
     <section className={styles.panel} aria-label="Solicitações aguardando análise">
       <header>
@@ -13,7 +13,7 @@ export default function PendingRequestList({ records, total }: PendingRequestLis
       </header>
       <div className={styles.list}>
         {records.map((record) => (
-          <PendingRequestCard key={record.id} record={record} />
+          <PendingRequestCard key={record.id} record={record} onView={onView} />
         ))}
       </div>
     </section>
